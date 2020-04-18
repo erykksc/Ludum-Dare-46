@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class logicLever : MonoBehaviour
 {
-// Implement tryingToInteract in player
+/*
+    Używaj tego componentu, dla każdej dźwigni w scenie
+    dźwignie automatycznie znajdą i połączą się z gatem
+    po uruchomieniu gry
+
+    Requirements:
+    - rigidbody in player
+    - tryingToInteract must be implemented in player
+*/
 
     public Rigidbody2D rb;
 
@@ -13,8 +21,7 @@ public class logicLever : MonoBehaviour
 
     public int id = -1;
     
-    //Find only gate
-    private logicGate gate;
+    private logicGate gate; //Find only gate in level
     void Start()
     {
         gate = FindObjectOfType<logicGate>();

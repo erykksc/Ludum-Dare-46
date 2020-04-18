@@ -2,16 +2,40 @@ using UnityEngine;
 
 public class logicGate : MonoBehaviour
 {
+    /*
+        Gate is activated if all levers are in correct positions
+
+        Use this components 'isActivated' variable, to check the state of the gate
+
+        Light game logic implementation
+        the state of the gate is updated only on lever updates
+    */
+    
+
     private bool[] states;
     private int num ;
     
-    private Component target;
     private bool prev_action;
 
-    void turnOn(){}
-    void turnOff(){}
+
+    public bool isActivated;
+
+    void Activate(){
+        isActivated = true;
+    }
+
+    void Deactivate(){
+        isActivated = false;
+    }
+
+
 
     public void setState(int id, bool state){
+        if (id == -1){
+            Debug.Log("Request from non-initialized level");
+            return;
+        }
+
         states[id] = state;
         bool allEnabled = true;
         for(int i = 0; i<num; i++)
@@ -24,9 +48,9 @@ public class logicGate : MonoBehaviour
 
         if (action != prev_action)
             if (action)
-                turnOn();
+                Activate();
             else
-                turnOff();
+                Deactivate();
         prev_action = action;
     }
 
