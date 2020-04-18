@@ -7,7 +7,7 @@ public class SceneManagement : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] GameObject [] persistables;
-    [SerializeField] List<GameObject> levels;
+    [SerializeField] List<Scene> levels;
     [SerializeField] int scenesCount = 0;
     List<Scene> scenes;
 
@@ -18,35 +18,38 @@ public class SceneManagement : MonoBehaviour
     {
         if(loaded){Destroy(this);return;}
         loaded = true;
-        DontDestroyOnLoad(persistables[0]);
         DontDestroyOnLoad(this);
-        scenes = new List<Scene>();
-        levels = new List<GameObject>();
+        //DontDestroyOnLoad(persistables[0]);
+        for(int i = 0;i<persistables.Length;i++)
+        {
+            Debug.Log(i);
+            DontDestroyOnLoad(persistables[i]);
+        }
+        /*scenes = new List<Scene>();
+        levels = new List<Scene>();
         for(int i = 0;i<scenesCount;i++)
         {
             if(i==SceneManager.GetActiveScene().buildIndex)
             {continue;}
             SceneManager.LoadSceneAsync(i,LoadSceneMode.Additive);
-            GameObject[] goArray = (SceneManager.GetSceneByBuildIndex(i).GetRootGameObjects());
-            Debug.Log(goArray.Length);
             Debug.Log("Level"+i.ToString());
-            //levels.Add(SceneManager.GetSceneByBuildIndex(i))
+            levels.Add(SceneManager.GetSceneByBuildIndex(i));
         }
         for(int i = 0;i<scenesCount;i++)
         {
-            //GameObject[] goArray = (SceneManager.GetSceneByBuildIndex(i).GetRootGameObjects());
+            //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(i));
+            GameObject[] goArray = (SceneManager.GetSceneByBuildIndex(i).GetRootGameObjects());
 
-            //Debug.Log(goArray.Length);
-        }
-        levels[2].SetActive(false);
+            Debug.Log(goArray.Length);
+        }*/
     }
     void SwitchForth()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
     void SwitchBack()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
     }
     // Update is called once per frame
     void Update()
