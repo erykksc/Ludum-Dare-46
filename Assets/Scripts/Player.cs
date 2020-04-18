@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
@@ -37,6 +38,7 @@ public class Player : Character
         rb.freezeRotation = true;
         rb.mass = Masa;
         Gravity = default_gravity;
+        DontDestroyOnLoad(this);
     }
 
     private bool BabyInHand(){
@@ -123,6 +125,16 @@ public class Player : Character
         Gravity = default_gravity;
         Grounded = true;
         CanDoubleJump = false;
+
+        if(collision.gameObject.CompareTag("Trigger_NEXT"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }
+        if(collision.gameObject.CompareTag("Trigger_PREVIOUS"))
+        {
+            if(SceneManager.GetActiveScene().buildIndex==1){return;}
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
