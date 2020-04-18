@@ -16,6 +16,7 @@ def index():
 
 @app.route('/api/postTime', methods=['POST'])
 def addTime():
+    print(request.form)
     try:
         nick = request.form['nick']
         level = str(request.form['level'])
@@ -23,6 +24,7 @@ def addTime():
         time = request.form['time']
         if len(nick) > 64:
             nick = nick[:63]
+        print(nick, level, time)
     except KeyError:
         return {'success': False, 'reason': 'NotValidRequest'}
     except ValueError:
