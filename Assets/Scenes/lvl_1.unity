@@ -1453,20 +1453,21 @@ MonoBehaviour:
   rb: {fileID: 0}
   SpeedBezPrzedmiotu: 1
   SpeedZPrzedmiotem: 0.5
-  Speed: 0
-  JumpForce: 10
-  JumpForceWithBaby: 7.5
-  DoubleJumpForce: 8
-  DoubleJumpForceWithBaby: 5.5
-  Jump: 0
-  DoubleJump: 0
+  MaxSpeed: 4
+  JumpForce: 1.5
+  JumpForceWithBaby: 1.3
+  DoubleJumpForce: 1
+  DoubleJumpForceWithBaby: 0.7
+  default_gravity: 0.4
   Masa: 0.25
-  Gravity: 20
-  Grounded: 0
-  ReachedApex: 0
-  BabyInHand: 0
-  CanDoubleJump: 0
   SpawnPoint: {x: 0, y: 0}
+  Jump: 0
+  Speed: 0
+  DoubleJump: 0
+  Gravity: 0.4
+  Grounded: 0
+  BabyInHand: 0
+  CanDoubleJump: 1
 --- !u!70 &1121024637
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1496,9 +1497,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1.5
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
