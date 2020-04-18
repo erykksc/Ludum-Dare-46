@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        rb.freezeRotation = true;
     }
 
     void Start()
