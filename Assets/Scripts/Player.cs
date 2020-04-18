@@ -13,7 +13,7 @@ public class Player : Character
     [SerializeField] private float JumpForceWithBaby = 7.5f;
     [SerializeField] private float DoubleJumpForce = 8.0f;
     [SerializeField] private float DoubleJumpForceWithBaby = 5.5f;
-    [SerializeField] private float default_gravity = 20.0f;
+    [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
     [Header("current parameters")]
@@ -60,6 +60,8 @@ public class Player : Character
         }
         else if (!Grounded && Input.GetKeyDown("w") && CanDoubleJump)
         {
+            Vector2 temp = new Vector2(rb.velocity.x, 0);
+            rb.velocity = temp;
             rb.AddForce(new Vector2(0, DoubleJumpForce), ForceMode2D.Impulse);
             Gravity = default_gravity;
             CanDoubleJump = false;
