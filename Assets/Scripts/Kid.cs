@@ -6,6 +6,19 @@ public class Kid : Character
 {
     [SerializeField] Vector3 offset;
     private GameObject pickUpper;
+
+    static private bool exists = false;
+    
+    void Awake()
+    {
+        if(exists)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(this);
+        exists = true;
+    }
     private void Start() {
         HP = 1;
     }

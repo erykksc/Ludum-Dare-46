@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : Character
+public class Player : MonoBehaviour
 {
     public Rigidbody2D rb;
     [Header("general parameters")]
@@ -30,7 +30,7 @@ public class Player : Character
 
     [SerializeField] private bool canSwitchLevels = true;
 
-    static bool exist = false;
+    static private bool exists = false;
     private float lastPickUpTime;
     private GameObject baby;
 
@@ -38,17 +38,17 @@ public class Player : Character
     // Start is called before the first frame update
     void Awake()
     {
-        if(exist)
+        if(exists)
         {
             Destroy(gameObject);
             return;
         }
-        exist = true;
+        DontDestroyOnLoad(this);
+        exists = true;
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
         rb.mass = Masa;
         Gravity = default_gravity;
-        DontDestroyOnLoad(this);
     }
 
     private bool BabyInHand(){
@@ -148,11 +148,19 @@ public class Player : Character
 
         if(collision.gameObject.CompareTag("Trigger_NEXT"))
         {
+            if(!BabyInHand())
+            {
+                return;
+            }
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
             ClearState();
         }
         if(collision.gameObject.CompareTag("Trigger_PREVIOUS"))
         {
+            if(!BabyInHand())
+            {
+                return;
+            }
             if(SceneManager.GetActiveScene().buildIndex==1){return;}
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
             ClearState();
