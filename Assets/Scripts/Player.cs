@@ -25,8 +25,10 @@ public class Player : Character
     [SerializeField] private float Gravity; 
 
     [Header("current state")]
-    [SerializeField] private bool Grounded;
-    [SerializeField] private bool CanDoubleJump;
+    [SerializeField] private bool Grounded = true;
+    [SerializeField] private bool CanDoubleJump = false;
+
+    [SerializeField] private bool canSwitchLevels = true;
 
     private float lastPickUpTime;
     private GameObject baby;
@@ -129,11 +131,20 @@ public class Player : Character
         if(collision.gameObject.CompareTag("Trigger_NEXT"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+            transform.position = new Vector3(0,0,0);
+            canSwitchLevels = false;
+            CanDoubleJump = false;
+            Grounded = false;
+            CanDoubleJump = false;
         }
         if(collision.gameObject.CompareTag("Trigger_PREVIOUS"))
         {
             if(SceneManager.GetActiveScene().buildIndex==1){return;}
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+            transform.position = new Vector3(0,0,0);
+            canSwitchLevels = false;
+            Grounded = false;
+            CanDoubleJump = false;
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -157,5 +168,6 @@ public class Player : Character
     {
         Grounded = false;
         CanDoubleJump = true;
+        canSwitchLevels = true;
     }
 }
