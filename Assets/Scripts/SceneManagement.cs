@@ -25,11 +25,11 @@ public class SceneManagement : MonoBehaviour
         for(int i = 0;i<scenesCount;i++)
         {
             if(i==SceneManager.GetActiveScene().buildIndex)
-            {continue;}
+            {levels.Add(GameObject.Find("Level"+i.ToString()));continue;}
             SceneManager.LoadSceneAsync(i,LoadSceneMode.Additive);
             levels.Add(GameObject.Find("Level"+i.ToString()));
         }
-        levels[0].SetActive(false);
+        levels[1].SetActive(false);
 
     }
     void SwitchForth()

@@ -1397,6 +1397,7 @@ MonoBehaviour:
   SpeedBezPrzedmiotu: 1
   SpeedZPrzedmiotem: 0.5
   Speed: 0
+  MaxSpeed: 4
   JumpForce: 10
   JumpForceWithBaby: 7.5
   DoubleJumpForce: 8
@@ -1636,7 +1637,7 @@ GameObject:
   - component: {fileID: 1380404730}
   - component: {fileID: 1380404729}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Level1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
