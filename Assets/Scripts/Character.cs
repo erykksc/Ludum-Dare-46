@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Character1 : MonoBehaviour
+public class Character : MonoBehaviour
 {
 
     //Properties
