@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float SpeedBezPrzedmiotu = 1.0f;
     public float SpeedZPrzedmiotem = 0.5f;
     public float Speed;
+    public float MaxSpeed = 4.0f;
     public float JumpForce = 10.0f;
     public float JumpForceWithBaby = 7.5f;
     public float DoubleJumpForce = 8.0f;
@@ -51,6 +52,14 @@ public class Player : MonoBehaviour
             Jump = JumpForce;
             DoubleJump = DoubleJumpForce;
         }
+
+        Vector2 temp = (rb.velocity);
+        if (Mathf.Abs(temp.x) > MaxSpeed)
+        {
+            temp.x = temp.normalized.x * MaxSpeed;
+            rb.velocity = temp;
+        }
+
 
         if (Input.GetKey("d"))
         {
