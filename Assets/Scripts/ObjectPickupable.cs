@@ -17,15 +17,16 @@ public class ObjectPickupable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pickedUp) {
-            transform.position = Pickuper.transform.position + offset;
-        }
+        //if (pickedUp) {
+        //    transform.position = Pickuper.transform.position + offset;
+        //}
     }
     public void pickUp(GameObject Pickupper) {
         pickedUp = true;
-        Pickuper = Pickupper;
+        transform.SetParent(Pickupper.transform);
     }
     public void dropOff() {
         pickedUp = false;
+        transform.SetParent(null);
     }
 }
