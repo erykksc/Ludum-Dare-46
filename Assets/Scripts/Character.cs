@@ -10,12 +10,12 @@ public class Character : MonoBehaviour
     [SerializeField] float hpMax;
     [SerializeField] float dmg;
     [SerializeField] float speed;
-    [SerializeField] float traction;
-    [SerializeField] float JumpStrength;
+    [SerializeField] float jumpStrength;
+    [SerializeField] float doubleJumpStrength;
     //distantce velocity
     [SerializeField] float dVel;
-
-    int jumpsAvailable;
+    [SerializeField] bool isOnGround;
+    [SerializeField] bool canDoubleJump;
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -32,9 +32,15 @@ public class Character : MonoBehaviour
     }
     void Jump()
     {
-        //if(jumpsAvailable<1){return;}
-        body.AddForce(new Vector2(0,JumpStrength));
-        jumpsAvailable--;
+        if (isOnGround )
+        {
+            body.AddForce(new Vector2(0,JumpStrength));
+        }
+        else if (canDoubleJump )
+        {
+            body.AddForce(new Vector2(0,JumpStrength));
+            canDoubleJump = false;
+        }
     }
     void OnCollisonEnter(Collision collision)
     {
