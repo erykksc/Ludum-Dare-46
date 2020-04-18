@@ -6,15 +6,16 @@ public class Character : MonoBehaviour
 {
     Rigidbody2D body;
 
-    [SerializeField] float[] hp = {100,100};
-    [SerializeField] float[] def = {100,100};
-    [SerializeField] float[] dmg = {100,100};
-    [SerializeField] float speed = 10;
-    [SerializeField] float traction = 10;
-    [SerializeField] float JumpStrength = 10;
-    [SerializeField] float dVel =0;
+    [SerializeField] float hp;
+    [SerializeField] float hpMax;
+    [SerializeField] float dmg;
+    [SerializeField] float speed;
+    [SerializeField] float traction;
+    [SerializeField] float JumpStrength;
+    //distantce velocity
+    [SerializeField] float dVel;
 
-    int jumpsAvailable = 2;
+    int jumpsAvailable;
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
