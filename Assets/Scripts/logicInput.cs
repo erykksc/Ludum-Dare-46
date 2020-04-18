@@ -6,25 +6,14 @@ public class logicInput : MonoBehaviour
 {
 /*
     Base class for all switches (inputs)
+    see existing subclasses for examples on usage
 
     Requirements:
+    - 2D collider on input
     - rigidbody in player
     - tryingToInteract must be implemented in player
 */
 
-    //public Rigidbody2D rb;
-
-    public bool state ; 
-    public bool targetState = true;
-
-    public logicGate gate; 
-
-    [SerializeField]
-    private float leverPlayerDistance = 1.1f;
-    private float sqrLPDist;
-
-    bool inCollision;
-    Collider2D col ;
 
     // Methods to override :
     virtual public void onAwake(){} // Don't override onAwake(), use this instead
@@ -35,6 +24,16 @@ public class logicInput : MonoBehaviour
     virtual public void onInteraction(){}
 
 
+    public bool state;
+    public bool targetState = true;
+
+    public logicGate gate; 
+    
+    [SerializeField,Tooltip("The maximum distance from the switch to the player")] 
+    private float leverPlayerDistance = 1.1f;
+    private float sqrLPDist;
+    bool inCollision;
+    Collider2D col;
 
 
 
@@ -52,7 +51,6 @@ public class logicInput : MonoBehaviour
             try2Interact(col);
         }
     }
-
 
     void Awake()
     {
@@ -73,15 +71,12 @@ public class logicInput : MonoBehaviour
             onIncorrect();
     }
 
-
     bool isTryingToInteract(Collider2D collider){
     // Check if player is trying to interact
         if (hasColliderTag("Player", collider))
             return collider.gameObject.GetComponent<Player>().tryingToInteract;
         return false;
     }
-
-
 
     void try2Interact(Collider2D other){
         inCollision = true;
@@ -99,7 +94,6 @@ public class logicInput : MonoBehaviour
         try2Interact(other);
     }
  
-
     bool hasColliderTag(string tag, Collider2D collider){
         return collider.gameObject.tag == tag ? true : false;
     }
@@ -107,6 +101,4 @@ public class logicInput : MonoBehaviour
     public void updateGate(){
         gate.updateState();
     }
-
-    
 }

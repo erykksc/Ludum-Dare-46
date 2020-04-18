@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class logicGate : MonoBehaviour
@@ -9,6 +10,9 @@ public class logicGate : MonoBehaviour
 
         Light game logic implementation
         the state of the gate is updated only on lever updates
+
+        Functions to execute on opening/closing of gate are labdas
+        You can set them using other scripts
     */
     
 
@@ -20,22 +24,27 @@ public class logicGate : MonoBehaviour
 
     public bool isActivated;
 
+    public Action openFn = delegate{return ;}; // Set lambda to execute on Open
+    public Action closeFn = delegate{return ;}; // Set lambda to execute on Close
+
     void Open(){
         isActivated = true;
+        openFn();
     }
 
     void Close(){
         isActivated = false;
+        closeFn();
     }
 
 
-    public logicInput[] levers;
+    public logicInput[] inputs;
 
 
     public void updateState(){
-        // Fire Open/Close if all levers start/stop being correctly set
+        // Fire Open/Close if all inputs start/stop being correctly set
         bool allEnabled = true;
-        foreach(var l in levers){
+        foreach(var l in inputs){
             if( l.isCorrect() == false){
                 allEnabled = false;
                 break;
