@@ -13,9 +13,12 @@ public class Character : MonoBehaviour
     [SerializeField] float traction = 10;
     [SerializeField] float JumpStrength = 10;
     [SerializeField] float dVel =0;
+
+    int jumpsAvailable = 2;
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        body.freezeRotation = true;
     }
 
     void Update()
@@ -35,7 +38,7 @@ public class Character : MonoBehaviour
         {
             Move(speed);
         }
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
@@ -51,7 +54,14 @@ public class Character : MonoBehaviour
     }
     void Jump()
     {
+        //if(jumpsAvailable<1){return;}
         body.AddForce(new Vector2(0,JumpStrength));
+        jumpsAvailable--;
+    }
+    void OnCollisonEnter(Collision collision)
+    {
+        Debug.Log("Info");
+        jumpsAvailable = 2;
     }
     void Damage(float delta)
     {
