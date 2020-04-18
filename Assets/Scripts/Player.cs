@@ -30,12 +30,20 @@ public class Player : Character
 
     [SerializeField] private bool canSwitchLevels = true;
 
+    static bool exist = false;
     private float lastPickUpTime;
     private GameObject baby;
+
 
     // Start is called before the first frame update
     void Awake()
     {
+        if(exist)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        exist = true;
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
         rb.mass = Masa;
