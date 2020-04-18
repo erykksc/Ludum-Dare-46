@@ -11,18 +11,16 @@ public class Kid : Character
     [SerializeField] Vector3 offset;
     private GameObject pickUpper;
 
-    private void Awake()
-    {
-        Gravity = default_gravity;
-        rb = gameObject.GetComponent<Rigidbody2D>();
-    }
 
     private void Start() {
         HP = 1;
     }
     static bool exists = false;
+    
     void Awake()
     {
+        Gravity = default_gravity;
+        rb = gameObject.GetComponent<Rigidbody2D>();
         if(exists)
         {
             Destroy(gameObject);
