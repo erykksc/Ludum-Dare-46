@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
     public Rigidbody2D rb;
     public float SpeedBezPrzedmiotu = 1.0f;
@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     public bool BabyInHand = false;
     public bool CanDoubleJump;
     public Vector2 SpawnPoint;
+    private float lastPickUpTime;
+    private GameObject baby;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -70,6 +73,16 @@ public class Player : MonoBehaviour
             rb.AddForce(new Vector2(0, DoubleJump));
             CanDoubleJump = false;
         }
+        if (Input.GetKey("e") && BabyInHand)
+        {
+            if(Time.time - lastPickUpTime > 0.5f)
+            {
+                Debug.Log("drop off");
+                baby.GetComponent<Kid>().dropOff();
+                lastPickUpTime = Time.time;
+                BabyInHand = false;
+            }
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -77,6 +90,24 @@ public class Player : MonoBehaviour
         Grounded = true;
         CanDoubleJump = false;
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Kid")
+        {
+            
+            if (Input.GetKey("e") && !BabyInHand){
+                if(Time.time - lastPickUpTime > 0.5f)
+                {
+                    Debug.Log("pick up");
+                    collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
+                    BabyInHand = true;
+                    baby = collision.gameObject;
+                    lastPickUpTime = Time.time;
+                }
+            }
+        }
+    }
+
     public void OnTriggerExit2D(Collider2D collision)
     {
         Grounded = false;
