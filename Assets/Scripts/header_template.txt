@@ -1,0 +1,7 @@
+Co robi:
+
+Na czym powinien być:
+
+Jakich komponentów wymaga: (np. Rigidbody2D)
+
+Specjalne ustawienia objektu:
