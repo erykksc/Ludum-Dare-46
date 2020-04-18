@@ -1733,6 +1733,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kid
       objectReference: {fileID: 0}
+    - target: {fileID: 3919740131500129001, guid: 76ec6aebffda9554d85d73cf2d964d4d,
+        type: 3}
+      propertyPath: Gravity
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919740131500129001, guid: 76ec6aebffda9554d85d73cf2d964d4d,
+        type: 3}
+      propertyPath: offset.x
+      value: 1.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919740131500129001, guid: 76ec6aebffda9554d85d73cf2d964d4d,
+        type: 3}
+      propertyPath: offset.y
+      value: 0.27
+      objectReference: {fileID: 0}
     - target: {fileID: 3919740131500129004, guid: 76ec6aebffda9554d85d73cf2d964d4d,
         type: 3}
       propertyPath: m_LinearDrag
@@ -1741,7 +1756,7 @@ PrefabInstance:
     - target: {fileID: 3919740131500129004, guid: 76ec6aebffda9554d85d73cf2d964d4d,
         type: 3}
       propertyPath: m_GravityScale
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3919740131500129004, guid: 76ec6aebffda9554d85d73cf2d964d4d,
         type: 3}
@@ -1802,6 +1817,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919740132233572677, guid: 76ec6aebffda9554d85d73cf2d964d4d,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.11341402
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919740132233572677, guid: 76ec6aebffda9554d85d73cf2d964d4d,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.39954293
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919740132233572677, guid: 76ec6aebffda9554d85d73cf2d964d4d,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.2945422
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919740132233572677, guid: 76ec6aebffda9554d85d73cf2d964d4d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.004650831
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76ec6aebffda9554d85d73cf2d964d4d, type: 3}

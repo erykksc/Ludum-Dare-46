@@ -31,16 +31,11 @@ public class Kid : Character
     {
         if (!Grounded)
         {
-            if (Gravity < 6.9f) Gravity = Gravity * 1.05f;
+            if (Gravity < 4.20f) Gravity = Gravity * 1.05f;
         }
         rb.AddForce(new Vector2(0, -Gravity));
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-        {
-            Gravity = default_gravity;
-            Grounded = true;
-        }
     public void pickUp(GameObject Pickupper) {
         transform.SetParent(Pickupper.transform, false);
         pickUpper = Pickupper;
