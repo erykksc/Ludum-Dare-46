@@ -58,7 +58,6 @@ public class Player : Character
         {
             rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
             CanDoubleJump = true;
-
         }
         else if (!Grounded && Input.GetKeyDown("w") && CanDoubleJump)
         {
