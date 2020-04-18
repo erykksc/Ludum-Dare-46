@@ -29,41 +29,31 @@ public class logicGate : MonoBehaviour
     }
 
 
+    public logicLever[] levers;
+
 
     public void setState(int id, bool state){
-        if (id == -1){
-            Debug.Log("Request from non-initialized level");
-            return;
-        }
-
-        states[id] = state;
+        // Fire Open/Close if all levers start/stop being correctly set
         bool allEnabled = true;
-        for(int i = 0; i<num; i++)
-            if (states[i] == false){
+        foreach(var l in levers){
+            if( l.isEnabled() == false){
                 allEnabled = false;
                 break;
             }
-        
+        }
+
         bool action = allEnabled;
 
         if (action != prev_action)
-            if (action)
+            if(action)
                 Open();
             else
                 Close();
+
         prev_action = action;
-    }
+        
+        action = allEnabled;
 
-
-    void Start()
-    {
-        logicLever[] levers = FindObjectsOfType<logicLever>();
-        int i = 0;
-        foreach (var lever in levers){
-            states[i] = lever.isEnabled();
-            lever.id = i++;
-        }
-        num = i;
     }
 
 }

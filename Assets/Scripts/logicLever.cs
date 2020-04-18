@@ -21,14 +21,43 @@ public class logicLever : MonoBehaviour
 
     public int id = -1;
 
-    private bool colliding = false;
-    
-    private logicGate gate; //Find only gate in level
+    [SerializeField]
+    private logicGate gate; 
+
+    [SerializeField]
+    private float leverPlayerDistance = 1.1f;
+    private float sqrLPDist;
+
+    bool inCollision;
+    Collider2D col ;
+
+
+
+    private void Update() {
+        if (inCollision){
+            Vector3 playerPos = col.gameObject.transform.position;
+            Vector3 leverPos = transform.position;
+
+            // Nasty hack
+            if(Vector3.SqrMagnitude(playerPos - leverPos) > sqrLPDist){
+                inCollision = false;
+                return;
+            }
+            try2Interact(col);
+
+        }
+    }
+
+
     void Start()
     {
+        /*
         gate = FindObjectOfType<logicGate>();
         if (gate)
             Debug.Log("Gate found");
+        */
+        sqrLPDist = leverPlayerDistance * leverPlayerDistance;
+
     }
 
     public bool isEnabled(){
@@ -42,23 +71,34 @@ public class logicLever : MonoBehaviour
     }
 
 
-    bool tryingToInteract(Collider2D collider){
+    bool isTryingToInteract(Collider2D collider){
     // Check if player is trying to interact
         if (isCollider("Player", collider))
             return collider.gameObject.GetComponent<Player>().tryingToInteract;
         return false;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Trigger");
-        bool interact = tryingToInteract(other);
+
+
+    void try2Interact(Collider2D other){
+        inCollision = true;
+        bool interact = isTryingToInteract(other);
         if(interact){
             flipSwitch();
             var player = other.gameObject.GetComponent<Player>();
             player.GetComponent<Player>().tryingToInteract = false;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        col = other;
+        
+        ContactPoint2D[] contacts = {};
+        var a = other.GetContacts(contacts);
+        Debug.Log("Contacts : "+a.ToString());
+        try2Interact(other);
+    }
+ 
 
     bool isCollider(string tag, Collider2D collider){
         return collider.gameObject.tag == tag ? true : false;
