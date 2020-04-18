@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public float DoubleJumpForceWithBaby = 5.5f;
     public float Jump;
     public float DoubleJump;
-    public float Masa = 80.0f;
+    public float Masa = 0.25f;
     public float Gravity = 20.0f;
     public bool Grounded;
     public bool ReachedApex = false;
@@ -27,17 +27,18 @@ public class Player : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
+        rb.mass = Masa;
     }
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(BabyInHand == true) //sprawdzanie czy ma dziecko w lapie
+        if (BabyInHand == true) //sprawdzanie czy ma dziecko w lapie
         {
             Speed = SpeedZPrzedmiotem;
             Jump = JumpForceWithBaby;
@@ -52,20 +53,20 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey("d"))
         {
-            rb.AddForce(new Vector2 (Speed, 0));
+            rb.AddForce(new Vector2(Speed, 0));
         }
         if (Input.GetKey("a"))
         {
-            rb.AddForce(new Vector2 (-Speed,0));
+            rb.AddForce(new Vector2(-Speed, 0));
         }
 
         if (Input.GetKey("w") && Grounded == true)
         {
-            rb.AddForce(new Vector2 (0, Jump));
+            rb.AddForce(new Vector2(0, Jump));
         }
-        if(Input.GetKey("w") && CanDoubleJump == true)
+        if (Input.GetKey("w") && CanDoubleJump == true)
         {
-            rb.AddForce(new Vector2 (0, DoubleJump));
+            rb.AddForce(new Vector2(0, DoubleJump));
         }
     }
 }
