@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 629038b298601bf47bbba2b279512422, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1.5
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -154,6 +154,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 1
   HP: 1
+  rb: {fileID: 0}
+  default_gravity: 0.4
+  Gravity: 0
+  Grounded: 0
   offset: {x: 0, y: 0.8, z: 0}
 --- !u!1 &3919740132233572675
 GameObject:
