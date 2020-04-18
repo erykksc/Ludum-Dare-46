@@ -7,7 +7,7 @@ public class SceneManagement : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] GameObject [] persistables;
-    List<GameObject> levels;
+    [SerializeField] List<GameObject> levels;
     [SerializeField] int scenesCount = 0;
     List<Scene> scenes;
 
@@ -25,12 +25,20 @@ public class SceneManagement : MonoBehaviour
         for(int i = 0;i<scenesCount;i++)
         {
             if(i==SceneManager.GetActiveScene().buildIndex)
-            {levels.Add(GameObject.Find("Level"+i.ToString()));continue;}
+            {continue;}
             SceneManager.LoadSceneAsync(i,LoadSceneMode.Additive);
-            levels.Add(GameObject.Find("Level"+i.ToString()));
+            GameObject[] goArray = (SceneManager.GetSceneByBuildIndex(i).GetRootGameObjects());
+            Debug.Log(goArray.Length);
+            Debug.Log("Level"+i.ToString());
+            //levels.Add(SceneManager.GetSceneByBuildIndex(i))
         }
-        levels[1].SetActive(false);
+        for(int i = 0;i<scenesCount;i++)
+        {
+            //GameObject[] goArray = (SceneManager.GetSceneByBuildIndex(i).GetRootGameObjects());
 
+            //Debug.Log(goArray.Length);
+        }
+        levels[2].SetActive(false);
     }
     void SwitchForth()
     {
