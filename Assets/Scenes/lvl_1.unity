@@ -1403,7 +1403,7 @@ MonoBehaviour:
   DoubleJumpForceWithBaby: 5.5
   Jump: 0
   DoubleJump: 0
-  Masa: 80
+  Masa: 0.25
   Gravity: 20
   Grounded: 0
   ReachedApex: 0
@@ -1705,15 +1705,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379470e1d9606989886ac808e5f9f410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp:
-  - 100
-  - 100
-  def:
-  - 100
-  - 100
-  dmg:
-  - 100
-  - 100
+  hp: 0
+  hpMax: 0
+  dmg: 0
   speed: 10
   traction: 10
   JumpStrength: 6
