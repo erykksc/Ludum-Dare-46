@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Rigidbody rb;
+    public Rigidbody2D rb;
     public float SpeedBezPrzedmiotu = 1.0f;
     public float SpeedZPrzedmiotem = 0.5f;
     public float Speed;
@@ -20,12 +20,12 @@ public class Player : MonoBehaviour
     public bool ReachedApex = false;
     public bool BabyInHand = false;
     public bool CanDoubleJump;
-    public Vector3 SpawnPoint;
+    public Vector2 SpawnPoint;
 
     // Start is called before the first frame update
     void Awake()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     void Start()
@@ -51,20 +51,20 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey("d"))
         {
-            rb.AddForce(Speed, 0, 0);
+            rb.AddForce(new Vector2 (Speed, 0));
         }
         if (Input.GetKey("a"))
         {
-            rb.AddForce(-Speed, 0, 0);
+            rb.AddForce(new Vector2 (-Speed,0));
         }
         
         if (Input.GetKey("w") && Grounded == true)
         {
-            rb.AddForce(0, Jump, 0);
+            rb.AddForce(new Vector2 (0, Jump));
         }
         if(Input.GetKey("w") && CanDoubleJump == true)
         {
-            rb.AddForce(0, DoubleJump, 0);
+            rb.AddForce(new Vector2 (0, DoubleJump));
         }
     }
 }
