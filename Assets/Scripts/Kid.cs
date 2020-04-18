@@ -9,6 +9,17 @@ public class Kid : Character
     private void Start() {
         HP = 1;
     }
+    static bool exists = false;
+    void Awake()
+    {
+        if(exists)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        exists = true;
+        DontDestroyOnLoad(this);
+    }
 
     private void Update() {
         if(pickUpper!=null){
