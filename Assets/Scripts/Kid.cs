@@ -7,6 +7,9 @@ public class Kid : Character
     public Vector3 offset;
     private GameObject Pickuper;
     private bool pickedUp = false;
+    private void Start() {
+        HP = 1;
+    }
 
     public void pickUp(GameObject Pickupper) {
         pickedUp = true;
@@ -16,5 +19,4 @@ public class Kid : Character
         pickedUp = false;
         transform.SetParent(null);
     }
-
 }
