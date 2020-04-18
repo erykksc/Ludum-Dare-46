@@ -69,4 +69,11 @@ public class Player : MonoBehaviour
             rb.AddForce(new Vector2(0, DoubleJump));
         }
     }
+    void OnTriggerEnter()
+    {
+        if (gameObject.CompareTag("Trigger_NEXT")) { }
+        if (gameObject.CompareTag("Trigger_PREVIOUS")) { }
+    }
+
 }
+//DontDestroyOnLoading
