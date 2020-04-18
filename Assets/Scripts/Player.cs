@@ -9,11 +9,11 @@ public class Player : Character
     [SerializeField] private float SpeedBezPrzedmiotu = 1.0f;
     [SerializeField] private float SpeedZPrzedmiotem = 0.5f;
     [SerializeField] private float MaxSpeed = 4.0f;
-    [SerializeField] private float JumpForce = 10.0f;
-    [SerializeField] private float JumpForceWithBaby = 7.5f;
-    [SerializeField] private float DoubleJumpForce = 8.0f;
-    [SerializeField] private float DoubleJumpForceWithBaby = 5.5f;
-    [SerializeField] private float default_gravity = 20.0f;
+    [SerializeField] private float JumpForce = 1.5f;
+    [SerializeField] private float JumpForceWithBaby = 1.3f;
+    [SerializeField] private float DoubleJumpForce = 1.0f;
+    [SerializeField] private float DoubleJumpForceWithBaby = 0.7f;
+    [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
     [Header("current parameters")]
@@ -21,7 +21,7 @@ public class Player : Character
     [SerializeField] private float Jump;
     [SerializeField] private float Speed;
     [SerializeField] private float DoubleJump;
-    [SerializeField] private float Gravity; 
+    [SerializeField] private float Gravity;
 
     [Header("current state")]
     [SerializeField] private bool Grounded;
@@ -39,12 +39,14 @@ public class Player : Character
         Gravity = default_gravity;
     }
 
-    private bool BabyInHand(){
-        if (baby!=null){
-
+    private bool BabyInHand()
+    {
+        if (baby != null)
+        {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }
@@ -56,10 +58,11 @@ public class Player : Character
         {
             rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
             CanDoubleJump = true;
-
         }
         else if (!Grounded && Input.GetKeyDown("w") && CanDoubleJump)
         {
+            Vector2 temp = new Vector2(rb.velocity.x, 0);
+            rb.velocity = temp;
             rb.AddForce(new Vector2(0, DoubleJumpForce), ForceMode2D.Impulse);
             Gravity = default_gravity;
             CanDoubleJump = false;
@@ -99,16 +102,16 @@ public class Player : Character
         }
 
         //Gravity increase
-        if(!Grounded)      
+        if (!Grounded)
         {
-            if(Gravity<6.9f) Gravity = Gravity * 1.05f;
+            if (Gravity < 6.9f) Gravity = Gravity * 1.05f;
         }
 
         rb.AddForce(new Vector2(0, -Gravity));
 
         if (Input.GetKey("e") && BabyInHand())
         {
-            if(Time.time - lastPickUpTime > 0.5f)
+            if (Time.time - lastPickUpTime > 0.5f)
             {
                 Debug.Log("drop off");
                 baby.GetComponent<Kid>().dropOff();
@@ -128,9 +131,9 @@ public class Player : Character
     {
         if (collision.gameObject.tag == "Kid")
         {
-            
-            if (Input.GetKey("e") && !BabyInHand()){
-                if(Time.time - lastPickUpTime > 0.5f)
+            if (Input.GetKey("e") && !BabyInHand())
+            {
+                if (Time.time - lastPickUpTime > 0.5f)
                 {
                     Debug.Log("pick up");
                     collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
