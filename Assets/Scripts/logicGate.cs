@@ -20,11 +20,11 @@ public class logicGate : MonoBehaviour
 
     public bool isActivated;
 
-    void Activate(){
+    void Open(){
         isActivated = true;
     }
 
-    void Deactivate(){
+    void Close(){
         isActivated = false;
     }
 
@@ -48,9 +48,9 @@ public class logicGate : MonoBehaviour
 
         if (action != prev_action)
             if (action)
-                Activate();
+                Open();
             else
-                Deactivate();
+                Close();
         prev_action = action;
     }
 
