@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player : Character
 {
     public Rigidbody2D rb;
+    public Animator animator;
     [Header("general parameters")]
     [SerializeField] private float SpeedBezPrzedmiotu = 1.0f;
     [SerializeField] private float SpeedZPrzedmiotem = 0.5f;
@@ -44,6 +45,8 @@ public class Player : Character
         exists = true;
         DontDestroyOnLoad(this);
         rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
+
         rb.freezeRotation = true;
         rb.mass = Masa;
         Gravity = default_gravity;
@@ -63,12 +66,17 @@ public class Player : Character
 
     private void Update()
     {
+        animator.SetBool("Grounded", Grounded);
+        animator.SetBool("BabyInHand", BabyInHand());
 
+        //When on ground and W pressed - jump
         if (Grounded && Input.GetKeyDown("w"))
         {
             rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
             CanDoubleJump = true;
         }
+
+        //When in air and W pressed - double jump
         else if (!Grounded && Input.GetKeyDown("w") && CanDoubleJump)
         {
             Vector2 temp = new Vector2(rb.velocity.x, 0);
@@ -77,10 +85,14 @@ public class Player : Character
             Gravity = default_gravity;
             CanDoubleJump = false;
         }
+
+        animator.SetFloat("vertical_velocity",rb.velocity.y);
     }
 
     void FixedUpdate()
     {
+
+        //change parameters if baby is held
         if (BabyInHand() == true) //sprawdzanie czy ma dziecko w lapie
         {
             Speed = SpeedZPrzedmiotem;
@@ -111,6 +123,9 @@ public class Player : Character
             rb.AddForce(new Vector2(-Speed, 0));
         }
 
+        animator.SetFloat("horizontal_velocity", rb.velocity.x); 
+
+
         //Gravity increase
         if (!Grounded)
         {
@@ -124,6 +139,7 @@ public class Player : Character
             if (Time.time - lastPickUpTime > 0.5f)
             {
                 Debug.Log("drop off");
+                animator.SetTrigger("drop_baby");
                 baby.GetComponent<Kid>().dropOff();
                 baby = null;
                 lastPickUpTime = Time.time;
@@ -175,6 +191,7 @@ public class Player : Character
                 if (Time.time - lastPickUpTime > 0.5f)
                 {
                     Debug.Log("pick up");
+                    animator.SetTrigger("pickup_baby");
                     collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
                     baby = collision.gameObject;
                     lastPickUpTime = Time.time;
