@@ -7,6 +7,8 @@ TagManager:
   - Trigger_NEXT
   - Trigger_PREVIOUS
   - Kid
+  - Level
+  - Enemy
   layers:
   - Default
   - TransparentFX
