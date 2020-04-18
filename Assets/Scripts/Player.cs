@@ -22,15 +22,18 @@ public class Player : MonoBehaviour
     public bool CanDoubleJump;
     public Vector3 SpawnPoint;
 
-    // Start is called before the first frame update
+    public bool tryingToInteract = false;
+
+
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
+    // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -66,5 +69,9 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(0, DoubleJump, 0);
         }
+
+        if(Input.GetKeyDown("i")) tryingToInteract = true;
+        if(Input.GetKeyUp("i")) tryingToInteract = false;
+        
     }
 }
