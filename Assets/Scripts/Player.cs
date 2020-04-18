@@ -39,9 +39,10 @@ public class Player : Character
         Gravity = default_gravity;
     }
 
-    private bool BabyInHand(){
-        if (baby!=null){
-
+    private bool BabyInHand()
+    {
+        if (baby != null)
+        {
             return true;
         }
         else
@@ -102,16 +103,16 @@ public class Player : Character
         }
 
         //Gravity increase
-        if(!Grounded)      
+        if (!Grounded)
         {
-            if(Gravity<6.9f) Gravity = Gravity * 1.05f;
+            if (Gravity < 6.9f) Gravity = Gravity * 1.05f;
         }
 
         rb.AddForce(new Vector2(0, -Gravity));
 
         if (Input.GetKey("e") && BabyInHand())
         {
-            if(Time.time - lastPickUpTime > 0.5f)
+            if (Time.time - lastPickUpTime > 0.5f)
             {
                 Debug.Log("drop off");
                 baby.GetComponent<Kid>().dropOff();
@@ -131,9 +132,9 @@ public class Player : Character
     {
         if (collision.gameObject.tag == "Kid")
         {
-            
-            if (Input.GetKey("e") && !BabyInHand()){
-                if(Time.time - lastPickUpTime > 0.5f)
+            if (Input.GetKey("e") && !BabyInHand())
+            {
+                if (Time.time - lastPickUpTime > 0.5f)
                 {
                     Debug.Log("pick up");
                     collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
