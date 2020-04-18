@@ -130,6 +130,16 @@ public class Player : Character
         }
     }
 
+    void ClearState()
+    {
+        transform.position = new Vector3(0,0,0);
+            canSwitchLevels = false;
+            CanDoubleJump = false;
+            Grounded = false;
+            CanDoubleJump = false;
+            rb.velocity = new Vector2(0,0);
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Gravity = default_gravity;
@@ -139,20 +149,13 @@ public class Player : Character
         if(collision.gameObject.CompareTag("Trigger_NEXT"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
-            transform.position = new Vector3(0,0,0);
-            canSwitchLevels = false;
-            CanDoubleJump = false;
-            Grounded = false;
-            CanDoubleJump = false;
+            ClearState();
         }
         if(collision.gameObject.CompareTag("Trigger_PREVIOUS"))
         {
             if(SceneManager.GetActiveScene().buildIndex==1){return;}
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
-            transform.position = new Vector3(0,0,0);
-            canSwitchLevels = false;
-            Grounded = false;
-            CanDoubleJump = false;
+            ClearState();
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
