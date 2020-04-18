@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Trigger_NEXT
   - Trigger_PREVIOUS
+  - Kid
+  - Level
   layers:
   - Default
   - TransparentFX
