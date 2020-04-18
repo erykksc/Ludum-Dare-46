@@ -1403,7 +1403,7 @@ MonoBehaviour:
   DoubleJumpForceWithBaby: 5.5
   Jump: 0
   DoubleJump: 0
-  Masa: 80
+  Masa: 0.25
   Gravity: 20
   Grounded: 0
   ReachedApex: 0
