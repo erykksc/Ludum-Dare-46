@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class Kid : Character
 {
-    public Vector3 offset;
-    private GameObject Pickuper;
-    private bool pickedUp = false;
+    [SerializeField] Vector3 offset;
+    private GameObject pickUpper;
     private void Start() {
         HP = 1;
     }
 
+    private void Update() {
+        if(pickUpper!=null){
+            GetComponent<Transform>().localPosition = offset;
+        }
+    }
+
     public void pickUp(GameObject Pickupper) {
-        pickedUp = true;
-        transform.SetParent(Pickupper.transform);
+        transform.SetParent(Pickupper.transform, false);
+        pickUpper = Pickupper;
     }
     public void dropOff() {
-        pickedUp = false;
-        transform.SetParent(null);
+        pickUpper = null;
+        transform.SetParent(null, true);
     }
 }
