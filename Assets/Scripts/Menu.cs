@@ -27,7 +27,7 @@ public class Menu : MonoBehaviour
     //Load lvl 1 on press
     public void PlayButtonPress()
     {
-        // manager.setLevel(1);
+        //manager.setLevel(1);
         SceneManager.LoadScene(1);
     }
 
