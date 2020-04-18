@@ -24,6 +24,8 @@ public class SimpleEnemy : Character
     [SerializeField]
     private float maxSpeed;
     private Rigidbody2D rigidbody;
+    [SerializeField]
+    private int damage;
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();    
     }
@@ -42,11 +44,15 @@ public class SimpleEnemy : Character
     void OnTriggerEnter2D(Collider2D other)
     {
         // Stop self and reverse direction
-        rigidbody.velocity = new Vector2();
         Force.x = - Force.x;
     }
     void OnDrawGizmos()
     {
         DrawArrow.ForGizmo(transform.position, Force);
+    }
+    void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Kid") {
+            other.gameObject.GetComponent<Character>().HP -= HP;
+        }
     }
 }
