@@ -52,7 +52,7 @@ public class LeaderBoardHandler : MonoBehaviour
         try
         {
             var response = client.Execute<PostResponse>(request);
-            if (response.StatusCode == HttpStatusCode.OK) {
+            if (response.StatusCode == HttpStatusCode.OK && response.Data.success) {
                return response.Data.place; 
             }
             else {
