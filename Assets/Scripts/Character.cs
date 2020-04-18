@@ -64,9 +64,4 @@ public class Character : MonoBehaviour
         Debug.Log("Info");
         jumpsAvailable = 2;
     }
-    void Damage(float delta)
-    {
-
-    }
-    float GetHp(){return hp[0];}
 }

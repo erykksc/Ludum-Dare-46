@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerAndrzej : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float SpeedBezPrzedmiotu = 1.0f;
