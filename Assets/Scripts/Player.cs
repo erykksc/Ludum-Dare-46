@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public float JumpForceWithBaby = 7.5f;
     public float DoubleJumpForce = 8.0f;
     public float DoubleJumpForceWithBaby = 5.5f;
+
     public float Jump;
     public float DoubleJump;
     public float Masa = 80.0f;
