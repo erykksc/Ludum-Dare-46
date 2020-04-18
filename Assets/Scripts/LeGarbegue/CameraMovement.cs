@@ -2,18 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+Co robi:
+Utrzymuje kamerę w miejscu jeżeli gracz nie przejdzie pewnej granicy.
+
+Na czym powinien być:
+Graczu/ Player
+
+Jakich komponentów wymaga: (np. Rigidbody2D)
+Transform
+
+Specjalne ustawienia objektu:
+Brak
+*/
+
 public class CameraMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] Transform followed;
+    //Rozmiar pola w którym kamera stoi w miejscu
     [SerializeField] int size;
+    //Jak szybko kamera dogania gracza
     [SerializeField] int tightness;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Vector3 dir = followed.position-transform.position;
