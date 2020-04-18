@@ -9,10 +9,10 @@ public class Player : Character
     [SerializeField] private float SpeedBezPrzedmiotu = 1.0f;
     [SerializeField] private float SpeedZPrzedmiotem = 0.5f;
     [SerializeField] private float MaxSpeed = 4.0f;
-    [SerializeField] private float JumpForce = 10.0f;
-    [SerializeField] private float JumpForceWithBaby = 7.5f;
-    [SerializeField] private float DoubleJumpForce = 8.0f;
-    [SerializeField] private float DoubleJumpForceWithBaby = 5.5f;
+    [SerializeField] private float JumpForce = 1.5f;
+    [SerializeField] private float JumpForceWithBaby = 1.3f;
+    [SerializeField] private float DoubleJumpForce = 1.0f;
+    [SerializeField] private float DoubleJumpForceWithBaby = 0.7f;
     [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
