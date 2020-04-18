@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(new Vector2 (-Speed,0));
         }
-        
+
         if (Input.GetKey("w") && Grounded == true)
         {
             rb.AddForce(new Vector2 (0, Jump));
