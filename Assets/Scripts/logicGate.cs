@@ -29,10 +29,10 @@ public class logicGate : MonoBehaviour
     }
 
 
-    public logicLever[] levers;
+    public logicInput[] levers;
 
 
-    public void setState(int id, bool state){
+    public void updateState(){
         // Fire Open/Close if all levers start/stop being correctly set
         bool allEnabled = true;
         foreach(var l in levers){

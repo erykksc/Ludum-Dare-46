@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class logicLever : logicInput
+public class logicInput : MonoBehaviour
 {
 /*
     Używaj tego componentu, dla każdej dźwigni w scenie
@@ -16,7 +16,10 @@ public class logicLever : logicInput
 
     //public Rigidbody2D rb;
 
+    public bool state ; 
     public bool targetState;
+
+    public int id = -1;
 
     [SerializeField]
     private logicGate gate; 
@@ -48,16 +51,12 @@ public class logicLever : logicInput
 
     void Start()
     {
-        /*
-        gate = FindObjectOfType<logicGate>();
-        if (gate)
-            Debug.Log("Gate found");
-        */
         sqrLPDist = leverPlayerDistance * leverPlayerDistance;
-
     }
 
-
+    public bool isEnabled(){
+        return state == targetState ? true : false;
+    }
 
     void flipSwitch() {
         state =! state;
