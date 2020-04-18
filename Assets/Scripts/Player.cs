@@ -124,11 +124,20 @@ public class Player : Character
 
         rb.AddForce(new Vector2(0, -Gravity));
 
+
+        //drop baby
         if (Input.GetKey("e") && BabyInHand())
         {
             if (Time.time - lastPickUpTime > 0.5f)
             {
                 Debug.Log("drop off");
+
+                //baby becomes a seprate object -enable colliders and sprite showing
+                foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
+                {
+                    col.enabled = true;
+                }
+                baby.GetComponent<SpriteRenderer>().enabled = true;
                 animator.SetTrigger("drop_baby");
                 baby.GetComponent<Kid>().dropOff();
                 baby = null;
@@ -145,6 +154,8 @@ public class Player : Character
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
+
+        //pick-up baby
         if (collision.gameObject.tag == "Kid")
         {
             if (Input.GetKey("e") && !BabyInHand())
@@ -155,6 +166,13 @@ public class Player : Character
                     animator.SetTrigger("pickup_baby");
                     collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
                     baby = collision.gameObject;
+
+                    //disable colliders to remove collisions with big mama and hide sprite renderer
+                    foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
+                    {
+                        col.enabled = false;
+                    }
+                    baby.GetComponent<SpriteRenderer>().enabled = false;
                     lastPickUpTime = Time.time;
                 }
             }
