@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class movement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public Rigidbody rb;
     public float SpeedBezPrzedmiotu = 1.0f;
@@ -23,6 +23,11 @@ public class movement : MonoBehaviour
     public Vector3 SpawnPoint;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        rb = gameObject.GetComponent<Rigidbody>();
+    }
+
     void Start()
     {
         
