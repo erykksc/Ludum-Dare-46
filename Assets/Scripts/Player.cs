@@ -8,10 +8,10 @@ public class Player : MonoBehaviour
     public float SpeedBezPrzedmiotu = 1.0f;
     public float SpeedZPrzedmiotem = 0.5f;
     public float Speed;
-    public float JumpForce = 2.0f;
-    public float JumpForceWithBaby = 1.5f;
-    public float DoubleJumpForce = 1.0f;
-    public float DoubleJumpForceWithBaby = 0.5f;
+    public float JumpForce = 10.0f;
+    public float JumpForceWithBaby = 7.5f;
+    public float DoubleJumpForce = 8.0f;
+    public float DoubleJumpForceWithBaby = 5.5f;
     public float Jump;
     public float DoubleJump;
     public float Masa = 80.0f;
