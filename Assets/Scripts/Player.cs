@@ -60,6 +60,8 @@ public class Player : MonoBehaviour
             rb.AddForce(new Vector2(-Speed, 0));
         }
 
+
+
         if (Input.GetKey("w") && Grounded == true)
         {
             rb.AddForce(new Vector2(0, Jump));
@@ -68,5 +70,14 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(new Vector2(0, DoubleJump));
         }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        Grounded = true;
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        Grounded = false;
     }
 }
