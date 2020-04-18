@@ -69,15 +69,18 @@ public class Player : MonoBehaviour
         if (Input.GetKey("w") && CanDoubleJump == true)
         {
             rb.AddForce(new Vector2(0, DoubleJump));
+            CanDoubleJump = false;
         }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Grounded = true;
+        CanDoubleJump = false;
     }
     public void OnTriggerExit2D(Collider2D collision)
     {
         Grounded = false;
+        CanDoubleJump = true;
     }
 }
