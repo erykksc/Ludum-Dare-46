@@ -5,9 +5,7 @@ using UnityEngine;
 public class logicInput : MonoBehaviour
 {
 /*
-    Używaj tego componentu, dla każdej dźwigni w scenie
-    dźwignie automatycznie znajdą i połączą się z gatem
-    po uruchomieniu gry
+    Base class for all switches (inputs)
 
     Requirements:
     - rigidbody in player
@@ -17,12 +15,9 @@ public class logicInput : MonoBehaviour
     //public Rigidbody2D rb;
 
     public bool state ; 
-    public bool targetState;
+    public bool targetState = true;
 
-    public int id = -1;
-
-    [SerializeField]
-    private logicGate gate; 
+    public logicGate gate; 
 
     [SerializeField]
     private float leverPlayerDistance = 1.1f;
@@ -30,6 +25,16 @@ public class logicInput : MonoBehaviour
 
     bool inCollision;
     Collider2D col ;
+
+    // Methods to override :
+    virtual public void onAwake(){} // Don't override onAwake(), use this instead
+    virtual public void onPlayerTouchStart(){}
+    virtual public void onPlayerTouchEnd(){}
+    virtual public void onCorrect(){}
+    virtual public void onIncorrect(){}
+    virtual public void onInteraction(){}
+
+
 
 
 
@@ -40,34 +45,38 @@ public class logicInput : MonoBehaviour
 
             // Nasty hack
             if(Vector3.SqrMagnitude(playerPos - leverPos) > sqrLPDist){
+                onPlayerTouchEnd();
                 inCollision = false;
                 return;
             }
             try2Interact(col);
-
         }
     }
 
 
-    void Start()
+    void Awake()
     {
         sqrLPDist = leverPlayerDistance * leverPlayerDistance;
+        onAwake();
     }
 
-    public bool isEnabled(){
+    public bool isCorrect(){
         return state == targetState ? true : false;
     }
 
     void flipSwitch() {
-        state =! state;
-        gate.updateState();
-        Debug.Log("Flip switch");
+        onInteraction();
+
+        if(isCorrect())
+            onCorrect();
+        else
+            onIncorrect();
     }
 
 
     bool isTryingToInteract(Collider2D collider){
     // Check if player is trying to interact
-        if (isCollider("Player", collider))
+        if (hasColliderTag("Player", collider))
             return collider.gameObject.GetComponent<Player>().tryingToInteract;
         return false;
     }
@@ -86,15 +95,18 @@ public class logicInput : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         col = other;
-        
-        ContactPoint2D[] contacts = {};
-        var a = other.GetContacts(contacts);
-        Debug.Log("Contacts : "+a.ToString());
+        onPlayerTouchStart();
         try2Interact(other);
     }
  
 
-    bool isCollider(string tag, Collider2D collider){
+    bool hasColliderTag(string tag, Collider2D collider){
         return collider.gameObject.tag == tag ? true : false;
     }
+
+    public void updateGate(){
+        gate.updateState();
+    }
+
+    
 }

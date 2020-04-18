@@ -36,7 +36,7 @@ public class logicGate : MonoBehaviour
         // Fire Open/Close if all levers start/stop being correctly set
         bool allEnabled = true;
         foreach(var l in levers){
-            if( l.isEnabled() == false){
+            if( l.isCorrect() == false){
                 allEnabled = false;
                 break;
             }
@@ -54,6 +54,11 @@ public class logicGate : MonoBehaviour
         
         action = allEnabled;
 
+    }
+
+    void Start()
+    {
+        updateState();
     }
 
 }
