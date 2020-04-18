@@ -17,7 +17,7 @@ public class Character : MonoBehaviour
     // Return true if killed
     bool damage( int damage ){ 
         if( (HP - damage ) <= 0 ){
-            Destroy( gameObject );
+            Destroy( gameObject, 0.1f );
             return true;
         }
 
