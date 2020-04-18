@@ -1,4 +1,20 @@
-﻿using System.Collections;
+﻿/*
+LeaderboardTest: przykładowa implementacja i test
+LeaderBoardHandler
+    - Co robi:
+        - po upłycięciu (limit) ticków wysyła do tablicy wyników
+        wynik pod nickiem (username)
+    - Na czym powinien być:
+        - tak
+    - Jakich komponentów wymaga:
+        - LeaderBoardHandler na tym samym GameObject
+    - Specjalne ustawienia objektu:
+        - username - nick pod którym wysłany będzie wynik
+        - limit - opóźnienie czasowe
+*/
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,18 +26,14 @@ public class LeaderboardTest : MonoBehaviour
     private int i = 0;
     [SerializeField]
     private int limit;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (limit == i) {
+            // Przykładowy call do wysłania wyniku
             testable = GetComponent<LeaderBoardHandler>();
+            // Na koniec zatrzymaj czas
             testable.StopTime();
+            // poproś gracza o nick, wyślij czas
             Debug.Log(testable.UploadTime_and_get_place(username));
             i++;
         }
