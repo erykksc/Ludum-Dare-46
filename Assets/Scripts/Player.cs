@@ -6,28 +6,26 @@ public class Player : Character
 {
     public Rigidbody2D rb;
     [Header("general parameters")]
-    public float SpeedBezPrzedmiotu = 1.0f;
-    public float SpeedZPrzedmiotem = 0.5f;
-    public float MaxSpeed = 4.0f;
-    public float JumpForce = 10.0f;
-    public float JumpForceWithBaby = 7.5f;
-    public float DoubleJumpForce = 8.0f;
-    public float DoubleJumpForceWithBaby = 5.5f;
-    public float default_gravity = 20.0f;
-    public float Masa = 0.25f;
-    public Vector2 SpawnPoint;
+    [SerializeField] private float SpeedBezPrzedmiotu = 1.0f;
+    [SerializeField] private float SpeedZPrzedmiotem = 0.5f;
+    [SerializeField] private float MaxSpeed = 4.0f;
+    [SerializeField] private float JumpForce = 10.0f;
+    [SerializeField] private float JumpForceWithBaby = 7.5f;
+    [SerializeField] private float DoubleJumpForce = 8.0f;
+    [SerializeField] private float DoubleJumpForceWithBaby = 5.5f;
+    [SerializeField] private float default_gravity = 20.0f;
+    [SerializeField] private float Masa = 0.25f;
 
     [Header("current parameters")]
 
-    public float Jump;
-    public float Speed;
-    public float DoubleJump;
-    public float Gravity; 
+    [SerializeField] private float Jump;
+    [SerializeField] private float Speed;
+    [SerializeField] private float DoubleJump;
+    [SerializeField] private float Gravity; 
 
     [Header("current state")]
-    public bool Grounded;
-    public bool BabyInHand = false;
-    public bool CanDoubleJump;
+    [SerializeField] private bool Grounded;
+    [SerializeField] private bool CanDoubleJump;
 
     private float lastPickUpTime;
     private GameObject baby;
@@ -39,6 +37,16 @@ public class Player : Character
         rb.freezeRotation = true;
         rb.mass = Masa;
         Gravity = default_gravity;
+    }
+
+    private bool BabyInHand(){
+        if (baby!=null){
+
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     private void Update()
@@ -60,7 +68,7 @@ public class Player : Character
 
     void FixedUpdate()
     {
-        if (BabyInHand == true) //sprawdzanie czy ma dziecko w lapie
+        if (BabyInHand() == true) //sprawdzanie czy ma dziecko w lapie
         {
             Speed = SpeedZPrzedmiotem;
             Jump = JumpForceWithBaby;
@@ -98,14 +106,14 @@ public class Player : Character
 
         rb.AddForce(new Vector2(0, -Gravity));
 
-        if (Input.GetKey("e") && BabyInHand)
+        if (Input.GetKey("e") && BabyInHand())
         {
             if(Time.time - lastPickUpTime > 0.5f)
             {
                 Debug.Log("drop off");
                 baby.GetComponent<Kid>().dropOff();
+                baby = null;
                 lastPickUpTime = Time.time;
-                BabyInHand = false;
             }
         }
     }
@@ -121,12 +129,11 @@ public class Player : Character
         if (collision.gameObject.tag == "Kid")
         {
             
-            if (Input.GetKey("e") && !BabyInHand){
+            if (Input.GetKey("e") && !BabyInHand()){
                 if(Time.time - lastPickUpTime > 0.5f)
                 {
                     Debug.Log("pick up");
                     collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
-                    BabyInHand = true;
                     baby = collision.gameObject;
                     lastPickUpTime = Time.time;
                 }
