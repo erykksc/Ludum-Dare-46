@@ -21,6 +21,4 @@ public class logicLever : logicInput
         state = !state;
         updateGate();
     }
-
-
 }

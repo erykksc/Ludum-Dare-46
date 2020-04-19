@@ -52,12 +52,6 @@ public class logicInput : MonoBehaviour
         }
     }
 
-    void Awake()
-    {
-        sqrLPDist = leverPlayerDistance * leverPlayerDistance;
-        onAwake();
-    }
-
     public bool isCorrect(){
         return state == targetState ? true : false;
     }
@@ -71,16 +65,9 @@ public class logicInput : MonoBehaviour
             onIncorrect();
     }
 
-    bool isTryingToInteract(Collider2D collider){
-    // Check if player is trying to interact
-        if (hasColliderTag("Player", collider))
-            return collider.gameObject.GetComponent<Player>().tryingToInteract;
-        return false;
-    }
-
     void try2Interact(Collider2D other){
         inCollision = true;
-        bool interact = isTryingToInteract(other);
+        bool interact = isPlayerTryingToInteract(other);
         if(interact){
             flipSwitch();
             var player = other.gameObject.GetComponent<Player>();
@@ -98,7 +85,20 @@ public class logicInput : MonoBehaviour
         return collider.gameObject.tag == tag ? true : false;
     }
 
+    bool isPlayerTryingToInteract(Collider2D collider){
+    // Check if player is trying to interact
+        if (hasColliderTag("Player", collider))
+            return collider.gameObject.GetComponent<Player>().tryingToInteract;
+        return false;
+    }
+    
     public void updateGate(){
         gate.updateState();
+    }
+
+    void Awake()
+    {
+        sqrLPDist = leverPlayerDistance * leverPlayerDistance;
+        onAwake();
     }
 }

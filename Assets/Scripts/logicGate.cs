@@ -8,8 +8,8 @@ public class logicGate : MonoBehaviour
 
         Use this components 'isActivated' variable, to check the state of the gate
 
-        Light game logic implementation
-        the state of the gate is updated only on lever updates
+        Light-weight game logic implementation
+        the state of the gate is updated only on lever updates (user action)
 
         Functions to execute on opening/closing of gate are labdas
         You can set them using other scripts
@@ -42,7 +42,7 @@ public class logicGate : MonoBehaviour
 
 
     public void updateState(){
-        // Fire Open/Close if all inputs start/stop being correctly set
+    // Run Open/Close if all inputs start/stop being correctly set
         bool allEnabled = true;
         foreach(var l in inputs){
             if( l.isCorrect() == false){
