@@ -3341,6 +3341,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6067630108648867363, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6067630108648867365, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
       propertyPath: m_Size.y
