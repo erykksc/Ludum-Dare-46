@@ -7,10 +7,10 @@ Co robi:
 Utrzymuje kamerę w miejscu jeżeli gracz nie przejdzie pewnej granicy.
 
 Na czym powinien być:
-Graczu/ Player
+Na kamerze
 
 Jakich komponentów wymaga: (np. Rigidbody2D)
-Transform
+Transforma i playera w scenie
 
 Specjalne ustawienia objektu:
 Brak
@@ -18,24 +18,26 @@ Brak
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] Transform followed = null;
+    [SerializeField] Transform followed;
     //Rozmiar pola w którym kamera stoi w miejscu
-    [SerializeField] int size = 3;
+    [SerializeField] int size;
     //Jak szybko kamera dogania gracza
-    [SerializeField] int tightness = 10;
-
-    void Start()
+    [SerializeField] int tightness;
+    void Awake()
     {
-        int count = FindObjectsOfType<Player>().Length;
+        int count = Resources.FindObjectsOfTypeAll<Player>().Length;
         if(count>0)
         {
-            Player player = FindObjectsOfType<Player>()[0];
+            Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
             followed = player.transform;
         }
     }
     void Update()
     {
-        if(followed==null){return;}
+        if(followed==null)
+        {
+            return;
+        }
         Vector3 dir = followed.position-transform.position;
         dir.z = dir.y = 0;
         //dir.y = dir.z = 0;

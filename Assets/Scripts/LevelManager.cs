@@ -1,58 +1,70 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+//Here loading screen can be added
+//Level Manager
+// Co robi:
+//Zarządza przejściami między poziomami
+// Na czym powinien być:
+//Wymaga sprite jako child, który jest loading screenem oraz dodanej referencji do jego sprite renderer
+//Player znajduje ten kompontent by zmienić poziom
 public class LevelManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] GameObject [] levels;
-
-    int activeLevel = 0;
+    static private bool exists = false;
+    [SerializeField] SpriteRenderer loadingScreen;
+    void Awake()
+    {
+        if(exists)
+        {
+            Debug.Log("Destroying");
+            Destroy(gameObject);
+            return;
+        }
+        exists = true;
+        DontDestroyOnLoad(this);
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = false;
+        }
+    }
     void Start()
     {
-        int size = GameObject.FindGameObjectsWithTag("Level").Length;
-        levels = new GameObject[size];
-        for(int i = 0;i<levels.Length;i++)
-        {
-            levels[i] = GameObject.Find("Level"+i.ToString());
-            levels[i].SetActive(false);
-        }
-        levels[0].SetActive(true);
-        activeLevel = 0;
+        
     }
 
-    public void setNextLevel()
+    IEnumerator screenLoading(int index)
     {
-        if(activeLevel>levels.Length-2)
-        {return;}
-        levels[activeLevel].SetActive(false);
-        activeLevel++;
-        levels[activeLevel].SetActive(true);
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = true;
+        }
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(index);
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = false;
+        }
+        yield return null;
     }
-    public void setPrevLevel()
+
+    public void SwitchForth()
     {
-        if(activeLevel<1)
-        {return;}
-        levels[activeLevel].SetActive(false);
-        activeLevel--;
-        levels[activeLevel].SetActive(true);
+        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex+1);
+        StartCoroutine(coroutine);
+
     }
-    public void setLevel(int index)
+    public void SwitchBack()
     {
-        levels[activeLevel].SetActive(false);
-        activeLevel = index;
-        levels[activeLevel].SetActive(true);
+        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex-1);
+        StartCoroutine(coroutine);
+
     }
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            setNextLevel();
-        }
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            setPrevLevel();
-        }
+        
     }
 }
