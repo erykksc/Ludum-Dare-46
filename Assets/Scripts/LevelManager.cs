@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //Here loading screen can be added
+//Level Manager
+//Zarządza przejściami między poziomami
+//Nic nie wymaga, jest zachowany pomiędzy scenami
+//Player znajduje ten kompontent by zmienić poziom
 public class LevelManager : MonoBehaviour
 {
     // Start is called before the first frame update
