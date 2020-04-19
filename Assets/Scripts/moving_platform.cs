@@ -9,6 +9,9 @@ public class moving_platform : Activatable
     [SerializeField]
     private float maxSpeed;
     private Rigidbody2D rb;
+    Vector2 GetDragVector() {
+        return -rb.velocity;
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -17,6 +20,21 @@ public class moving_platform : Activatable
     {
         if (active) {
             rb.AddForce(force);
+        }
+        rb.AddForce(GetDragVector());
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        force = -force;
+        rb.velocity = new Vector2();
+    }
+    /// <summary>
+    /// Callback to draw gizmos that are pickable and always drawn.
+    /// </summary>
+    void OnDrawGizmos()
+    {
+        if (active) {
+            DrawArrow.ForGizmo(transform.position, force);
         }
     }
 }

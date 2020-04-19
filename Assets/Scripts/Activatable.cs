@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Activatable : MonoBehaviour
+public abstract class Activatable : MonoBehaviour
 {
     [SerializeField]
     private bool is_logic_enabled;
-    protected bool active;
+    public bool active;
     [SerializeField, Tooltip("Logic input to use if logic is enabled")]
     private logicGate logicGate_input;
 
@@ -20,7 +20,6 @@ public class Activatable : MonoBehaviour
             active = false;
         }
     }
-
     void Start() {
         if (is_logic_enabled) {
             logicGate_input.openFn = activate;
