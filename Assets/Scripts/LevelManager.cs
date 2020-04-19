@@ -45,7 +45,7 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
-
+        if(index==0) GetComponentInChildren<UI_Handler>().gameObject.GetComponent<Canvas>().enabled = false;
         yield return null;
     }
 
