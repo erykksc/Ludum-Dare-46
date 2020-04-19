@@ -10,17 +10,8 @@ public class logicLever : logicInput
     - rigidbody in player
     - tryingToInteract must be implemented in player
 */
-    override public void onPlayerTouchStart(){
-        Debug.Log("Player Touch start");
-    }
-    override public void onPlayerTouchEnd(){
-        Debug.Log("Player Touch end");
-    }
-
     override public void onInteraction(){
         state = !state;
         updateGate();
     }
-
-
 }

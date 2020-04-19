@@ -10,17 +10,10 @@ public class Kid : Character
     [SerializeField] private bool Grounded;
     [SerializeField] Vector3 offset;
     private GameObject pickUpper;
-
-
-    private void Start() {
-        HP = 1;
-    }
     static bool exists = false;
-    
-    void Awake()
+
+    private void Awake()
     {
-        Gravity = default_gravity;
-        rb = gameObject.GetComponent<Rigidbody2D>();
         if(exists)
         {
             Destroy(gameObject);
@@ -28,6 +21,13 @@ public class Kid : Character
         }
         exists = true;
         DontDestroyOnLoad(this);
+        
+        Gravity = default_gravity;
+        rb = gameObject.GetComponent<Rigidbody2D>();
+    }
+
+    private void Start() {
+        HP = 1;
     }
 
     private void Update() {
@@ -52,5 +52,15 @@ public class Kid : Character
     public void dropOff() {
         pickUpper = null;
         transform.SetParent(null, true);
+        Gravity = default_gravity;
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        Grounded = false;
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        Gravity = default_gravity;
+        Grounded = true;
     }
 }

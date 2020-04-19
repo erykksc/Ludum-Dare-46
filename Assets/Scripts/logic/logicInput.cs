@@ -1,8 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class logicInput : MonoBehaviour
+abstract public class logicInput : MonoBehaviour
 {
 /*
     Base class for all switches (inputs)
@@ -19,6 +19,8 @@ public class logicInput : MonoBehaviour
     virtual public void onAwake(){} // Don't override onAwake(), use this instead
     virtual public void onPlayerTouchStart(){}
     virtual public void onPlayerTouchEnd(){}
+    virtual public void onKidTouchStart(){}
+    virtual public void onKidTouchEnd(){}
     virtual public void onCorrect(){}
     virtual public void onIncorrect(){}
     virtual public void onInteraction(){}
@@ -32,30 +34,40 @@ public class logicInput : MonoBehaviour
     [SerializeField,Tooltip("The maximum distance from the switch to the player")] 
     private float leverPlayerDistance = 1.1f;
     private float sqrLPDist;
-    bool inCollision;
-    Collider2D col;
+    [NonSerialized] public bool inCollisionPlayer;
+    [NonSerialized] public bool inCollisionKid;
+
+    [NonSerialized] public Collider2D collisionPlayer;
+    [NonSerialized] public Collider2D collisionKid;
+
+    [NonSerialized] string kidTag = "Kid";
+    [NonSerialized] string playerTag = "Player";
 
 
 
     private void Update() {
-        if (inCollision){
-            Vector3 playerPos = col.gameObject.transform.position;
-            Vector3 leverPos = transform.position;
+        Vector3 inputPos = transform.position;
+        if (inCollisionPlayer){
+            Vector3 playerPos = collisionPlayer.gameObject.transform.position;
 
             // Nasty hack
-            if(Vector3.SqrMagnitude(playerPos - leverPos) > sqrLPDist){
+            if(Vector3.SqrMagnitude(playerPos - inputPos) > sqrLPDist){
+                inCollisionPlayer = false;
                 onPlayerTouchEnd();
-                inCollision = false;
                 return;
             }
-            try2Interact(col);
+            try2Interact(collisionPlayer);
         }
-    }
 
-    void Awake()
-    {
-        sqrLPDist = leverPlayerDistance * leverPlayerDistance;
-        onAwake();
+        if(inCollisionKid){
+            Vector3 kidPos = collisionKid.gameObject.transform.position;
+            
+            if(Vector3.SqrMagnitude(kidPos - inputPos) > sqrLPDist){
+                inCollisionKid = false;
+                onKidTouchEnd();
+                return;
+            }
+        }
     }
 
     public bool isCorrect(){
@@ -71,16 +83,9 @@ public class logicInput : MonoBehaviour
             onIncorrect();
     }
 
-    bool isTryingToInteract(Collider2D collider){
-    // Check if player is trying to interact
-        if (hasColliderTag("Player", collider))
-            return collider.gameObject.GetComponent<Player>().tryingToInteract;
-        return false;
-    }
-
     void try2Interact(Collider2D other){
-        inCollision = true;
-        bool interact = isTryingToInteract(other);
+        inCollisionPlayer = true;
+        bool interact = isPlayerTryingToInteract(other);
         if(interact){
             flipSwitch();
             var player = other.gameObject.GetComponent<Player>();
@@ -89,16 +94,39 @@ public class logicInput : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        col = other;
-        onPlayerTouchStart();
+        string tag = other.gameObject.tag;
+        if(tag == kidTag){
+            collisionKid = other;
+            inCollisionKid = true;
+            onKidTouchStart();
+        }
+        if(tag == playerTag){
+            collisionPlayer = other;
+            inCollisionPlayer = true;
+            onPlayerTouchStart();
+        }
         try2Interact(other);
     }
  
-    bool hasColliderTag(string tag, Collider2D collider){
+    public bool hasColliderTag(string tag, Collider2D collider){
         return collider.gameObject.tag == tag ? true : false;
     }
-
+    
+    public virtual bool isPlayerTryingToInteract(Collider2D collider){
+        // Check if player is trying to interact
+        string tag = collider.gameObject.tag;
+        if (tag == playerTag)
+            return collider.gameObject.GetComponent<Player>().tryingToInteract;
+        return false;
+    }
+    
     public void updateGate(){
         gate.updateState();
+    }
+
+    void Awake()
+    {
+        sqrLPDist = leverPlayerDistance * leverPlayerDistance;
+        onAwake();
     }
 }
