@@ -3204,6 +3204,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kid
       objectReference: {fileID: 0}
+    - target: {fileID: 3919740131500129001, guid: 76ec6aebffda9554d85d73cf2d964d4d,
+        type: 3}
+      propertyPath: offset.y
+      value: -1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3919740131500129002, guid: 76ec6aebffda9554d85d73cf2d964d4d,
         type: 3}
       propertyPath: m_Enabled
