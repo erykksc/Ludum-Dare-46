@@ -420,10 +420,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 766320114007253807, guid: 1aef6b88d8ea073c88af95d91d287dbe,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 766320114007253808, guid: 1aef6b88d8ea073c88af95d91d287dbe,
         type: 3}
       propertyPath: damage
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 766320114007253809, guid: 1aef6b88d8ea073c88af95d91d287dbe,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.026437238
+      objectReference: {fileID: 0}
+    - target: {fileID: 766320114007253809, guid: 1aef6b88d8ea073c88af95d91d287dbe,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.084472686
       objectReference: {fileID: 0}
     - target: {fileID: 766320114007253813, guid: 1aef6b88d8ea073c88af95d91d287dbe,
         type: 3}
@@ -3292,12 +3307,12 @@ PrefabInstance:
     - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.15990496
+      value: 0.20371056
       objectReference: {fileID: 0}
     - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
       propertyPath: m_Offset.x
-      value: -0.27363038
+      value: -0.33933878
       objectReference: {fileID: 0}
     - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
