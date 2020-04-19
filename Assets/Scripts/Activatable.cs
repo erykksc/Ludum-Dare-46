@@ -21,10 +21,37 @@ using UnityEngine;
 
 public abstract class Activatable : MonoBehaviour
 {
-    public bool active;
+    [SerializeField] public bool Use_logic;
+    [SerializeField, Tooltip("Only active when does not use logic")]
+    private bool _active;
+    public bool active {
+        get => _active;
+        set {
+            if (value != active) {
+                if (value) {
+                    activate();
+                    _active = true;
+                }
+                else {
+                    de_activate();
+                    _active = false;
+                }
+            }
+        }
+    }
+    void Start() {
+        if (!Use_logic) {
+            if (_active) {
+                activate();
+            }
+            else {
+                de_activate();
+            }
+        }
+    }
 
     //Override me
 
-    virtual public void activate(){}
+    virtual public void activate() {}
     virtual public void de_activate() {}
 }
