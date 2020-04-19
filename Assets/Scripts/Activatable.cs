@@ -9,10 +9,6 @@
                 Czy korzysta z logiki
             - active
                 Czy jest aktywne (nadpisywane logiką jeśli jest aktywna)
-            - logicGate_input
-                wejście logiki jeśli jest ona aktywna
-        
-    
 */
 
 using System.Collections;
@@ -22,7 +18,7 @@ using UnityEngine;
 public abstract class Activatable : MonoBehaviour
 {
     [SerializeField] public bool Use_logic;
-    [SerializeField, Tooltip("Only active when does not use logic")]
+    [SerializeField, Tooltip("Only active when does not use logic; Only activates on startup")]
     private bool _active;
     public bool active {
         get => _active;
