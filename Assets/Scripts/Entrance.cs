@@ -28,11 +28,11 @@ public class Entrance : MonoBehaviour
             Debug.Log("Success");
             if(lManager!=null)
             {
-                if(SceneManager.GetActiveScene().buildIndex==1)
+                //if(SceneManager.GetActiveScene().buildIndex==1)
                 {
-                    return;
+                //    return;
                 }
-                lManager.SwitchBack();
+                //lManager.SwitchBack();
             }
         }
     }
