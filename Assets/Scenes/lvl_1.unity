@@ -420,10 +420,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 766320114007253807, guid: 1aef6b88d8ea073c88af95d91d287dbe,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 766320114007253808, guid: 1aef6b88d8ea073c88af95d91d287dbe,
         type: 3}
       propertyPath: damage
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 766320114007253809, guid: 1aef6b88d8ea073c88af95d91d287dbe,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.026437238
+      objectReference: {fileID: 0}
+    - target: {fileID: 766320114007253809, guid: 1aef6b88d8ea073c88af95d91d287dbe,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.084472686
       objectReference: {fileID: 0}
     - target: {fileID: 766320114007253813, guid: 1aef6b88d8ea073c88af95d91d287dbe,
         type: 3}
@@ -3017,7 +3032,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: cc8478cc5b77b964181094ef8d5424d1, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3025,7 +3040,7 @@ SpriteRenderer:
   m_Size: {x: 1.1111112, y: 1.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1452388739
@@ -3168,6 +3183,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7445088318238901396, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.076541185
+      objectReference: {fileID: 0}
+    - target: {fileID: -7445088318238901396, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.3399999
+      objectReference: {fileID: 0}
+    - target: {fileID: -7445088318238901396, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.81307554
+      objectReference: {fileID: 0}
     - target: {fileID: 2016855935901219226, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
       propertyPath: m_Sprite
@@ -3183,6 +3213,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067630108648867364, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: SpeedBezPrzedmiotu
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067630108648867364, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: SpeedZPrzedmiotem
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6067630108648867365, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
@@ -3262,12 +3302,22 @@ PrefabInstance:
     - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.3
+      value: 0.06636989
       objectReference: {fileID: 0}
     - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.89
+      value: 0.20371056
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.33933878
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.5376112
       objectReference: {fileID: 0}
     - target: {fileID: 6067630109460343767, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
