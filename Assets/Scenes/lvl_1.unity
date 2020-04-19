@@ -575,6 +575,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 766320114007253807, guid: 1aef6b88d8ea073c88af95d91d287dbe,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 766320114007253808, guid: 1aef6b88d8ea073c88af95d91d287dbe,
         type: 3}
       propertyPath: damage
@@ -3397,7 +3402,7 @@ Transform:
   m_Children:
   - {fileID: 796447459}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1027323844239281141
 PrefabInstance:
@@ -3480,6 +3485,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7445088318238901396, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.07274747
+      objectReference: {fileID: 0}
+    - target: {fileID: -7445088318238901396, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.29469872
+      objectReference: {fileID: 0}
+    - target: {fileID: -7445088318238901396, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.7831569
+      objectReference: {fileID: 0}
+    - target: {fileID: -7445088318238901396, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3.3093977
+      objectReference: {fileID: 0}
     - target: {fileID: 2016855935901219226, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
       propertyPath: m_Sprite
@@ -3500,6 +3525,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067630108648867364, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: SpeedBezPrzedmiotu
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067630108648867364, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: SpeedZPrzedmiotem
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6067630108648867365, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
@@ -3579,12 +3614,22 @@ PrefabInstance:
     - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.3
+      value: 0.018220305
       objectReference: {fileID: 0}
     - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.89
+      value: 0.7450361
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.3299284
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067630109460343752, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.34530115
       objectReference: {fileID: 0}
     - target: {fileID: 6067630109460343767, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}
