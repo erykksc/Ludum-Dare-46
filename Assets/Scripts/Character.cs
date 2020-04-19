@@ -13,12 +13,12 @@ public class Character : MonoBehaviour
 
     // Return true if killed
     public bool dealDamage( int damage ){ 
-        if( (HP - damage ) <= 0 ){
+        HP -= damage;
+        if(HP <= 0 ){
+            
             Destroy( gameObject, 0.1f );
             return true;
         }
-        HP -= damage;
-
         return false;
 
      }
