@@ -52,7 +52,10 @@ public class SimpleEnemy : Character
     }
     void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "Kid") {
-            other.gameObject.GetComponent<Character>().HP -= HP;
+            other.gameObject.GetComponent<Character>().HP -= damage;
+
+            GameObject.Find("LevelManager").GetComponentInChildren<UI_Handler>().SetHealthBar(other.gameObject.GetComponent<Character>().HP);
+            Debug.Log("damaging"+ other.gameObject.GetComponent<Character>().HP);
         }
     }
 }
