@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class convayerBelt : Activatable
+public class convayorBelt : Activatable
 {
     public float xSpeed;
     private float topHeight;
