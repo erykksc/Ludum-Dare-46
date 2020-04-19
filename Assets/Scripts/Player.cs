@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
     public Rigidbody2D rb;
+    public Animator animator;
     [Header("general parameters")]
     [SerializeField] private float SpeedBezPrzedmiotu = 1.0f;
     [SerializeField] private float SpeedZPrzedmiotem = 0.5f;
@@ -27,23 +27,16 @@ public class Player : Character
     [Header("current state")]
     [SerializeField] private bool Grounded;
     [SerializeField] private bool CanDoubleJump;
-    [SerializeField] private bool canSwitchLevels = true;
 
-    static bool exists = false;
     private float lastPickUpTime;
     private GameObject baby;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if(exists)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        exists = true;
-        DontDestroyOnLoad(this);
         rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
+
         rb.freezeRotation = true;
         rb.mass = Masa;
         Gravity = default_gravity;
@@ -63,12 +56,17 @@ public class Player : Character
 
     private void Update()
     {
+        animator.SetBool("Grounded", Grounded);
+        animator.SetBool("BabyInHand", BabyInHand());
 
+        //When on ground and W pressed - jump
         if (Grounded && Input.GetKeyDown("w"))
         {
             rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
             CanDoubleJump = true;
         }
+
+        //When in air and W pressed - double jump
         else if (!Grounded && Input.GetKeyDown("w") && CanDoubleJump)
         {
             Vector2 temp = new Vector2(rb.velocity.x, 0);
@@ -77,10 +75,14 @@ public class Player : Character
             Gravity = default_gravity;
             CanDoubleJump = false;
         }
+
+        animator.SetFloat("vertical_velocity",rb.velocity.y);
     }
 
     void FixedUpdate()
     {
+
+        //change parameters if baby is held
         if (BabyInHand() == true) //sprawdzanie czy ma dziecko w lapie
         {
             Speed = SpeedZPrzedmiotem;
@@ -111,6 +113,9 @@ public class Player : Character
             rb.AddForce(new Vector2(-Speed, 0));
         }
 
+        animator.SetFloat("horizontal_velocity", rb.velocity.x); 
+
+
         //Gravity increase
         if (!Grounded)
         {
@@ -119,55 +124,38 @@ public class Player : Character
 
         rb.AddForce(new Vector2(0, -Gravity));
 
+
+        //drop baby
         if (Input.GetKey("e") && BabyInHand())
         {
             if (Time.time - lastPickUpTime > 0.5f)
             {
                 Debug.Log("drop off");
+
+                //baby becomes a seprate object -enable colliders and sprite showing
+                foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
+                {
+                    col.enabled = true;
+                }
+                baby.GetComponent<SpriteRenderer>().enabled = true;
+                animator.SetTrigger("drop_baby");
                 baby.GetComponent<Kid>().dropOff();
                 baby = null;
                 lastPickUpTime = Time.time;
             }
         }
     }
-    void ClearState()
-    {
-        transform.position = new Vector3(0,0,0);
-        canSwitchLevels = false;
-        CanDoubleJump = false;
-        Grounded = false;
-        CanDoubleJump = false;
-        rb.velocity = new Vector2(0,0);
-    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Gravity = default_gravity;
         Grounded = true;
         CanDoubleJump = false;
-        if(collision.gameObject.CompareTag("Trigger_NEXT"))
-        {
-            if(!BabyInHand())
-            {
-                return;
-            }
-
-            ClearState();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
-        }
-        if(collision.gameObject.CompareTag("Trigger_PREVIOUS"))
-        {
-            if(!BabyInHand())
-            {
-                return;
-            }
-            if(SceneManager.GetActiveScene().buildIndex==1){return;}
-
-            ClearState();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
-        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
+
+        //pick-up baby
         if (collision.gameObject.tag == "Kid")
         {
             if (Input.GetKey("e") && !BabyInHand())
@@ -175,8 +163,16 @@ public class Player : Character
                 if (Time.time - lastPickUpTime > 0.5f)
                 {
                     Debug.Log("pick up");
+                    animator.SetTrigger("pickup_baby");
                     collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
                     baby = collision.gameObject;
+
+                    //disable colliders to remove collisions with big mama and hide sprite renderer
+                    foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
+                    {
+                        col.enabled = false;
+                    }
+                    baby.GetComponent<SpriteRenderer>().enabled = false;
                     lastPickUpTime = Time.time;
                 }
             }
@@ -187,6 +183,5 @@ public class Player : Character
     {
         Grounded = false;
         CanDoubleJump = true;
-        canSwitchLevels = true;
     }
 }
