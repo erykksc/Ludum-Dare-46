@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 // Co robi:
 //Zarządza przejściami między poziomami
 // Na czym powinien być:
-//Wymaga sprite jako child, który jest loading screenem
+//Wymaga sprite jako child, który jest loading screenem oraz dodanej referencji do jego sprite renderer
 //Player znajduje ten kompontent by zmienić poziom
 public class LevelManager : MonoBehaviour
 {
