@@ -21,10 +21,14 @@ using UnityEngine;
 
 public abstract class Activatable : MonoBehaviour
 {
-    public bool active;
+    public bool active = true;
 
     //Override me
 
-    virtual public void activate(){}
-    virtual public void de_activate() {}
+    virtual public void activate(){
+        active = true;
+    }
+    virtual public void de_activate() {
+        active = false;
+    }
 }
