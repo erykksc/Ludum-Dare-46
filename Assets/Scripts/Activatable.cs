@@ -22,6 +22,7 @@ public abstract class Activatable : MonoBehaviour
     }
     void Start() {
         if (is_logic_enabled) {
+            active = false;
             logicGate_input.openFn = activate;
             logicGate_input.closeFn = de_activate;
         }
