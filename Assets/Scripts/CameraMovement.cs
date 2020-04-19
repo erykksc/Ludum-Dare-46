@@ -18,24 +18,13 @@ Brak
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] Transform followed = null;
+    [SerializeField] Transform followed;
     //Rozmiar pola w którym kamera stoi w miejscu
-    [SerializeField] int size = 3;
+    [SerializeField] int size;
     //Jak szybko kamera dogania gracza
-    [SerializeField] int tightness = 10;
-
-    void Start()
-    {
-        int count = FindObjectsOfType<Player>().Length;
-        if(count>0)
-        {
-            Player player = FindObjectsOfType<Player>()[0];
-            followed = player.transform;
-        }
-    }
+    [SerializeField] int tightness;
     void Update()
     {
-        if(followed==null){return;}
         Vector3 dir = followed.position-transform.position;
         dir.z = dir.y = 0;
         //dir.y = dir.z = 0;
