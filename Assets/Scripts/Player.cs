@@ -32,7 +32,8 @@ public class Player : Character
     [SerializeField] private bool CanDoubleJump;
     [SerializeField] private bool canSwitchLevels = true;
 
-    [SerializeField] public bool clearedLevel = false;
+    [SerializeField] public bool clearedLevel = true;
+    //Should be false
 
     static bool exists = false;
     private float lastPickUpTime;
@@ -153,7 +154,7 @@ public class Player : Character
         Gravity = default_gravity;
         Grounded = true;
         CanDoubleJump = false;
-        if(collision.gameObject.CompareTag("Trigger_NEXT")&&clearedLevel)
+        if(collision.gameObject.CompareTag("Trigger_NEXT"))
         {
             if(!BabyInHand())
             {
