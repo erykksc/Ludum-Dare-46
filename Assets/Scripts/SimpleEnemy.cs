@@ -38,19 +38,15 @@ public class SimpleEnemy : Damaging
     }
 
 
-
+    void OnDrawGizmos()
+    {
+        DrawArrow.ForGizmo(transform.position, Force);
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         // Stop self and reverse direction
         Force.x = -Force.x;
         CheckAndDamage(other.gameObject);
     }
-    void OnDrawGizmos()
-    {
-        DrawArrow.ForGizmo(transform.position, Force);
-    }
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        CheckAndDamage(other.gameObject);
-    }
+
 }
