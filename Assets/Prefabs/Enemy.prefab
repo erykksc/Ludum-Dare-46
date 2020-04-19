@@ -72,7 +72,7 @@ MonoBehaviour:
   HP: 10
   Force: {x: 10, y: 0}
   maxSpeed: 1
-  damage: 0
+  damage: 1
 --- !u!61 &766320114007253809
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -87,6 +87,7 @@ MonoBehaviour:
   Gravity: 20
   Grounded: 0
   CanDoubleJump: 0
+  canSwitchLevels: 1
 --- !u!70 &6067630108648867365
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
