@@ -34,7 +34,6 @@ public class Player : Character
 
     private float lastPickUpTime;
     private GameObject baby;
-    [SerializeField] private bool canSwitchLevels = true;
 
     public bool tryingToInteract = false;
 
@@ -171,9 +170,8 @@ public class Player : Character
         
     }
 
-    void ClearState()
+    public void ClearState()
     {
-        canSwitchLevels = false;
         CanDoubleJump = false;
         Grounded = false;
         CanDoubleJump = false;
@@ -187,35 +185,6 @@ public class Player : Character
             Gravity = default_gravity;
             Grounded = true;
             CanDoubleJump = false;
-        }
-
-        if(collision.gameObject.CompareTag("Trigger_NEXT")&&canSwitchLevels)
-        {
-            if(!BabyInHand())
-            {
-                return;
-            }
-            ClearState();
-            if(lManager==null)
-            {
-                Debug.Log("Manager not found");
-                return;
-            }
-            lManager.SwitchForth();
-        }
-        if(collision.gameObject.CompareTag("Trigger_PREVIOUS") && canSwitchLevels)
-        {
-            if(!BabyInHand())
-            {
-                return;
-            }
-            ClearState();
-            if(lManager==null)
-            {
-                Debug.Log("Manager not found");
-                return;
-            }
-            lManager.SwitchBack();
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -252,6 +221,5 @@ public class Player : Character
             Grounded = false;
             CanDoubleJump = true;
         }
-        canSwitchLevels = true;
     }
 }

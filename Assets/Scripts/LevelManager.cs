@@ -35,75 +35,81 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
-
-    private Transform GetPlayerObject()
+    void SetPlayerPosition(Vector2 pos)
     {
         int count = Resources.FindObjectsOfTypeAll<Player>().Length;
-        if (count > 0)
+        if(count>0)
         {
             Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
-            Debug.Log("player found");
-            return player.transform;
-            
+            player.ClearState();
+            player.transform.position = pos;
         }
-        else return null;
     }
-
-    private void SetPlayerPosition()
+    Vector2 GetEntrancePos()
     {
-        Transform warp_destination= null;
-        //If going to previous level
-        if (scene_shift ==-1)
+        int count = Resources.FindObjectsOfTypeAll<Entrance>().Length;
+        if(count>0)
         {
-            Debug.Log("spawning at next");
-            warp_destination = GameObject.FindGameObjectWithTag("Trigger_NEXT").transform; 
-            GetPlayerObject().transform.position= 
-                warp_destination.GetComponent<Rigidbody2D>().worldCenterOfMass;
-            
+            return Resources.FindObjectsOfTypeAll<Entrance>()[0].transform.position;
         }
-
-        //If going to next level
-        else if (scene_shift ==1)
-        {
-            Debug.Log("spawning at previous");
-            GameObject.FindGameObjectWithTag("Trigger_PREVIOUS");
-            GetPlayerObject().transform.position = new Vector2(0, 0);
-               // warp_destination.GetComponent<Rigidbody2D>().worldCenterOfMass;
-           
-        }
-        Debug.Log("position set");
+        return new Vector2(0,0);
     }
-    
+    Vector2 GetExitPos()
+    {
+        int count = Resources.FindObjectsOfTypeAll<Exit>().Length;
+        if(count>0)
+        {
+            return Resources.FindObjectsOfTypeAll<Exit>()[0].transform.position;
+        }
+        return new Vector2(0,0);
+    }
 
-
-    IEnumerator screenLoading(int index)
+    IEnumerator screenLoadingForth()
     {
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = true;
         }
-        yield return new WaitForSeconds(1f);
+        int index = SceneManager.GetActiveScene().buildIndex+1;
         SceneManager.LoadScene(index);
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = false;
         }
-        SetPlayerPosition();
+
+        yield return new WaitForSeconds(1f);
+        Debug.Log(GetEntrancePos());
+        SetPlayerPosition(GetEntrancePos());
+        yield return null;
+    }
+    IEnumerator screenLoadingBack()
+    {
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = true;
+        }
+        int index = SceneManager.GetActiveScene().buildIndex-1;
+        SceneManager.LoadScene(index);
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = false;
+        }
+
+        yield return new WaitForSeconds(1f);
+        Debug.Log(GetExitPos());
+        SetPlayerPosition(GetExitPos());
         yield return null;
     }
 
     public void SwitchForth()
     {
-        scene_shift=1;
-        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex+1);
+        IEnumerator coroutine = screenLoadingForth();
         StartCoroutine(coroutine);
 
     }
     public void SwitchBack()
     {
-        scene_shift = -1;
-        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex-1);
+        IEnumerator coroutine = screenLoadingBack();
         StartCoroutine(coroutine);
 
     }
