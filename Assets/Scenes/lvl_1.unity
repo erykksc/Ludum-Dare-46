@@ -773,6 +773,11 @@ PrefabInstance:
       propertyPath: damage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 766320114007253808, guid: 1aef6b88d8ea073c88af95d91d287dbe,
+        type: 3}
+      propertyPath: knockback_strength
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 766320114007253813, guid: 1aef6b88d8ea073c88af95d91d287dbe,
         type: 3}
       propertyPath: m_LocalPosition.x
