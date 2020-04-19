@@ -1,7 +1,8 @@
 ﻿/*
 LeaderBoardHandler:
     - Co robi:
-        - Na początku rozpoczyna odliczanie czasu
+        - this.StartTimer() rozpoczyna odliczanie czasu
+        - this.GetCurrentTime() zwraca string mm:ss,f
         - this.StopTime() zatrzymuje odliczanie czasu
         - uploaduje za pomocą RestSharp czas do tablicy wyników
         i zwraca miejsce w rankingu (UploadTime_and_get_place(username))
@@ -21,13 +22,13 @@ public class LeaderBoardHandler : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private string LevelName;
+    public string LevelName;
     private System.DateTime startTime;
     private System.DateTime stopTime;
     private RestClient client = new RestClient("http://grzegorzkoperwas.site:5000");
 
     // Starts timer on class load
-    void Start()
+    public void StartTimer()
     {
         startTime = System.DateTime.Now;
     }
@@ -41,6 +42,11 @@ public class LeaderBoardHandler : MonoBehaviour
     public string GetFinalTimeISO() {
         var diff = stopTime.Subtract(startTime);
         return diff.ToString(@"hh\:mm\:ss");
+    }
+    public string GetCurrentTime() {
+        var currentTime = System.DateTime.Now;
+        var diff = currentTime.Subtract(startTime);
+        return diff.ToString(@"mm\:ss\,f");
     }
 
     // Uploads time to server under (username) and returns place in ranking

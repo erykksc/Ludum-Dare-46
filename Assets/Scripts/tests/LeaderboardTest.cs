@@ -26,11 +26,15 @@ public class LeaderboardTest : MonoBehaviour
     private int i = 0;
     [SerializeField]
     private int limit;
+    void Start() {
+        testable = GetComponent<LeaderBoardHandler>();
+        testable.StartTimer();
+    }
     void FixedUpdate()
     {
+        Debug.Log(testable.GetCurrentTime());
         if (limit == i) {
             // Przykładowy call do wysłania wyniku
-            testable = GetComponent<LeaderBoardHandler>();
             // Na koniec zatrzymaj czas
             testable.StopTime();
             // poproś gracza o nick, wyślij czas
