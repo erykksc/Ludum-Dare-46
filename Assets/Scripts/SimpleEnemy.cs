@@ -41,18 +41,26 @@ public class SimpleEnemy : Character
     /// collider (2D physics only).
     /// </summary>
     /// <param name="other">The Collision2D data associated with this collision.</param>
+
+
+    private void CheckAndDamage(GameObject collisionObject)
+    {
+        if (collisionObject.tag == "Player" || collisionObject.tag == "Kid") {
+            collisionObject.GetComponent<Character>().dealDamage(damage);
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         // Stop self and reverse direction
         Force.x = - Force.x;
+        CheckAndDamage(other.gameObject);
     }
     void OnDrawGizmos()
     {
         DrawArrow.ForGizmo(transform.position, Force);
     }
     void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Kid") {
-            other.gameObject.GetComponent<Character>().HP -= HP;
-        }
+        CheckAndDamage(other.gameObject);
     }
 }
