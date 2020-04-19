@@ -15,19 +15,20 @@ public class Kid : Character
     private void Start() {
         HP = 1;
     }
-    static bool exists = false;
+    //static bool exists = false;
     
     void Awake()
     {
         Gravity = default_gravity;
         rb = gameObject.GetComponent<Rigidbody2D>();
-        if(exists)
+        /*if(exists)
         {
             Destroy(gameObject);
             return;
         }
-        exists = true;
+        exists = true;*/
         DontDestroyOnLoad(this);
+        gameObject.SetActive(false);
     }
 
     private void Update() {

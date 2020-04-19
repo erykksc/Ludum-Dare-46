@@ -26,11 +26,22 @@ public class CameraMovement : MonoBehaviour
 
     void Start()
     {
-        int count = FindObjectsOfType<Player>().Length;
+        int count = Resources.FindObjectsOfTypeAll<Player>().Length;
         if(count>0)
         {
-            Player player = FindObjectsOfType<Player>()[0];
+            Debug.Log("Setting up player");
+            Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
+            player.transform.position = new Vector3(0,0,0);
+            player.gameObject.SetActive(true);
             followed = player.transform;
+        }
+        count = Resources.FindObjectsOfTypeAll<Kid>().Length;
+        if(count>0)
+        {
+            Debug.Log("Setting up kid");
+            Kid kid = Resources.FindObjectsOfTypeAll<Kid>()[0];
+            kid.transform.position = new Vector3(0,1,0);
+            kid.gameObject.SetActive(true);
         }
     }
     void Update()

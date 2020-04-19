@@ -29,24 +29,26 @@ public class Player : Character
     [SerializeField] private bool CanDoubleJump;
     [SerializeField] private bool canSwitchLevels = true;
 
-    static bool exists = false;
+    //static bool exists = false;
     private float lastPickUpTime;
     private GameObject baby;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if(exists)
+        /*if(exists)
         {
             Destroy(gameObject);
             return;
         }
-        exists = true;
+        exists = true;*/
         DontDestroyOnLoad(this);
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
         rb.mass = Masa;
         Gravity = default_gravity;
+        transform.position += new Vector3(0,0,0);
+        gameObject.SetActive(false);
     }
 
     private bool BabyInHand()
