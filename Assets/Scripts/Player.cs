@@ -17,6 +17,9 @@ public class Player : Character
     [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
+    public bool tryingToInteract = false;
+
+
     [Header("current parameters")]
 
     [SerializeField] private float Jump;
@@ -35,7 +38,6 @@ public class Player : Character
     private float lastPickUpTime;
     private GameObject baby;
 
-    // Start is called before the first frame update
     void Awake()
     {
         if(exists)
@@ -131,6 +133,10 @@ public class Player : Character
                 lastPickUpTime = Time.time;
             }
         }
+
+        if(Input.GetKeyDown("i")) tryingToInteract = true;
+        if(Input.GetKeyUp("i")) tryingToInteract = false;
+        
     }
     void ClearState()
     {
