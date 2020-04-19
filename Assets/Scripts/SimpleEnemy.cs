@@ -19,13 +19,12 @@ using UnityEngine;
 
 public class SimpleEnemy : Character
 {
-    [SerializeField]
-    private Vector2 Force;
-    [SerializeField]
-    private float maxSpeed;
-    private Rigidbody2D rigidbody;
-    [SerializeField]
-    private int damage;
+    [SerializeField] private Vector2 Force;
+    
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private Rigidbody2D rigidbody;
+    
+    [SerializeField] private int damage;
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();    
     }
@@ -52,7 +51,7 @@ public class SimpleEnemy : Character
     }
     void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "Kid") {
-            other.gameObject.GetComponent<Character>().HP -= HP;
+            other.gameObject.GetComponent<Character>().dealDamage(damage);
         }
     }
 }
