@@ -72,16 +72,18 @@ public class LevelManager : MonoBehaviour
         }
         int index = SceneManager.GetActiveScene().buildIndex+1;
         SceneManager.LoadScene(index);
+        Debug.Log("Inside");
 
         yield return new WaitForSeconds(0.5f);
         float t1 = Time.time;
-        while(SceneManager.GetActiveScene().buildIndex!=index)
+        //while(SceneManager.GetActiveScene().buildIndex!=index)
         {
-            if(Time.time-t1>5f)
+        //    if(Time.time-t1>5f)
             {
-                break;
+        //        break;
             }
         }
+        Debug.Log("ShouldWork");
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = false;
@@ -100,11 +102,11 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(index);
         yield return new WaitForSeconds(0.5f);
         float t1 = Time.time;
-        while(SceneManager.GetActiveScene().buildIndex!=index)
+        //while(SceneManager.GetActiveScene().buildIndex!=index)
         {
-            if(Time.time-t1>5f)
+        //    if(Time.time-t1>5f)
             {
-                break;
+        //        break;
             }
         }
         if(loadingScreen!=null)

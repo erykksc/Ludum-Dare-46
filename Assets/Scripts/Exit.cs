@@ -9,21 +9,21 @@ public class Exit : MonoBehaviour
     float age;
     void Start()
     {
-        int count = Resources.FindObjectsOfTypeAll<LevelManager>().Length;
-        if(count>0)
-        {
-            lManager = Resources.FindObjectsOfTypeAll<LevelManager>()[0];
-        }
         age = Time.time;
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(Time.time-age<1)
+        if(Time.time-age<2)
         {
             return;
         }
         if(collider.gameObject.tag=="Player")
         {
+            int count = Resources.FindObjectsOfTypeAll<LevelManager>().Length;
+            if(count>0)
+            {
+                lManager = Resources.FindObjectsOfTypeAll<LevelManager>()[0];
+            }
             Debug.Log("Success");
             if(lManager!=null)
             {
