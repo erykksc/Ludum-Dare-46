@@ -30,13 +30,16 @@ public class logicGate : MonoBehaviour
     void Open(){
         isActivated = true;
         openFn();
+        target.activate();
     }
 
     void Close(){
         isActivated = false;
         closeFn();
+        target.de_activate();
     }
 
+    public Activatable target;
 
     public logicInput[] inputs;
 
@@ -69,5 +72,4 @@ public class logicGate : MonoBehaviour
     {
         updateState();
     }
-
 }
