@@ -1,58 +1,46 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+//Here loading screen can be added
+//Level Manager
+// Co robi:
+//Zarządza przejściami między poziomami
+// Na czym powinien być:
+//Nic nie wymaga, jest zachowany pomiędzy scenami
+//Player znajduje ten kompontent by zmienić poziom
 public class LevelManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] GameObject [] levels;
-
-    int activeLevel = 0;
+    static private bool exists = false;
+    void Awake()
+    {
+        if(exists)
+        {
+            Debug.Log("Destroying");
+            Destroy(gameObject);
+            return;
+        }
+        exists = true;
+        DontDestroyOnLoad(this);
+    }
     void Start()
     {
-        int size = GameObject.FindGameObjectsWithTag("Level").Length;
-        levels = new GameObject[size];
-        for(int i = 0;i<levels.Length;i++)
-        {
-            levels[i] = GameObject.Find("Level"+i.ToString());
-            levels[i].SetActive(false);
-        }
-        levels[0].SetActive(true);
-        activeLevel = 0;
+        
     }
 
-    public void setNextLevel()
+    public void SwitchForth()
     {
-        if(activeLevel>levels.Length-2)
-        {return;}
-        levels[activeLevel].SetActive(false);
-        activeLevel++;
-        levels[activeLevel].SetActive(true);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex+1);
     }
-    public void setPrevLevel()
+    public void SwitchBack()
     {
-        if(activeLevel<1)
-        {return;}
-        levels[activeLevel].SetActive(false);
-        activeLevel--;
-        levels[activeLevel].SetActive(true);
-    }
-    public void setLevel(int index)
-    {
-        levels[activeLevel].SetActive(false);
-        activeLevel = index;
-        levels[activeLevel].SetActive(true);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex-1);
     }
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            setNextLevel();
-        }
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            setPrevLevel();
-        }
+        
     }
 }
