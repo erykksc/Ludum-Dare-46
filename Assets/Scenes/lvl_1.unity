@@ -397,6 +397,7 @@ MonoBehaviour:
   followed: {fileID: 392823115}
   size: 3
   tightness: 10
+  spawn_coordinates: {x: 0, y: 0}
 --- !u!4 &392823115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6067630108648867545, guid: e8163cf7c12ae93408a7fe3ded78410f,
@@ -3229,6 +3230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1452388738}
+  previous_scene_index: 0
 --- !u!4 &2096562993
 Transform:
   m_ObjectHideFlags: 0
@@ -3345,6 +3347,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067630108648867364, guid: e8163cf7c12ae93408a7fe3ded78410f,
+        type: 3}
+      propertyPath: SpeedZPrzedmiotem
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6067630108648867365, guid: e8163cf7c12ae93408a7fe3ded78410f,
         type: 3}

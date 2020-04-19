@@ -173,7 +173,6 @@ public class Player : Character
 
     void ClearState()
     {
-        transform.position = new Vector3(0,0,0);
         canSwitchLevels = false;
         CanDoubleJump = false;
         Grounded = false;
@@ -190,7 +189,7 @@ public class Player : Character
             CanDoubleJump = false;
         }
 
-        if(collision.gameObject.CompareTag("Trigger_NEXT"))
+        if(collision.gameObject.CompareTag("Trigger_NEXT")&&canSwitchLevels)
         {
             if(!BabyInHand())
             {
@@ -204,7 +203,7 @@ public class Player : Character
             }
             lManager.SwitchForth();
         }
-        if(collision.gameObject.CompareTag("Trigger_PREVIOUS"))
+        if(collision.gameObject.CompareTag("Trigger_PREVIOUS") && canSwitchLevels)
         {
             if(!BabyInHand())
             {
