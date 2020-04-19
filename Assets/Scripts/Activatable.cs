@@ -28,7 +28,7 @@ public abstract class Activatable : MonoBehaviour
     virtual public void activate(){
         active = true;
     }
-    virtual public void de_activate() {
+    virtual public void de_activate(){
         active = false;
     }
 }
