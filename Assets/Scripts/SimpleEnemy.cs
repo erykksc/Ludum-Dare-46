@@ -19,10 +19,13 @@ using UnityEngine;
 
 public class SimpleEnemy : Character
 {
-    [SerializeField] private Vector2 Force;
-    [SerializeField] private float maxSpeed;
-    [SerializeField] private Rigidbody2D rigidbody;
-    [SerializeField] private int damage;
+    [SerializeField]
+    private Vector2 Force;
+    [SerializeField]
+    private float maxSpeed;
+    private Rigidbody2D rigidbody;
+    [SerializeField]
+    private int damage;
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();    
     }
@@ -38,19 +41,8 @@ public class SimpleEnemy : Character
     /// collider (2D physics only).
     /// </summary>
     /// <param name="other">The Collision2D data associated with this collision.</param>
-
-    private void checkAndDealDamage(GameObject collisionObject)
-    {
-        Debug.Log("Tag: " +  collisionObject.tag);
-        if (collisionObject.tag == "Player" || collisionObject.tag == "Kid") {
-            Debug.Log("Damaging Tag: " + collisionObject.name);
-            collisionObject.GetComponent<Character>().dealDamage(damage);
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
-        checkAndDealDamage(other.gameObject);
         // Stop self and reverse direction
         Force.x = - Force.x;
     }
@@ -59,6 +51,8 @@ public class SimpleEnemy : Character
         DrawArrow.ForGizmo(transform.position, Force);
     }
     void OnCollisionEnter2D(Collision2D other) {
-        checkAndDealDamage(other.gameObject);
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Kid") {
+            other.gameObject.GetComponent<Character>().HP -= HP;
+        }
     }
 }

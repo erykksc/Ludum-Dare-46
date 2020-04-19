@@ -183,7 +183,7 @@ public class Player : Character
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Level") || collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Level"))
         {
             Gravity = default_gravity;
             Grounded = true;
@@ -248,7 +248,7 @@ public class Player : Character
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Level") || collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Level"))
         {
             Grounded = false;
             CanDoubleJump = true;

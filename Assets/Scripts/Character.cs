@@ -11,11 +11,11 @@ public class Character : MonoBehaviour
 
 
 
-    public int getHP(){ return HP; }
+    int getHP(){ return HP; }
 
 
     // Return true if killed
-    public bool dealDamage( int damage ){ 
+    bool damage( int damage ){ 
         if( (HP - damage ) <= 0 ){
             Destroy( gameObject, 0.1f );
             return true;

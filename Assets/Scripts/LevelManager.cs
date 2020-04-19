@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 //Here loading screen can be added
@@ -8,13 +9,13 @@ using UnityEngine.SceneManagement;
 // Co robi:
 //Zarządza przejściami między poziomami
 // Na czym powinien być:
-//Wymaga sprite jako child, który jest loading screenem oraz dodanej referencji do jego sprite renderer
+//Wymaga image jako child, który jest loading screenem oraz dodanej referencji do jego image
 //Player znajduje ten kompontent by zmienić poziom
 public class LevelManager : MonoBehaviour
 {
     // Start is called before the first frame update
     static private bool exists = false;
-    [SerializeField] SpriteRenderer loadingScreen;
+    [SerializeField] Image loadingScreen;
     void Awake()
     {
         if(exists)
