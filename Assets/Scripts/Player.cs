@@ -29,6 +29,8 @@ public class Player : Character
     [SerializeField] private bool CanDoubleJump;
     [SerializeField] private bool canSwitchLevels = true;
 
+    [SerializeField] public bool clearedLevel = false;
+
     static bool exists = false;
     private float lastPickUpTime;
     private GameObject baby;
@@ -138,13 +140,14 @@ public class Player : Character
         Grounded = false;
         CanDoubleJump = false;
         rb.velocity = new Vector2(0,0);
+        clearedLevel = false;
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Gravity = default_gravity;
         Grounded = true;
         CanDoubleJump = false;
-        if(collision.gameObject.CompareTag("Trigger_NEXT"))
+        if(collision.gameObject.CompareTag("Trigger_NEXT")&&clearedLevel)
         {
             if(!BabyInHand())
             {
