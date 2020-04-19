@@ -26,7 +26,6 @@ public class logicInput : MonoBehaviour
 
     public bool state;
     public bool targetState = true;
-
     public logicGate gate; 
     
     [SerializeField,Tooltip("The maximum distance from the switch to the player")] 
@@ -100,5 +99,14 @@ public class logicInput : MonoBehaviour
 
     public void updateGate(){
         gate.updateState();
+    }
+
+    private void Start() {
+        //Idiotproofness
+        var collider = GetComponent<Collider2D>();
+        if (collider == null)
+            Debug.LogException(new UnityException("A collider2D comonent is required"));
+        if (collider.isTrigger == false)
+            Debug.LogException(new UnityException("collider2D comonent must be trigger"));
     }
 }
