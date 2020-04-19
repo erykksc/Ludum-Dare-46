@@ -28,12 +28,31 @@ public class Player : Character
     [SerializeField] private bool Grounded;
     [SerializeField] private bool CanDoubleJump;
 
+    //Level Manager
+    static bool exists = false;
+    private LevelManager lManager;
+
     private float lastPickUpTime;
     private GameObject baby;
+    [SerializeField] private bool canSwitchLevels = true;
 
     // Start is called before the first frame update
     void Awake()
     {
+        if(exists)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        exists = true;
+        DontDestroyOnLoad(this);
+
+        //Searching for levelManager
+        int count = Resources.FindObjectsOfTypeAll<LevelManager>().Length;
+        if(count>0)
+        {
+            lManager = Resources.FindObjectsOfTypeAll<LevelManager>()[0];
+        }
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
 
@@ -146,11 +165,49 @@ public class Player : Character
         }
     }
 
+    void ClearState()
+    {
+        transform.position = new Vector3(0,0,0);
+        canSwitchLevels = false;
+        CanDoubleJump = false;
+        Grounded = false;
+        CanDoubleJump = false;
+        rb.velocity = new Vector2(0,0);
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Gravity = default_gravity;
         Grounded = true;
         CanDoubleJump = false;
+        if(collision.gameObject.CompareTag("Trigger_NEXT"))
+        {
+            if(!BabyInHand())
+            {
+                return;
+            }
+            ClearState();
+            if(lManager==null)
+            {
+                Debug.Log("Manager not found");
+                return;
+            }
+            lManager.SwitchForth();
+        }
+        if(collision.gameObject.CompareTag("Trigger_PREVIOUS"))
+        {
+            if(!BabyInHand())
+            {
+                return;
+            }
+            ClearState();
+            if(lManager==null)
+            {
+                Debug.Log("Manager not found");
+                return;
+            }
+            lManager.SwitchBack();
+        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -183,5 +240,6 @@ public class Player : Character
     {
         Grounded = false;
         CanDoubleJump = true;
+        canSwitchLevels = true;
     }
 }

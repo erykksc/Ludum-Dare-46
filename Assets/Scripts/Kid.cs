@@ -10,9 +10,18 @@ public class Kid : Character
     [SerializeField] private bool Grounded;
     [SerializeField] Vector3 offset;
     private GameObject pickUpper;
+    static bool exists = false;
 
     private void Awake()
     {
+        if(exists)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        exists = true;
+        DontDestroyOnLoad(this);
+        
         Gravity = default_gravity;
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
