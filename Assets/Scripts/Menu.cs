@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    [SerializeField] LevelManager manager;
     public GameObject Credits_panel;
     public Text credits_text;
 
