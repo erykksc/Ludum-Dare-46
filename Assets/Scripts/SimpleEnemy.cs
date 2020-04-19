@@ -25,7 +25,7 @@ public class SimpleEnemy : Character
     private float maxSpeed;
     private Rigidbody2D rigidbody;
     [SerializeField]
-    private int damage;
+    private float damage;
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();    
     }
@@ -36,23 +36,24 @@ public class SimpleEnemy : Character
             rigidbody.AddForce(Force);
         }
     }
-    /// <summary>
-    /// Sent when an incoming collider makes contact with this object's
-    /// collider (2D physics only).
-    /// </summary>
-    /// <param name="other">The Collision2D data associated with this collision.</param>
+    
+    void CheckAndDamage(GameObject collisionGameObject){
+        if (collisionGameObject.tag == "Player" || collisionGameObject.tag == "Kid") {
+            collisionGameObject.GetComponent<Character>().dealDamage(damage);
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         // Stop self and reverse direction
         Force.x = - Force.x;
+        CheckAndDamage(other.gameObject);
     }
     void OnDrawGizmos()
     {
         DrawArrow.ForGizmo(transform.position, Force);
     }
     void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Kid") {
-            other.gameObject.GetComponent<Character>().HP -= HP;
-        }
+        CheckAndDamage(other.gameObject);
     }
 }
