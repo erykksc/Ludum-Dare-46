@@ -43,5 +43,15 @@ public class Kid : Character
     public void dropOff() {
         pickUpper = null;
         transform.SetParent(null, true);
+        Gravity = default_gravity;
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        Grounded = false;
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        Gravity = default_gravity;
+        Grounded = true;
     }
 }
