@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
@@ -34,6 +33,7 @@ public class Player : Character
 
     [SerializeField] public bool clearedLevel = true;
     //Should be false
+    private LevelManager lManager;
 
     static bool exists = false;
     private float lastPickUpTime;
@@ -41,6 +41,7 @@ public class Player : Character
 
     void Awake()
     {
+        //Preventing copies
         if(exists)
         {
             Destroy(gameObject);
@@ -48,6 +49,13 @@ public class Player : Character
         }
         exists = true;
         DontDestroyOnLoad(this);
+
+        //Searching for levelManager
+        int count = Resources.FindObjectsOfTypeAll<LevelManager>().Length;
+        if(count>0)
+        {
+            lManager = Resources.FindObjectsOfTypeAll<LevelManager>()[0];
+        }
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
         rb.mass = Masa;
@@ -160,9 +168,13 @@ public class Player : Character
             {
                 return;
             }
-
             ClearState();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+            if(lManager==null)
+            {
+                Debug.Log("Manager not found");
+                return;
+            }
+            lManager.SwitchForth();
         }
         if(collision.gameObject.CompareTag("Trigger_PREVIOUS"))
         {
@@ -170,10 +182,13 @@ public class Player : Character
             {
                 return;
             }
-            if(SceneManager.GetActiveScene().buildIndex==1){return;}
-
             ClearState();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+            if(lManager==null)
+            {
+                Debug.Log("Manager not found");
+                return;
+            }
+            lManager.SwitchBack();
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
