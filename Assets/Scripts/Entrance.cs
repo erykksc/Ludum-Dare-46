@@ -19,7 +19,7 @@ public class Entrance : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(Time.time-age<1)
+        if(Time.time-age<2)
         {
             return;
         }

@@ -72,12 +72,14 @@ public class LevelManager : MonoBehaviour
         }
         int index = SceneManager.GetActiveScene().buildIndex+1;
         SceneManager.LoadScene(index);
+
+        yield return new WaitForSeconds(0.5f);
+        while(SceneManager.GetActiveScene().buildIndex!=index)
+        {}
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = false;
         }
-
-        yield return new WaitForSeconds(1f);
         Debug.Log(GetEntrancePos());
         SetPlayerPosition(GetEntrancePos());
         yield return null;
@@ -90,12 +92,13 @@ public class LevelManager : MonoBehaviour
         }
         int index = SceneManager.GetActiveScene().buildIndex-1;
         SceneManager.LoadScene(index);
+        yield return new WaitForSeconds(0.5f);
+        while(SceneManager.GetActiveScene().buildIndex!=index)
+        {}
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = false;
         }
-
-        yield return new WaitForSeconds(1f);
         Debug.Log(GetExitPos());
         SetPlayerPosition(GetExitPos());
         yield return null;
