@@ -8,12 +8,13 @@ using UnityEngine.SceneManagement;
 // Co robi:
 //Zarządza przejściami między poziomami
 // Na czym powinien być:
-//Nic nie wymaga, jest zachowany pomiędzy scenami
+//Wymaga sprite jako child, który jest loading screenem oraz dodanej referencji do jego sprite renderer
 //Player znajduje ten kompontent by zmienić poziom
 public class LevelManager : MonoBehaviour
 {
     // Start is called before the first frame update
     static private bool exists = false;
+    [SerializeField] SpriteRenderer loadingScreen;
     void Awake()
     {
         if(exists)
@@ -24,19 +25,42 @@ public class LevelManager : MonoBehaviour
         }
         exists = true;
         DontDestroyOnLoad(this);
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = false;
+        }
     }
     void Start()
     {
         
     }
 
+    IEnumerator screenLoading(int index)
+    {
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = true;
+        }
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(index);
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = false;
+        }
+        yield return null;
+    }
+
     public void SwitchForth()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex+1);
+        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex+1);
+        StartCoroutine(coroutine);
+
     }
     public void SwitchBack()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex-1);
+        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex-1);
+        StartCoroutine(coroutine);
+
     }
     // Update is called once per frame
     void Update()
