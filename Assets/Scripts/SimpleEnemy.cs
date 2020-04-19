@@ -17,45 +17,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleEnemy : Character
+public class SimpleEnemy : Damaging
 {
-    [SerializeField]
-    private Vector2 Force;
-    [SerializeField]
-    private float maxSpeed;
+    [Header("Moving enemy properties")]
+    [SerializeField] private Vector2 Force;
+    [SerializeField] private float maxSpeed;
     private Rigidbody2D rigidbody;
-    [SerializeField]
-    private int damage;
-    void Start() {
-        rigidbody = GetComponent<Rigidbody2D>();    
+
+    void Start()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
     {
-        if (rigidbody.velocity.magnitude < maxSpeed) {
+        if (rigidbody.velocity.magnitude < maxSpeed)
+        {
             rigidbody.AddForce(Force);
         }
     }
-    /// <summary>
-    /// Sent when an incoming collider makes contact with this object's
-    /// collider (2D physics only).
-    /// </summary>
-    /// <param name="other">The Collision2D data associated with this collision.</param>
+
+
+
     void OnTriggerEnter2D(Collider2D other)
     {
         // Stop self and reverse direction
-        Force.x = - Force.x;
+        Force.x = -Force.x;
+        CheckAndDamage(other.gameObject);
     }
     void OnDrawGizmos()
     {
         DrawArrow.ForGizmo(transform.position, Force);
     }
-    void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Kid") {
-            other.gameObject.GetComponent<Character>().HP -= damage;
-
-            GameObject.Find("LevelManager").GetComponentInChildren<UI_Handler>().SetHealthBar(other.gameObject.GetComponent<Character>().HP);
-            Debug.Log("damaging"+ other.gameObject.GetComponent<Character>().HP);
-        }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        CheckAndDamage(other.gameObject);
     }
 }
