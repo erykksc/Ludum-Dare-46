@@ -17,43 +17,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleEnemy : Character
+public class SimpleEnemy : Damaging
 {
-    [SerializeField]
-    private Vector2 Force;
-    [SerializeField]
-    private float maxSpeed;
+    [Header("Moving enemy properties")]
+    [SerializeField] private Vector2 Force;
+    [SerializeField] private float maxSpeed;
     private Rigidbody2D rigidbody;
-    [SerializeField]
-    private float damage;
-    void Start() {
-        rigidbody = GetComponent<Rigidbody2D>();    
+
+    void Start()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
     {
-        if (rigidbody.velocity.magnitude < maxSpeed) {
+        if (rigidbody.velocity.magnitude < maxSpeed)
+        {
             rigidbody.AddForce(Force);
         }
     }
-    
-    void CheckAndDamage(GameObject collisionGameObject){
-        if (collisionGameObject.tag == "Player" || collisionGameObject.tag == "Kid") {
-            collisionGameObject.GetComponent<Character>().dealDamage(damage);
-        }
-    }
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
         // Stop self and reverse direction
-        Force.x = - Force.x;
+        Force.x = -Force.x;
         CheckAndDamage(other.gameObject);
     }
     void OnDrawGizmos()
     {
         DrawArrow.ForGizmo(transform.position, Force);
     }
-    void OnCollisionEnter2D(Collision2D other) {
+    void OnCollisionEnter2D(Collision2D other)
+    {
         CheckAndDamage(other.gameObject);
     }
 }
