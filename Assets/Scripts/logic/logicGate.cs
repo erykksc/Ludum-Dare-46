@@ -27,19 +27,23 @@ public class logicGate : MonoBehaviour
     public Action openFn = delegate{return ;}; // Set lambda to execute on Open
     public Action closeFn = delegate{return ;}; // Set lambda to execute on Close
 
+    [SerializeField] bool ControlSth;
+    public Activatable target;
+    public logicInput[] inputs;
+
     void Open(){
         isActivated = true;
         openFn();
+        if(ControlSth)
+            target.activate();
     }
 
     void Close(){
         isActivated = false;
         closeFn();
+        if(ControlSth)
+            target.de_activate();
     }
-
-
-    public logicInput[] inputs;
-
 
     public void updateState(){
     // Run Open/Close if all inputs start/stop being correctly set
@@ -69,5 +73,4 @@ public class logicGate : MonoBehaviour
     {
         updateState();
     }
-
 }

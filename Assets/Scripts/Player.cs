@@ -17,6 +17,9 @@ public class Player : Character
     [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
+    public bool tryingToInteract = false;
+
+
     [Header("current parameters")]
 
     [SerializeField] private float Jump;
@@ -35,9 +38,6 @@ public class Player : Character
     private float lastPickUpTime;
     private GameObject baby;
     [SerializeField] private bool canSwitchLevels = true;
-
-    public bool tryingToInteract = false;
-
 
     void Awake()
     {
