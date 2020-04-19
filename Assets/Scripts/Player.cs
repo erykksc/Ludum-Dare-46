@@ -148,9 +148,12 @@ public class Player : Character
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Gravity = default_gravity;
-        Grounded = true;
-        CanDoubleJump = false;
+        if (collision.gameObject.CompareTag("Level"))
+        {
+            Gravity = default_gravity;
+            Grounded = true;
+            CanDoubleJump = false;
+        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -181,7 +184,10 @@ public class Player : Character
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        Grounded = false;
-        CanDoubleJump = true;
+        if (collision.gameObject.CompareTag("Level"))
+        {
+            Grounded = false;
+            CanDoubleJump = true;
+        }
     }
 }

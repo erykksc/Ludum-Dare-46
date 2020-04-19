@@ -10,6 +10,14 @@ BlendTree:
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: f6b1b35604d74ec46b4f2bdb5a46c72a, type: 2}
+    m_Threshold: -4
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: horizontal_velocity
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: f6b1b35604d74ec46b4f2bdb5a46c72a, type: 2}
     m_Threshold: -0.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -32,10 +40,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: horizontal_velocity
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 0473734dbc578794d895b39d0351647d, type: 2}
+    m_Threshold: 4
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: horizontal_velocity
+    m_Mirror: 0
   m_BlendParameter: horizontal_velocity
   m_BlendParameterY: horizontal_velocity
-  m_MinThreshold: -0.5
-  m_MaxThreshold: 0.5
+  m_MinThreshold: -4
+  m_MaxThreshold: 4
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -210,7 +226,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.025699496
   m_TransitionOffset: 0
   m_ExitTime: 0.9743005
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -566,6 +582,14 @@ BlendTree:
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 5e25016ae7e6ec24f88ac9ba73e6186d, type: 2}
+    m_Threshold: -4
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: horizontal_velocity
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 5e25016ae7e6ec24f88ac9ba73e6186d, type: 2}
     m_Threshold: -0.5
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -588,10 +612,18 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: horizontal_velocity
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 1ccf7e0d662657c408d172b3a4d13dfe, type: 2}
+    m_Threshold: 1.5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: horizontal_velocity
+    m_Mirror: 0
   m_BlendParameter: horizontal_velocity
   m_BlendParameterY: vertical_velocity
-  m_MinThreshold: -0.5
-  m_MaxThreshold: 0.5
+  m_MinThreshold: -4
+  m_MaxThreshold: 1.5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
