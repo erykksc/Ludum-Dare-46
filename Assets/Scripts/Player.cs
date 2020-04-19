@@ -17,6 +17,9 @@ public class Player : Character
     [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
+    public bool tryingToInteract = false;
+
+
     [Header("current parameters")]
 
     [SerializeField] private float Jump;
@@ -35,9 +38,6 @@ public class Player : Character
     private float lastPickUpTime;
     private GameObject baby;
     [SerializeField] private bool canSwitchLevels = true;
-
-    public bool tryingToInteract = false;
-
 
     void Awake()
     {
@@ -183,9 +183,13 @@ public class Player : Character
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Gravity = default_gravity;
-        Grounded = true;
-        CanDoubleJump = false;
+        if (collision.gameObject.CompareTag("Level") || collision.gameObject.CompareTag("Enemy"))
+        {
+            Gravity = default_gravity;
+            Grounded = true;
+            CanDoubleJump = false;
+        }
+
         if(collision.gameObject.CompareTag("Trigger_NEXT"))
         {
             if(!BabyInHand())
@@ -244,8 +248,11 @@ public class Player : Character
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        Grounded = false;
-        CanDoubleJump = true;
+        if (collision.gameObject.CompareTag("Level") || collision.gameObject.CompareTag("Enemy"))
+        {
+            Grounded = false;
+            CanDoubleJump = true;
+        }
         canSwitchLevels = true;
     }
 }

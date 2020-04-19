@@ -40,7 +40,7 @@ public class Kid : Character
     {
         if (!Grounded)
         {
-            if (Gravity < 4.20f) Gravity = Gravity * 1.05f;
+            if (Gravity < 6.9f) Gravity = Gravity * 1.05f;
         }
         rb.AddForce(new Vector2(0, -Gravity));
     }
@@ -52,5 +52,15 @@ public class Kid : Character
     public void dropOff() {
         pickUpper = null;
         transform.SetParent(null, true);
+        Gravity = default_gravity;
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        Grounded = false;
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        Gravity = default_gravity;
+        Grounded = true;
     }
 }
