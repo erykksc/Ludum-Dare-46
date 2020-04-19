@@ -101,7 +101,8 @@ MonoBehaviour:
   active: 1
   logicGate_input: {fileID: 0}
   force: {x: 1, y: 0}
-  maxSpeed: 10
+  drag_factor: 2
+  rb: {fileID: 0}
 --- !u!50 &3627946466525322996
 Rigidbody2D:
   serializedVersion: 4

@@ -1,4 +1,18 @@
-﻿using System.Collections;
+﻿/*
+    moving_platform : Activatable
+        - Co robi:
+            porusza sobą prawo/lewo jeśli jest aktywna
+        - Na czym powinien być:
+            tak
+        - Jakich komponentów wymaga:
+            - rigidbody2D
+            - Collider2D jako trigger
+        - Specjalne Ustawienia
+            - force (siła)
+            - dragFactor (siła tarcia na platformę)
+
+*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +21,10 @@ public class moving_platform : Activatable
     [SerializeField]
     private Vector2 force;
     [SerializeField]
-    private float maxSpeed;
+    private float drag_factor;
     private Rigidbody2D rb;
     Vector2 GetDragVector() {
-        return -rb.velocity;
+        return -rb.velocity*drag_factor;
     }
     void Start()
     {
@@ -28,9 +42,6 @@ public class moving_platform : Activatable
         force = -force;
         rb.velocity = new Vector2();
     }
-    /// <summary>
-    /// Callback to draw gizmos that are pickable and always drawn.
-    /// </summary>
     void OnDrawGizmos()
     {
         if (active) {
