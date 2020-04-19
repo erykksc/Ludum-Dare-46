@@ -19,12 +19,31 @@ using UnityEngine;
 public class moving_platform : Activatable
 {
     [SerializeField]
-    private Vector2 force;
+    private float force;
+    [Tooltip("Podawać raw cordy, ponieważ pierdolić usera")]
+    public Vector2[] points;
+    public int PointToGoTo;
+    [SerializeField]
+    private float tolerance;
     [SerializeField]
     private float drag_factor;
     private Rigidbody2D rb;
-    Vector2 GetDragVector() {
+    private Vector2 GetDragVector() {
         return -rb.velocity*drag_factor;
+    }
+    private Vector2 GetMovmentVector() {
+        var pos2D = new Vector2(transform.position.x, transform.position.y);
+        if ((pos2D - points[PointToGoTo]).magnitude < tolerance) {
+            rb.velocity = new Vector2();
+            if (PointToGoTo < points.Length - 1) {
+                PointToGoTo++;
+            }
+            else {
+                PointToGoTo = 0;
+            }
+        }
+        var res = (points[PointToGoTo] - pos2D).normalized * force;
+        return res;
     }
     void Start()
     {
@@ -33,19 +52,21 @@ public class moving_platform : Activatable
     void FixedUpdate()
     {
         if (active) {
-            rb.AddForce(force);
+            rb.AddForce(GetMovmentVector());
         }
         rb.AddForce(GetDragVector());
     }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        force = -force;
-        rb.velocity = new Vector2();
-    }
     void OnDrawGizmos()
     {
-        if (active) {
-            DrawArrow.ForGizmo(transform.position, force);
+        for (int i = 1; i < points.Length; i++)
+        {
+            var point1 = new Vector3(points[i-1].x, points[i-1].y, 0);
+            var point2 = new Vector3(points[i].x, points[i].y, 0);
+            Gizmos.DrawLine(point1, point2);
         }
+        var point11 = new Vector3(points[points.Length - 1].x, points[points.Length - 1].y, 0);
+        var point21 = new Vector3(points[0].x, points[0].y, 0);
+        Gizmos.DrawLine(point11, point21);
+        Gizmos.DrawWireSphere(transform.position, tolerance);
     }
 }
