@@ -73,7 +73,7 @@ MonoBehaviour:
   HP: 5
   rb: {fileID: 0}
   animator: {fileID: 0}
-  SpeedBezPrzedmiotu: 4
+  SpeedBezPrzedmiotu: 6
   SpeedZPrzedmiotem: 3
   MaxSpeed: 8
   JumpForce: 4
