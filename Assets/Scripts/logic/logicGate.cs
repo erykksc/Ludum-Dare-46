@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ public class logicGate : MonoBehaviour
 
     [SerializeField] bool ControlSth;
     public Activatable target;
-    public logicInput[] inputs;
+    [NonSerialized] public List<logicInput> inputs;
 
     void Open(){
         isActivated = true;
