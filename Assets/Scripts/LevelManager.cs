@@ -52,6 +52,19 @@ public class LevelManager : MonoBehaviour
             Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
             player.ClearState();
             player.transform.position = pos;
+            count = Resources.FindObjectsOfTypeAll<UI_Handler>().Length;
+            if(count>0)
+            {
+                UI_Handler handler = Resources.FindObjectsOfTypeAll<UI_Handler>()[0];
+                handler.SetHealthBar(player.HP);
+            }
+        }
+        count = Resources.FindObjectsOfTypeAll<Kid>().Length;
+        if(count>0)
+        {
+            Kid kid = Resources.FindObjectsOfTypeAll<Kid>()[0];
+            kid.transform.position = GetEntrancePos()+new Vector2(0,2);
+            kid.CleanState();
         }
     }
     Vector2 GetEntrancePos()
@@ -82,6 +95,7 @@ public class LevelManager : MonoBehaviour
         {
             aManager.setSong(0);
         }
+
         int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
         yield return new WaitForSeconds(0.5f);
@@ -94,20 +108,34 @@ public class LevelManager : MonoBehaviour
                 break;
             }
         }
-        if(loadingScreen!=null)
-        {
-            loadingScreen.enabled = false;
-        }
+        //Moving back
         if(i<0)
         {
             Debug.Log(GetExitPos());
             SetPlayerPosition(GetExitPos());
         }
-        else
+        //Moving forth
+        if(i>0)
         {
-
             Debug.Log(GetEntrancePos());
             SetPlayerPosition(GetEntrancePos());
+        }
+        //Restarting level
+        if(i==0)
+        {
+            int count = Resources.FindObjectsOfTypeAll<Player>().Length;
+            if(count>0)
+            {
+                Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
+                player.HP = player.maxHP;
+            }
+            SetPlayerPosition(GetEntrancePos());
+        }
+
+
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = false;
         }
         PlayTrack();
         yield return null;
@@ -123,7 +151,11 @@ public class LevelManager : MonoBehaviour
     {
         IEnumerator coroutine = screenLoading(-1);
         StartCoroutine(coroutine);
-
+    }
+    public void Restart()
+    {
+        IEnumerator coroutine = screenLoading(0);
+        StartCoroutine(coroutine);
     }
 }
 
