@@ -96,8 +96,16 @@ public class AudioManager : MonoBehaviour
     {
         //Plays rondom soundtrack
         source.clip = GetRandomClip(tracks);
-        source.loop = true;
-        source.Play();
+        if(!(source.clip is null)){
+            source.loop = true;
+            Debug.Log("Clip name: " + source.clip.name);
+            source.Play();
+        }
+    }
+
+    public void Stop()
+    {
+        source.Stop();
     }
 
     public void StopTrack()

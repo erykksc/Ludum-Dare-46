@@ -85,8 +85,7 @@ public class LevelManager : MonoBehaviour
             loadingScreen.enabled = true;
         }
         aManager.StopTrack();
-        aManager.PlayOneShot("loading_screen");
-
+        aManager.PlayOneShot("whitenoise");
 
         int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
@@ -129,6 +128,7 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
+        aManager.Stop();
         aManager.PlayTrack();
         yield return null;
     }
