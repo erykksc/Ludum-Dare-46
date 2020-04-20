@@ -102,6 +102,15 @@ public class Player : Character
         if(Input.GetKeyUp("i")) tryingToInteract = false;
     }
 
+    void DropBaby()
+    {
+        Debug.Log("drop off");
+        lastPickUpTime = Time.time;
+        StartCoroutine(SlightlyDelayedBabyDrop(0.8f));
+        animator.SetTrigger("drop_baby");
+        return;
+    }
+
     void FixedUpdate()
     {
 
@@ -156,10 +165,7 @@ public class Player : Character
         {
             if (Time.time - lastPickUpTime > 0.5f)
             {
-                Debug.Log("drop off");
-                lastPickUpTime = Time.time;
-                StartCoroutine(SlightlyDelayedBabyDrop(0.8f));
-                animator.SetTrigger("drop_baby");
+                DropBaby();
             }
         }
 
@@ -200,6 +206,10 @@ public class Player : Character
             Gravity = default_gravity;
             Grounded = true;
             CanDoubleJump = false;
+        }
+        if(collision.gameObject.CompareTag("Enemy")&&BabyInHand()&&Time.time - lastPickUpTime > 0.5f)
+        {
+            DropBaby();
         }
     }
 
