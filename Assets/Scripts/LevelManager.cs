@@ -34,6 +34,10 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.enabled = false;
+        }
         
         aManager = GetComponentInChildren<AudioManager>();
     }
@@ -149,7 +153,6 @@ public class LevelManager : MonoBehaviour
         {
             gameOverScreen.enabled = false;
         }
-        PlayTrack();
         aManager.Stop();
         aManager.PlayTrack();
         yield return null;
