@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
     public int maxHP ;
     public int HP ;
 
+    public bool dead = false;
 
     public int getHP(){ return HP; }
 
@@ -16,7 +17,18 @@ public class Character : MonoBehaviour
         HP -= damage;
         if(HP <= 0 ){
             
-            Destroy( gameObject, 0.1f );
+            //Destroy( gameObject, 0.1f );
+            if(dead)
+            {
+                return true;
+            }
+            dead = true;
+            int count = Resources.FindObjectsOfTypeAll<LevelManager>().Length;
+            if(count>0)
+            {
+                LevelManager lManager = Resources.FindObjectsOfTypeAll<LevelManager>()[0];
+                lManager.Restart();
+            }
             return true;
         }
         return false;

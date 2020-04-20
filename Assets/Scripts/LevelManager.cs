@@ -52,6 +52,12 @@ public class LevelManager : MonoBehaviour
             Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
             player.ClearState();
             player.transform.position = pos;
+            count = Resources.FindObjectsOfTypeAll<UI_Handler>().Length;
+            if(count>0)
+            {
+                UI_Handler handler = Resources.FindObjectsOfTypeAll<UI_Handler>()[0];
+                handler.SetHealthBar(player.HP);
+            }
         }
     }
     Vector2 GetEntrancePos()
@@ -103,10 +109,26 @@ public class LevelManager : MonoBehaviour
             Debug.Log(GetExitPos());
             SetPlayerPosition(GetExitPos());
         }
-        else
+        if(i>0)
         {
-
             Debug.Log(GetEntrancePos());
+            SetPlayerPosition(GetEntrancePos());
+        }
+        if(i==0)
+        {
+            int count = Resources.FindObjectsOfTypeAll<Player>().Length;
+            if(count>0)
+            {
+                Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
+                player.HP = player.maxHP;
+            }
+            count = Resources.FindObjectsOfTypeAll<Kid>().Length;
+            if(count>0)
+            {
+                Kid kid = Resources.FindObjectsOfTypeAll<Kid>()[0];
+                kid.transform.position = GetEntrancePos()+new Vector2(0,2);
+                kid.CleanState();
+            }
             SetPlayerPosition(GetEntrancePos());
         }
         PlayTrack();
@@ -123,7 +145,11 @@ public class LevelManager : MonoBehaviour
     {
         IEnumerator coroutine = screenLoading(-1);
         StartCoroutine(coroutine);
-
+    }
+    public void Restart()
+    {
+        IEnumerator coroutine = screenLoading(0);
+        StartCoroutine(coroutine);
     }
 }
 
