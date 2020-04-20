@@ -17,7 +17,7 @@ public class Player : Character
     [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
-    public bool tryingToInteract = false;
+    public bool tryingToInteract = true;
 
 
     [Header("current parameters")]
@@ -37,7 +37,6 @@ public class Player : Character
 
     private float lastPickUpTime;
     private GameObject baby;
-    [SerializeField] private bool canSwitchLevels = true;
 
     void Awake()
     {
@@ -63,7 +62,7 @@ public class Player : Character
         Gravity = default_gravity;
     }
 
-    private bool BabyInHand()
+    public bool BabyInHand()
     {
         if (baby != null)
         {
@@ -161,7 +160,7 @@ public class Player : Character
             }
         }
 
-        if(Input.GetKeyDown("i")) tryingToInteract = true;
+        if(Input.GetKeyDown("i") && ! BabyInHand()) tryingToInteract = true;
         if(Input.GetKeyUp("i")) tryingToInteract = false;
         
     }
@@ -178,13 +177,12 @@ public class Player : Character
         baby.GetComponent<SpriteRenderer>().enabled = true;
         baby.GetComponent<Kid>().dropOff();
         baby = null;
+        // If baby dropped -> can interact with levers
+        //tryingToInteract = true;
 
     }
-
-    void ClearState()
+    public void ClearState()
     {
-        transform.position = new Vector3(0,0,0);
-        canSwitchLevels = false;
         CanDoubleJump = false;
         Grounded = false;
         CanDoubleJump = false;
@@ -200,35 +198,6 @@ public class Player : Character
             Grounded = true;
             CanDoubleJump = false;
         }
-
-        if(collision.gameObject.CompareTag("Trigger_NEXT"))
-        {
-            if(!BabyInHand())
-            {
-                return;
-            }
-            ClearState();
-            if(lManager==null)
-            {
-                Debug.Log("Manager not found");
-                return;
-            }
-            lManager.SwitchForth();
-        }
-        if(collision.gameObject.CompareTag("Trigger_PREVIOUS"))
-        {
-            if(!BabyInHand())
-            {
-                return;
-            }
-            ClearState();
-            if(lManager==null)
-            {
-                Debug.Log("Manager not found");
-                return;
-            }
-            lManager.SwitchBack();
-        }
     }
 
     //Pick up baby when colliding and e-press
@@ -242,6 +211,7 @@ public class Player : Character
             {
                 if (Time.time - lastPickUpTime > 0.5f)
                 {
+                    //tryingToInteract = false;
                     Debug.Log("pick up");
                     animator.SetTrigger("pickup_baby");
                     collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
@@ -283,6 +253,5 @@ public class Player : Character
             Grounded = false;
             CanDoubleJump = true;
         }
-        canSwitchLevels = true;
     }
 }

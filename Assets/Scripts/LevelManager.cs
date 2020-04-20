@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,8 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     static private bool exists = false;
     [SerializeField] Image loadingScreen;
+    [SerializeField] AudioManager aManager;
+
     void Awake()
     {
         if (exists)
@@ -30,39 +33,98 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
+        aManager = GetComponentInChildren<AudioManager>();
     }
 
-
-    IEnumerator screenLoading(int index)
+    void PlayTrack()
     {
-        if (loadingScreen != null)
+        if(aManager!=null)
+        {
+            aManager.Shuffle();
+        }
+    }
+
+    void SetPlayerPosition(Vector2 pos)
+    {
+        int count = Resources.FindObjectsOfTypeAll<Player>().Length;
+        if(count>0)
+        {
+            Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
+            player.ClearState();
+            player.transform.position = pos;
+        }
+    }
+    Vector2 GetEntrancePos()
+    {
+        int count = Resources.FindObjectsOfTypeAll<Entrance>().Length;
+        if(count>0)
+        {
+            return Resources.FindObjectsOfTypeAll<Entrance>()[0].transform.position;
+        }
+        return new Vector2(0,0);
+    }
+    Vector2 GetExitPos()
+    {
+        int count = Resources.FindObjectsOfTypeAll<Exit>().Length;
+        if(count>0)
+        {
+            return Resources.FindObjectsOfTypeAll<Exit>()[0].transform.position;
+        }
+        return new Vector2(0,0);
+    }
+    IEnumerator screenLoading(int i)
+    {
+        if(loadingScreen!=null)
         {
             loadingScreen.enabled = true;
         }
-        yield return new WaitForSeconds(1f);
+        if(aManager!=null)
+        {
+            aManager.setSong(0);
+        }
+        int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
-        if (loadingScreen != null)
+        yield return new WaitForSeconds(0.5f);
+        float t1 = Time.time;
+        while(SceneManager.GetActiveScene().buildIndex!=index)
+        {
+            yield return new WaitForSeconds(0.05f);
+            if(Time.time-t1>5f)
+            {
+                break;
+            }
+        }
+        if(loadingScreen!=null)
         {
             loadingScreen.enabled = false;
         }
-        if(index==0) GetComponentInChildren<UI_Handler>().gameObject.GetComponent<Canvas>().enabled = false;
+        if(i<0)
+        {
+            Debug.Log(GetExitPos());
+            SetPlayerPosition(GetExitPos());
+        }
+        else
+        {
+
+            Debug.Log(GetEntrancePos());
+            SetPlayerPosition(GetEntrancePos());
+        }
+        PlayTrack();
         yield return null;
     }
 
     public void SwitchForth()
     {
-        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex + 1);
+        IEnumerator coroutine = screenLoading(1);
         StartCoroutine(coroutine);
 
     }
     public void SwitchBack()
     {
-        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex - 1);
+        IEnumerator coroutine = screenLoading(-1);
         StartCoroutine(coroutine);
 
     }
-
-   
 }
 
 
