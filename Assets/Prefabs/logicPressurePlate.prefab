@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2450309749854424038}
   m_Layer: 0
   m_Name: logicPressurePlate
-  m_TagString: Untagged
+  m_TagString: Level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   targetState: 1
-  use_auto_adding: 1
   gate: {fileID: 0}
   leverPlayerDistance: 1.6
   off_sprite: {fileID: 21300000, guid: cae438c7f1f351142b03684c5cb644f4, type: 3}
