@@ -29,6 +29,12 @@ public class Kid : Character
     private void Start() {
         HP = 1;
     }
+    public void CleanState()
+    {
+        dead = false;
+        HP = 1;
+        rb.velocity = new Vector2(0,0);
+    }
 
     private void Update() {
         if(pickUpper!=null){
@@ -40,7 +46,7 @@ public class Kid : Character
     {
         if (!Grounded)
         {
-            if (Gravity < 4.5f) Gravity = Gravity * 1.05f;
+            if (Gravity < 4.20f) Gravity = Gravity * 1.07f;
         }
         rb.AddForce(new Vector2(0, -Gravity));
     }

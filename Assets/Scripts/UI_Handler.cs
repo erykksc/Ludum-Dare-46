@@ -16,8 +16,16 @@ public class UI_Handler : MonoBehaviour
     {
         for (int i = 4; i > -1; i--)
         {
-            if (health < i+1) {healthbar.GetChild(i).GetComponent<Image>().sprite = heart_empty;  }
+            //if (health < i+1) {healthbar.GetChild(i).GetComponent<Image>().sprite = heart_empty;  }
 
+        }
+        for(int i = 0;i<5;i++)
+        {
+            healthbar.GetChild(i).GetComponent<Image>().sprite = heart_empty;
+        }
+        for(int i = 0;i<health;i++)
+        {
+            healthbar.GetChild(i).GetComponent<Image>().sprite = heart_full;
         }
 
 
