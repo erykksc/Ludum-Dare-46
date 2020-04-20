@@ -16,11 +16,6 @@ public class Character : MonoBehaviour
     // Return true if killed
     public bool dealDamage( int damage ){ 
         HP -= damage;
-        /*Player pl = GetComponent<Player>();
-        if(pl!=null)
-        {
-            pl.dropBaby();
-        }*/
         if(HP <= 0 ){
             
             //Destroy( gameObject, 0.1f );

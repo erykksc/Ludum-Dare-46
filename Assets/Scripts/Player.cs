@@ -98,16 +98,12 @@ public class Player : Character
 
         animator.SetFloat("vertical_velocity",rb.velocity.y);
     }
-
-    public void dropBaby()
+    void DropBaby()
     {
-        if (Time.time - lastPickUpTime > 0.5f)
-        {
-            Debug.Log("drop off");
-            lastPickUpTime = Time.time;
-            StartCoroutine(SlightlyDelayedBabyDrop(0.8f));
-            animator.SetTrigger("drop_baby");
-        }
+        Debug.Log("drop off");
+        lastPickUpTime = Time.time;
+        StartCoroutine(SlightlyDelayedBabyDrop(0.8f));
+        animator.SetTrigger("drop_baby");
     }
     void FixedUpdate()
     {
@@ -161,13 +157,18 @@ public class Player : Character
         //drop baby
         if (Input.GetKey("e") && BabyInHand())
         {
-            dropBaby();
+            if (Time.time - lastPickUpTime > 0.5f)
+            {
+                DropBaby();
+            }
         }
 
         if(Input.GetKeyDown("i") && ! BabyInHand()) tryingToInteract = true;
         if(Input.GetKeyUp("i")) tryingToInteract = false;
         
     }
+
+
     //baby becomes a seprate object -enable colliders and sprite showing
     public IEnumerator SlightlyDelayedBabyDrop(float delay)
     {
@@ -205,9 +206,9 @@ public class Player : Character
             Grounded = true;
             CanDoubleJump = false;
         }
-        if(collision.gameObject.CompareTag("Enemy"))
+        if(collision.gameObject.CompareTag("Enemy")&&BabyInHand())
         {
-            dropBaby();
+            DropBaby();
         }
     }
 
