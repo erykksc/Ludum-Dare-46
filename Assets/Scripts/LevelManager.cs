@@ -33,15 +33,8 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
+        
         aManager = GetComponentInChildren<AudioManager>();
-    }
-
-    void PlayTrack()
-    {
-        if(aManager!=null)
-        {
-            aManager.Shuffle();
-        }
     }
 
     void SetPlayerPosition(Vector2 pos)
@@ -91,10 +84,7 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = true;
         }
-        if(aManager!=null)
-        {
-            aManager.setSong(0);
-        }
+        aManager.StopTrack();
 
         int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
@@ -137,7 +127,8 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
-        PlayTrack();
+        aManager.Stop();
+        aManager.PlayTrack();
         yield return null;
     }
 
