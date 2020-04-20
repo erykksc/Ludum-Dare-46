@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LD46 Leaderboard</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    </head>
+    <h1>GameName Leaderboard:</h1>
+    <div class="listContainer">
+        <h2>Map list:</h2>
+        <ul>
+            {% for map in maps %}
+            <li><a href="{{map.url}}">{{map.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <footer>
+        <hr>
+        <p>Source code available on <a href="https://github.com/Eroar/Ludum-Dare-46">Github.</a><br>
+        LudumDare link <a href="xd.com">TODO.</a></p>
+    </footer>
+</html>
