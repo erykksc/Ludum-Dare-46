@@ -6,6 +6,9 @@ using UnityEngine;
 Co robi:
 Utrzymuje kamerę w miejscu jeżeli gracz nie przejdzie pewnej granicy.
 
+ponadto:
+przy przejściu do danego poziomu, ustawia pozycję gracza.
+
 Na czym powinien być:
 Na kamerze
 
@@ -18,11 +21,15 @@ Brak
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] Transform followed;
+    [SerializeField] public Transform followed;
     //Rozmiar pola w którym kamera stoi w miejscu
     [SerializeField] int size;
     //Jak szybko kamera dogania gracza
     [SerializeField] int tightness;
+
+
+    [SerializeField] Vector2 spawn_coordinates;
+
     void Awake()
     {
         int count = Resources.FindObjectsOfTypeAll<Player>().Length;
