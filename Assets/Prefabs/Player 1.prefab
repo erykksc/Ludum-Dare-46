@@ -71,14 +71,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 5
   HP: 5
+  dead: 0
   rb: {fileID: 0}
   animator: {fileID: 0}
-  SpeedBezPrzedmiotu: 4
+  SpeedBezPrzedmiotu: 6
   SpeedZPrzedmiotem: 3
   MaxSpeed: 8
-  JumpForce: 4
-  JumpForceWithBaby: 3
-  DoubleJumpForce: 3
+  JumpForce: 5
+  JumpForceWithBaby: 4.2
+  DoubleJumpForce: 3.5
   DoubleJumpForceWithBaby: 2.5
   default_gravity: 1.5
   Masa: 0.25
