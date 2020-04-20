@@ -17,7 +17,7 @@ public class Player : Character
     [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
-    public bool tryingToInteract = true;
+    public bool tryingToInteract = false;
 
 
     [Header("current parameters")]
@@ -97,6 +97,18 @@ public class Player : Character
         }
 
         animator.SetFloat("vertical_velocity",rb.velocity.y);
+
+        if(Input.GetKeyDown("i") && ! BabyInHand()) tryingToInteract = true;
+        if(Input.GetKeyUp("i")) tryingToInteract = false;
+    }
+
+    void DropBaby()
+    {
+        Debug.Log("drop off");
+        lastPickUpTime = Time.time;
+        StartCoroutine(SlightlyDelayedBabyDrop(0.8f));
+        animator.SetTrigger("drop_baby");
+        return;
     }
 
     void FixedUpdate()
@@ -142,7 +154,7 @@ public class Player : Character
         //Gravity increase
         if (!Grounded)
         {
-            if (Gravity < 6.9f) Gravity = Gravity * 1.05f;
+            if (Gravity < 10.50f) Gravity = Gravity * 1.1f;
         }
 
         rb.AddForce(new Vector2(0, -Gravity));
@@ -153,15 +165,11 @@ public class Player : Character
         {
             if (Time.time - lastPickUpTime > 0.5f)
             {
-                Debug.Log("drop off");
-                lastPickUpTime = Time.time;
-                StartCoroutine(SlightlyDelayedBabyDrop(0.8f));
-                animator.SetTrigger("drop_baby");
+                DropBaby();
             }
         }
 
-        if(Input.GetKeyDown("i") && ! BabyInHand()) tryingToInteract = true;
-        if(Input.GetKeyUp("i")) tryingToInteract = false;
+       
         
     }
 
@@ -187,6 +195,7 @@ public class Player : Character
         Grounded = false;
         CanDoubleJump = false;
         rb.velocity = new Vector2(0,0);
+        dead = false;
     }
 
     //Enable jumping when player contacts ground
@@ -197,6 +206,10 @@ public class Player : Character
             Gravity = default_gravity;
             Grounded = true;
             CanDoubleJump = false;
+        }
+        if(collision.gameObject.CompareTag("Enemy")&&BabyInHand()&&Time.time - lastPickUpTime > 0.5f)
+        {
+            DropBaby();
         }
     }
 
