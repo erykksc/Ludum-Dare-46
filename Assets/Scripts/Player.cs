@@ -202,6 +202,11 @@ public class Player : Character
         dead = false;
     }
 
+    public override bool dealDamage(int damage)
+    {
+        return base.dealDamage(damage);
+    }
+
     //Enable jumping when player contacts ground
     public void OnTriggerEnter2D(Collider2D collision)
     {

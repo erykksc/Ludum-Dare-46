@@ -83,11 +83,12 @@ public class AudioManager : MonoBehaviour
         AudioClip clip = GetClip(clipName);
         if (clip is null)
         {
-            Debug.LogAssertionFormat("Clipname {0} not found for source {1}", clipName, source.gameObject.name);
+            Debug.LogWarningFormat("Clipname {0} not found for source {1}", clipName, source.gameObject.name);
             return;
         }
         else
         {
+            Debug.Log("Playing oneshot: " + clip.name);
             source.PlayOneShot(clip);
         }
     }
