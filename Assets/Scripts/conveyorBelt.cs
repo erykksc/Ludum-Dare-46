@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class convayorBelt : Activatable
+public class conveyorBelt : Activatable
 {
     public float xSpeed;
     private float topHeight;
@@ -14,7 +14,6 @@ public class convayorBelt : Activatable
 
         // Check if collision is horizontal(-ish)
         Vector2 normal = other.contacts[0].normal;
-        Debug.Log(normal);
         if( Mathf.Abs(normal.x) > Mathf.Abs(normal.y))
             return;
 

@@ -31,7 +31,7 @@ abstract public class logicInput : MonoBehaviour
     public logicGate gate; 
     
     [SerializeField,Tooltip("The maximum distance from the switch to the player")] 
-    private float leverPlayerDistance = 1.1f;
+    private float leverPlayerDistance = 1.6f;
     private float sqrLPDist;
     [NonSerialized] public bool inCollisionPlayer;
     [NonSerialized] public bool inCollisionKid;

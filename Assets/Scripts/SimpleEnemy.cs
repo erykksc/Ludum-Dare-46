@@ -23,10 +23,12 @@ public class SimpleEnemy : Damaging
     [SerializeField] private Vector2 Force;
     [SerializeField] private float maxSpeed;
     private Rigidbody2D rigidbody;
+    [SerializeField] private Animator animator;
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -34,6 +36,7 @@ public class SimpleEnemy : Damaging
         if (rigidbody.velocity.magnitude < maxSpeed)
         {
             rigidbody.AddForce(Force);
+            animator.SetFloat("Direction", Force.normalized.x);
         }
     }
 
