@@ -34,6 +34,7 @@ public class Player : Character
     //Level Manager
     static bool exists = false;
     private LevelManager lManager;
+    private AudioManager aManager;
 
     private float lastPickUpTime;
     private GameObject baby;
@@ -54,6 +55,7 @@ public class Player : Character
         {
             lManager = Resources.FindObjectsOfTypeAll<LevelManager>()[0];
         }
+        aManager = FindObjectOfType<AudioManager>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
 
@@ -84,6 +86,7 @@ public class Player : Character
         {
             rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
             CanDoubleJump = true;
+            aManager.PlayOneShot("player_jump");
         }
 
         //When in air and W pressed - double jump
@@ -94,6 +97,7 @@ public class Player : Character
             rb.AddForce(new Vector2(0, DoubleJumpForce), ForceMode2D.Impulse);
             Gravity = default_gravity;
             CanDoubleJump = false;
+            aManager.PlayOneShot("player_jump");
         }
 
         animator.SetFloat("vertical_velocity",rb.velocity.y);
@@ -196,6 +200,12 @@ public class Player : Character
         CanDoubleJump = false;
         rb.velocity = new Vector2(0,0);
         dead = false;
+    }
+
+    public override bool dealDamage(int damage)
+    {
+        aManager.PlayOneShot("player_hit");
+        return base.dealDamage(damage);
     }
 
     //Enable jumping when player contacts ground
