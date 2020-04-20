@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Image loadingScreen;
     void Awake()
     {
-        if(exists)
+        if (exists)
         {
             Debug.Log("Destroying");
             Destroy(gameObject);
@@ -26,46 +26,43 @@ public class LevelManager : MonoBehaviour
         }
         exists = true;
         DontDestroyOnLoad(this);
-        if(loadingScreen!=null)
+        if (loadingScreen != null)
         {
             loadingScreen.enabled = false;
         }
     }
-    void Start()
-    {
-        
-    }
+
 
     IEnumerator screenLoading(int index)
     {
-        if(loadingScreen!=null)
+        if (loadingScreen != null)
         {
             loadingScreen.enabled = true;
         }
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(index);
-        if(loadingScreen!=null)
+        if (loadingScreen != null)
         {
             loadingScreen.enabled = false;
         }
+        if(index==0) GetComponentInChildren<UI_Handler>().gameObject.GetComponent<Canvas>().enabled = false;
         yield return null;
     }
 
     public void SwitchForth()
     {
-        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex+1);
+        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex + 1);
         StartCoroutine(coroutine);
 
     }
     public void SwitchBack()
     {
-        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex-1);
+        IEnumerator coroutine = screenLoading(SceneManager.GetActiveScene().buildIndex - 1);
         StartCoroutine(coroutine);
 
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+   
 }
+
+

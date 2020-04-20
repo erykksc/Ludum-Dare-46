@@ -152,23 +152,30 @@ public class Player : Character
             if (Time.time - lastPickUpTime > 0.5f)
             {
                 Debug.Log("drop off");
-
-                //baby becomes a seprate object -enable colliders and sprite showing
-                foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
-                {
-                    col.enabled = true;
-                }
-                baby.GetComponent<SpriteRenderer>().enabled = true;
-                animator.SetTrigger("drop_baby");
-                baby.GetComponent<Kid>().dropOff();
-                baby = null;
                 lastPickUpTime = Time.time;
+                StartCoroutine(SlightlyDelayedBabyDrop(0.8f));
+                animator.SetTrigger("drop_baby");
             }
         }
 
         if(Input.GetKeyDown("i")) tryingToInteract = true;
         if(Input.GetKeyUp("i")) tryingToInteract = false;
         
+    }
+
+
+    //baby becomes a seprate object -enable colliders and sprite showing
+    public IEnumerator SlightlyDelayedBabyDrop(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
+        {
+            col.enabled = true;
+        }
+        baby.GetComponent<SpriteRenderer>().enabled = true;
+        baby.GetComponent<Kid>().dropOff();
+        baby = null;
+
     }
 
     void ClearState()
