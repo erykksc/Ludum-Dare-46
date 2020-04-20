@@ -83,7 +83,7 @@ Animator:
   m_GameObject: {fileID: 3919740131500129000}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7c01aea0b3fdd704d84e04a1b27b13aa, type: 2}
+  m_Controller: {fileID: 9100000, guid: c5615d98079e9514385f153df06c1085, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   default_gravity: 1.5
   Gravity: 0
   Grounded: 0
-  offset: {x: 0.75, y: 0.27, z: 0}
+  offset: {x: 0.75, y: -1.4, z: 0}
 --- !u!212 &1027323843438184143
 SpriteRenderer:
   m_ObjectHideFlags: 0

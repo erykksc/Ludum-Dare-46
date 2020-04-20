@@ -30,7 +30,17 @@ public class Menu : MonoBehaviour
     {
         // manager.setLevel(1);
         manager.GetComponentInChildren<UI_Handler>().gameObject.GetComponent<Canvas>().enabled = true;
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
+        int count = Resources.FindObjectsOfTypeAll<LevelManager>().Length;
+        if(count>0)
+        {
+            LevelManager man = Resources.FindObjectsOfTypeAll<LevelManager>()[0];
+            man.SwitchForth();
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
 
     }
 
