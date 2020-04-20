@@ -176,8 +176,6 @@ public class Player : Character
         baby = null;
 
     }
-
-    void ClearState()
     public void ClearState()
     {
         CanDoubleJump = false;
