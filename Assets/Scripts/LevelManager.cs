@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     static private bool exists = false;
     [SerializeField] Image loadingScreen;
-    [SerializeField] public int scene_shift=0;
+    [SerializeField] AudioManager aManager;
 
     void Awake()
     {
@@ -32,6 +32,15 @@ public class LevelManager : MonoBehaviour
         if (loadingScreen != null)
         {
             loadingScreen.enabled = false;
+        }
+        aManager = GetComponentInChildren<AudioManager>();
+    }
+
+    void PlayTrack()
+    {
+        if(aManager!=null)
+        {
+            aManager.Shuffle();
         }
     }
 
@@ -63,43 +72,17 @@ public class LevelManager : MonoBehaviour
         }
         return new Vector2(0,0);
     }
-
-    IEnumerator screenLoadingForth()
-    {
-        if (loadingScreen != null)
-        {
-            loadingScreen.enabled = true;
-        }
-        int index = SceneManager.GetActiveScene().buildIndex+1;
-        SceneManager.LoadScene(index);
-        //Debug.Log("Inside");
-
-        yield return new WaitForSeconds(0.5f);
-        float t1 = Time.time;
-        while(SceneManager.GetActiveScene().buildIndex!=index)
-        {
-            yield return new WaitForSeconds(0.05f);
-            if(Time.time-t1>5f)
-            {
-                break;
-            }
-        }
-        //Debug.Log("ShouldWork");
-        if(loadingScreen!=null)
-        {
-            loadingScreen.enabled = false;
-        }
-        Debug.Log(GetEntrancePos());
-        SetPlayerPosition(GetEntrancePos());
-        yield return null;
-    }
-    IEnumerator screenLoadingBack()
+    IEnumerator screenLoading(int i)
     {
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = true;
         }
-        int index = SceneManager.GetActiveScene().buildIndex-1;
+        if(aManager!=null)
+        {
+            aManager.setSong(0);
+        }
+        int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
         yield return new WaitForSeconds(0.5f);
         float t1 = Time.time;
@@ -115,25 +98,33 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
-        Debug.Log(GetExitPos());
-        SetPlayerPosition(GetExitPos());
+        if(i<0)
+        {
+            Debug.Log(GetExitPos());
+            SetPlayerPosition(GetExitPos());
+        }
+        else
+        {
+
+            Debug.Log(GetEntrancePos());
+            SetPlayerPosition(GetEntrancePos());
+        }
+        PlayTrack();
         yield return null;
     }
 
     public void SwitchForth()
     {
-        IEnumerator coroutine = screenLoadingForth();
+        IEnumerator coroutine = screenLoading(1);
         StartCoroutine(coroutine);
 
     }
     public void SwitchBack()
     {
-        IEnumerator coroutine = screenLoadingBack();
+        IEnumerator coroutine = screenLoading(-1);
         StartCoroutine(coroutine);
 
     }
-
-   
 }
 
 
