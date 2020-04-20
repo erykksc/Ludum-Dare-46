@@ -160,7 +160,7 @@ public class Player : Character
             }
         }
 
-        if(Input.GetKeyDown("i")&&BabyInHand()) tryingToInteract = true;
+        if(Input.GetKeyDown("i") && ! BabyInHand()) tryingToInteract = true;
         if(Input.GetKeyUp("i")) tryingToInteract = false;
         
     }
