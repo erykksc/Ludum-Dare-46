@@ -82,7 +82,7 @@ public class Player : Character
         //When on ground and W pressed - jump
         if (Grounded && Input.GetKeyDown("w"))
         {
-            rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, Jump), ForceMode2D.Impulse);
             CanDoubleJump = true;
         }
 
@@ -91,7 +91,7 @@ public class Player : Character
         {
             Vector2 temp = new Vector2(rb.velocity.x, 0);
             rb.velocity = temp;
-            rb.AddForce(new Vector2(0, DoubleJumpForce), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, DoubleJump), ForceMode2D.Impulse);
             Gravity = default_gravity;
             CanDoubleJump = false;
         }
