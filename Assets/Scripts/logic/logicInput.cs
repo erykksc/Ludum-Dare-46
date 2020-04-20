@@ -36,9 +36,6 @@ abstract public class logicInput : MonoBehaviour
     [NonSerialized] public bool inCollisionPlayer;
     [NonSerialized] public bool inCollisionKid;
 
-    [NonSerialized] public Collider2D collisionPlayer;
-    [NonSerialized] public Collider2D collisionKid;
-
     [NonSerialized] string kidTag = "Kid";
     [NonSerialized] string playerTag = "Player";
 
@@ -46,31 +43,27 @@ abstract public class logicInput : MonoBehaviour
 
 
 
-
-    private void Update() {
-        Vector3 inputPos = transform.position;
-        if (inCollisionPlayer){
-            Vector3 playerPos = collisionPlayer.gameObject.transform.position;
-
-            // Nasty hack
-            if(Vector3.SqrMagnitude(playerPos - inputPos) > sqrLPDist){
-                inCollisionPlayer = false;
-                onPlayerTouchEnd();
-                return;
-            }
-            try2Interact(collisionPlayer);
-        }
-
-        if(inCollisionKid){
-            Vector3 kidPos = collisionKid.gameObject.transform.position;
-            
-            if(Vector3.SqrMagnitude(kidPos - inputPos) > sqrLPDist){
-                inCollisionKid = false;
-                onKidTouchEnd();
-                return;
-            }
+    private void OnTriggerStay2D(Collider2D other) {
+        string tag = other.tag;
+        if(inCollisionPlayer){
+            try2Interact();
         }
     }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        string tag = other.tag;
+        if (tag == playerTag){
+            inCollisionPlayer = false;
+            onPlayerTouchEnd();
+            try2Interact();
+            return;
+        }
+        if(tag == kidTag){
+            inCollisionKid = false;
+            onKidTouchEnd();
+        }
+    }
+
 
     public bool isCorrect(){
         return state == targetState ? true : false;
@@ -85,9 +78,9 @@ abstract public class logicInput : MonoBehaviour
             onIncorrect();
     }
 
-    void try2Interact(Collider2D other){
+    void try2Interact(){
         //inCollisionPlayer = true;
-        bool interact = isPlayerTryingToInteract(other);
+        bool interact = isPlayerTryingToInteract();
         if(interact){
             cache_player.tryingToInteract = false;
             flipSwitch();
@@ -97,26 +90,22 @@ abstract public class logicInput : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         string tag = other.gameObject.tag;
         if(tag == kidTag){
-            collisionKid = other;
             inCollisionKid = true;
             onKidTouchStart();
         }
         if(tag == playerTag){
-            collisionPlayer = other;
             cache_player = other.gameObject.GetComponent<Player>();
             inCollisionPlayer = true;
             onPlayerTouchStart();
+            try2Interact();
         }
-        try2Interact(other);
+        
     }
 
     
-    public virtual bool isPlayerTryingToInteract(Collider2D collider){
+    public virtual bool isPlayerTryingToInteract(){
         // Check if player is trying to interact
-        string tag = collider.gameObject.tag;
-        if (tag == playerTag)
-            return cache_player.tryingToInteract;
-        return false;
+        return cache_player.tryingToInteract;
     }
     
     public void updateGate(){
