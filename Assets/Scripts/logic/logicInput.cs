@@ -111,7 +111,8 @@ abstract public class logicInput : MonoBehaviour
     }
     
     public void updateGate(){
-        gate.updateState();
+        if (gate != null)
+            gate.updateState();
     }
     void Awake()
     {
