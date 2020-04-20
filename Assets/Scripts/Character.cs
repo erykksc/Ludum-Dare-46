@@ -22,7 +22,9 @@ public class Character : MonoBehaviour
             {
                 return true;
             }
-            if(tag == "Enemy")
+            if(tag == "Player"||tag=="Kid")
+            {}
+            else
             {
                 return true;
             }
