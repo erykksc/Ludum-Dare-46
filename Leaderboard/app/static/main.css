@@ -102,8 +102,8 @@ body {
   }
 
   td.footer {
-    padding-left: 2cm;
-    padding-right: 2cm;
+    padding-left: 2ex;
+    padding-right: 2ex;
   }
   footer > table {
     margin-left: auto;
@@ -122,12 +122,16 @@ body {
   }
   img {
     max-width: 14cm;
+    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
   .forceDown {
     position: fixed;
     bottom: 0;
+  }
+  body {
+    max-width: 100%;
   }
 
   
