@@ -29,6 +29,12 @@ public class Kid : Character
     private void Start() {
         HP = 1;
     }
+    public void CleanState()
+    {
+        dead = false;
+        HP = 1;
+        rb.velocity = new Vector2(0,0);
+    }
 
     private void Update() {
         if(pickUpper!=null){
