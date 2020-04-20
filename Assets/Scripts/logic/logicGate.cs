@@ -35,14 +35,14 @@ public class logicGate : MonoBehaviour
         isActivated = true;
         openFn();
         if(ControlSth)
-            target.activate();
+            target.active = true;
     }
 
     void Close(){
         isActivated = false;
         closeFn();
         if(ControlSth)
-            target.de_activate();
+            target.active = false;
     }
 
     public void updateState(){
