@@ -198,6 +198,11 @@ PrefabInstance:
       propertyPath: points.Array.data[4].y
       value: 2.21
       objectReference: {fileID: 0}
+    - target: {fileID: 3627946466525322993, guid: 4bcf4d164010bf55c816b706c5c25580,
+        type: 3}
+      propertyPath: _active
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3627946466525322996, guid: 4bcf4d164010bf55c816b706c5c25580,
         type: 3}
       propertyPath: m_LinearDrag
