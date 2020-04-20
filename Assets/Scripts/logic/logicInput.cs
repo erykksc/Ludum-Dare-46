@@ -28,6 +28,9 @@ abstract public class logicInput : MonoBehaviour
 
     public bool state;
     public bool targetState = true;
+
+    [SerializeField,Tooltip("If you dont want to add this to gate when starting game")]
+    public bool use_auto_adding;
     public logicGate gate; 
     
     [SerializeField,Tooltip("The maximum distance from the switch to the player")] 
@@ -121,5 +124,15 @@ abstract public class logicInput : MonoBehaviour
             Debug.LogException(new UnityException("A collider2D comonent is required"));
         if (collider.isTrigger == false)
             Debug.LogException(new UnityException("collider2D comonent must be trigger"));
+        
+        logicInput self = gameObject.GetComponent<logicInput>();
+        lock (gate.inputs)
+        {
+            gate.inputs.Add(self);
+        }
+    }
+
+    private void Start() {
+        
     }
 }

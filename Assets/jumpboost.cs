@@ -13,7 +13,7 @@ public class jumpboost : Activatable
             Rigidbody2D playerRB = other.attachedRigidbody;
             Vector2 force = Vector2.up* jumpForce * playerRB.mass * 60f;
 
-            playerRB.AddForce(force, ForceMode2D.Impulse);
+            playerRB.AddForce(force, ForceMode2D.Force);
         }
     }
 
