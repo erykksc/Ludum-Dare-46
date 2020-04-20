@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Audio.meta
 guid: 80db68f16824b594289d9423510395b5
+=======
+guid: 1f62f437c3b3438f78268032134cf48a
+>>>>>>> master:Assets/Packages/RestSharp.106.10.1.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
