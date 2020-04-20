@@ -123,11 +123,13 @@ abstract public class logicInput : MonoBehaviour
             Debug.LogException(new UnityException("A collider2D comonent is required"));
         if (collider.isTrigger == false)
             Debug.LogException(new UnityException("collider2D comonent must be trigger"));
-        
         logicInput self = gameObject.GetComponent<logicInput>();
+        lock (gate.inputs)
+        {
         if(gate.inputs == null)
             gate.inputs = new List<logicInput>();
         gate.inputs.Add(self);
+        }
     }
 
 }

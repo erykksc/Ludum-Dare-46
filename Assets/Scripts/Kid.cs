@@ -46,7 +46,7 @@ public class Kid : Character
     {
         if (!Grounded)
         {
-            if (Gravity < 4.20f) Gravity = Gravity * 1.07f;
+            if (Gravity < 10.50f) Gravity = Gravity * 1.1f;
         }
         rb.AddForce(new Vector2(0, -Gravity));
     }
