@@ -175,7 +175,7 @@ public class Player : Character
         baby.GetComponent<Kid>().dropOff();
         baby = null;
         // If baby dropped -> can interact with levers
-        tryingToInteract = true;
+        //tryingToInteract = true;
 
     }
     public void ClearState()
@@ -205,7 +205,7 @@ public class Player : Character
             {
                 if (Time.time - lastPickUpTime > 0.5f)
                 {
-                    tryingToInteract = false;
+                    //tryingToInteract = false;
                     Debug.Log("pick up");
                     animator.SetTrigger("pickup_baby");
                     collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
