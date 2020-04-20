@@ -17,9 +17,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     static private bool exists = false;
     [SerializeField] Image loadingScreen;
-    private AudioSource audioSource;
     [SerializeField] AudioManager aManager;
-    private string[] tracks = {"track_1", "track_2"};
 
     void Awake()
     {
@@ -36,12 +34,7 @@ public class LevelManager : MonoBehaviour
             loadingScreen.enabled = false;
         }
         
-        audioSource = GetComponent<AudioSource>();
-        if(audioSource is null){
-            Debug.LogError("AudioSource not added to gameobject where AudioManager is placed");
-        }
         aManager = GetComponentInChildren<AudioManager>();
-
     }
 
     void SetPlayerPosition(Vector2 pos)
@@ -91,9 +84,8 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = true;
         }
-        audioSource.loop=false;
-        audioSource.clip = aManager.GetClip("loading_screen");
-        audioSource.Play();
+        aManager.StopTrack();
+        aManager.PlayOneShot("loading_screen");
 
 
         int index = SceneManager.GetActiveScene().buildIndex+i;
@@ -137,7 +129,7 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
-        //PlayTrack();
+        aManager.PlayTrack();
         yield return null;
     }
 

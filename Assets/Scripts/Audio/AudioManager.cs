@@ -99,4 +99,10 @@ public class AudioManager : MonoBehaviour
         source.loop = true;
         source.Play();
     }
+
+    public void StopTrack()
+    {
+        source.loop = false;
+        source.Pause();
+    }
 }
