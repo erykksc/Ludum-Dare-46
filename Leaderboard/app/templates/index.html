@@ -3,6 +3,7 @@
     <head>
         <title>LD46 Leaderboard</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     </head>
     <script>
         function includeHTML() {
@@ -32,7 +33,6 @@
             }
           }
         }
-        includeHTML();
     </script> 
     <h1>GameName Leaderboard:</h1>
     <div class="listContainer">
@@ -42,8 +42,14 @@
             <li><a href="{{map.url}}">{{map.name}}</a></li>
             {% endfor %}
         </ul>
+        <div style="margin-top: 5cm;"></div>
+        <div>
+            <h3>This game in a nutshell:</h3>
+            <img src="https://media.discordapp.net/attachments/700677218803908658/701504112881041488/ggv6lad8k0s41.png?width=696&height=392" alt="Merge error meme">
+        </div>
     </div>
-    <div w3-include-html="{{ url_for('static', filename='footer.html') }}">
-
-    </div>
+    <div w3-include-html="{{ url_for('static', filename='footer.html') }}"></div>
+    <script>
+        includeHTML();
+    </script>
 </html>

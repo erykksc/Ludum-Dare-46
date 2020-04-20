@@ -98,14 +98,36 @@ body {
       bottom: 0;
       left: 0;
       width: 100%;
-      text-align: center;
       background-color: #848484;
+  }
+
+  td.footer {
+    padding-left: 2cm;
+    padding-right: 2cm;
+  }
+  footer > table {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .listContainer {
       max-width: 18cm;
       margin-top: 1cm;
       margin-bottom: 2cm;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  .smoll {
+    font-size: 5pt;
+  }
+  img {
+    max-width: 14cm;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .forceDown {
+    position: fixed;
+    bottom: 0;
   }
 
   
