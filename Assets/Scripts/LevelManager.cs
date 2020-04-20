@@ -88,6 +88,7 @@ public class LevelManager : MonoBehaviour
         {
             aManager.setSong(0);
         }
+        
         int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
         yield return new WaitForSeconds(0.5f);
@@ -100,20 +101,19 @@ public class LevelManager : MonoBehaviour
                 break;
             }
         }
-        if(loadingScreen!=null)
-        {
-            loadingScreen.enabled = false;
-        }
+        //Moving back
         if(i<0)
         {
             Debug.Log(GetExitPos());
             SetPlayerPosition(GetExitPos());
         }
+        //Moving forth
         if(i>0)
         {
             Debug.Log(GetEntrancePos());
             SetPlayerPosition(GetEntrancePos());
         }
+        //Restarting level
         if(i==0)
         {
             int count = Resources.FindObjectsOfTypeAll<Player>().Length;
@@ -130,6 +130,12 @@ public class LevelManager : MonoBehaviour
                 kid.CleanState();
             }
             SetPlayerPosition(GetEntrancePos());
+        }
+
+
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = false;
         }
         PlayTrack();
         yield return null;
