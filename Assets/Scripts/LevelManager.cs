@@ -132,6 +132,20 @@ public class LevelManager : MonoBehaviour
         yield return null;
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown("r"))
+        {
+            int count = Resources.FindObjectsOfTypeAll<Player>().Length;
+            if(count>0)
+            {
+                Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
+                player.HP = player.maxHP;
+            }
+            SetPlayerPosition(GetEntrancePos());
+        }
+    }
+
     public void SwitchForth()
     {
         IEnumerator coroutine = screenLoading(1);
