@@ -145,7 +145,7 @@ public class Player : Character
         //Gravity increase
         if (!Grounded)
         {
-            if (Gravity < 4.5f) Gravity = Gravity * 1.05f;
+            if (Gravity < 10.50f) Gravity = Gravity * 1.1f;
         }
 
         rb.AddForce(new Vector2(0, -Gravity));
