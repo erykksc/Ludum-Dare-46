@@ -107,7 +107,7 @@ MonoBehaviour:
   maxHP: 1
   HP: 1
   rb: {fileID: 0}
-  default_gravity: 0.4
+  default_gravity: 1.5
   Gravity: 0
   Grounded: 0
   offset: {x: 0.75, y: 0.27, z: 0}

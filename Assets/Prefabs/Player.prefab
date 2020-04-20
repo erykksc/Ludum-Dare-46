@@ -73,15 +73,16 @@ MonoBehaviour:
   HP: 0
   rb: {fileID: 0}
   animator: {fileID: 0}
-  SpeedBezPrzedmiotu: 1
-  SpeedZPrzedmiotem: 0.5
-  MaxSpeed: 4
-  JumpForce: 1.5
-  JumpForceWithBaby: 1.3
-  DoubleJumpForce: 1
-  DoubleJumpForceWithBaby: 0.7
-  default_gravity: 0.4
+  SpeedBezPrzedmiotu: 4
+  SpeedZPrzedmiotem: 3.5
+  MaxSpeed: 8
+  JumpForce: 4
+  JumpForceWithBaby: 3
+  DoubleJumpForce: 3
+  DoubleJumpForceWithBaby: 2.5
+  default_gravity: 1.5
   Masa: 0.25
+  tryingToInteract: 0
   Jump: 0
   Speed: 0
   DoubleJump: 0
