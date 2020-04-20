@@ -17,7 +17,7 @@ public class Player : Character
     [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
-    public bool tryingToInteract = false;
+    public bool tryingToInteract = true;
 
 
     [Header("current parameters")]
@@ -174,6 +174,8 @@ public class Player : Character
         baby.GetComponent<SpriteRenderer>().enabled = true;
         baby.GetComponent<Kid>().dropOff();
         baby = null;
+        // If baby dropped -> can interact with levers
+        tryingToInteract = true;
 
     }
     public void ClearState()
@@ -203,6 +205,7 @@ public class Player : Character
             {
                 if (Time.time - lastPickUpTime > 0.5f)
                 {
+                    tryingToInteract = false;
                     Debug.Log("pick up");
                     animator.SetTrigger("pickup_baby");
                     collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
