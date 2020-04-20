@@ -36,16 +36,10 @@ public class LevelManager : MonoBehaviour
             loadingScreen.enabled = false;
         }
         
-        try
-        {
-            audioSource = GetComponent<AudioSource>();
-        }
-        catch
-        {
-            audioSource = null;
+        audioSource = GetComponent<AudioSource>();
+        if(audioSource is null){
             Debug.LogError("AudioSource not added to gameobject where AudioManager is placed");
         }
-
         aManager = GetComponentInChildren<AudioManager>();
 
     }
