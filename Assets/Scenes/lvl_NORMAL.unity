@@ -4749,6 +4749,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3276343412679979449, guid: 334956a986e4d1d4aabc488dfe41970d,
+        type: 3}
+      propertyPath: SpeedZPrzedmiotem
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3276343412679979449, guid: 334956a986e4d1d4aabc488dfe41970d,
+        type: 3}
+      propertyPath: DoubleJumpForceWithBaby
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3276343412679979454, guid: 334956a986e4d1d4aabc488dfe41970d,
         type: 3}
       propertyPath: m_Name
@@ -5521,6 +5531,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Kid 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302661095170878279, guid: c71929e554b6e3c4d8ced10d26d1d9c3,
+        type: 3}
+      propertyPath: default_gravity
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c71929e554b6e3c4d8ced10d26d1d9c3, type: 3}
