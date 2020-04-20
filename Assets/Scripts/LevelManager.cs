@@ -17,7 +17,9 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     static private bool exists = false;
     [SerializeField] Image loadingScreen;
+    private AudioSource audioSource;
     [SerializeField] AudioManager aManager;
+    private string[] tracks = {"track_1", "track_2"};
 
     void Awake()
     {
@@ -33,15 +35,19 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
-        aManager = GetComponentInChildren<AudioManager>();
-    }
-
-    void PlayTrack()
-    {
-        if(aManager!=null)
+        
+        try
         {
-            aManager.Shuffle();
+            audioSource = GetComponent<AudioSource>();
         }
+        catch
+        {
+            audioSource = null;
+            Debug.LogError("AudioSource not added to gameobject where AudioManager is placed");
+        }
+
+        aManager = GetComponentInChildren<AudioManager>();
+
     }
 
     void SetPlayerPosition(Vector2 pos)
@@ -78,10 +84,11 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = true;
         }
-        if(aManager!=null)
-        {
-            aManager.setSong(0);
-        }
+        audioSource.loop=false;
+        audioSource.clip = aManager.GetClip("loading_screen");
+        audioSource.Play();
+
+
         int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
         yield return new WaitForSeconds(0.5f);
@@ -109,7 +116,11 @@ public class LevelManager : MonoBehaviour
             Debug.Log(GetEntrancePos());
             SetPlayerPosition(GetEntrancePos());
         }
-        PlayTrack();
+
+        audioSource.loop=true;
+        audioSource.clip = aManager.GetRandomClip(tracks);
+        audioSource.Play();
+
         yield return null;
     }
 
