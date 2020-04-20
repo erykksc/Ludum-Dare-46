@@ -30,7 +30,6 @@ abstract public class logicInput : MonoBehaviour
     public bool targetState = true;
 
     [SerializeField,Tooltip("If you dont want to add this to gate when starting game")]
-    public bool use_auto_adding;
     public logicGate gate; 
     
     [SerializeField,Tooltip("The maximum distance from the switch to the player")] 
@@ -132,7 +131,4 @@ abstract public class logicInput : MonoBehaviour
         }
     }
 
-    private void Start() {
-        
-    }
 }
