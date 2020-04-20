@@ -25,7 +25,7 @@ public class Damaging : Character
             GameObject lManager = GameObject.Find("LevelManager");
             if(lManager!=null)
             {
-                UI_Handler handler = GetComponentInChildren<UI_Handler>();
+                UI_Handler handler = lManager.GetComponentInChildren<UI_Handler>();
                 if(handler!=null)
                 {
                     handler.SetHealthBar(collisionGameObject.gameObject.GetComponent<Character>().HP);   
