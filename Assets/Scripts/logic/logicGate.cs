@@ -73,4 +73,9 @@ public class logicGate : MonoBehaviour
     {
         updateState();
     }
+
+    private void Awake() {
+        if(inputs == null)
+            inputs = new List<logicInput>();
+    }
 }
