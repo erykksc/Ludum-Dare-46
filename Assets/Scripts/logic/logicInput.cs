@@ -42,6 +42,9 @@ abstract public class logicInput : MonoBehaviour
     [NonSerialized] string kidTag = "Kid";
     [NonSerialized] string playerTag = "Player";
 
+    static Player cache_player;
+
+
 
 
     private void Update() {
@@ -83,12 +86,11 @@ abstract public class logicInput : MonoBehaviour
     }
 
     void try2Interact(Collider2D other){
-        inCollisionPlayer = true;
+        //inCollisionPlayer = true;
         bool interact = isPlayerTryingToInteract(other);
         if(interact){
+            cache_player.tryingToInteract = false;
             flipSwitch();
-            var player = other.gameObject.GetComponent<Player>();
-            player.GetComponent<Player>().tryingToInteract = false;
         }
     }
 
@@ -101,21 +103,19 @@ abstract public class logicInput : MonoBehaviour
         }
         if(tag == playerTag){
             collisionPlayer = other;
+            cache_player = other.gameObject.GetComponent<Player>();
             inCollisionPlayer = true;
             onPlayerTouchStart();
         }
         try2Interact(other);
     }
- 
-    public bool hasColliderTag(string tag, Collider2D collider){
-        return collider.gameObject.tag == tag ? true : false;
-    }
+
     
     public virtual bool isPlayerTryingToInteract(Collider2D collider){
         // Check if player is trying to interact
         string tag = collider.gameObject.tag;
         if (tag == playerTag)
-            return collider.gameObject.GetComponent<Player>().tryingToInteract;
+            return cache_player.tryingToInteract;
         return false;
     }
     
