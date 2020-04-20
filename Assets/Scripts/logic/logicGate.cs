@@ -67,11 +67,15 @@ public class logicGate : MonoBehaviour
         prev_action = action;
         
         action = allEnabled;
-
     }
 
     void Start()
     {
         updateState();
+    }
+
+    private void Awake() {
+        if(inputs == null)
+            inputs = new List<logicInput>();
     }
 }
