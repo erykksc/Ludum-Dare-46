@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
     public int maxHP ;
     public int HP ;
 
+    int deathCount = 0;
     public bool dead = false;
 
     public int getHP(){ return HP; }
@@ -22,12 +23,9 @@ public class Character : MonoBehaviour
             {
                 return true;
             }
-            if(tag == "Player"||tag=="Kid")
-            {}
-            else
-            {
-                return true;
-            }
+            if(!(tag == "Player"||tag=="Kid"))
+            {return true;}
+            deathCount++;
             dead = true;
             int count = Resources.FindObjectsOfTypeAll<LevelManager>().Length;
             if(count>0)
