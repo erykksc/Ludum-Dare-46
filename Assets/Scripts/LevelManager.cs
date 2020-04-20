@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     static private bool exists = false;
     [SerializeField] Image loadingScreen;
+    [SerializeField] Image gameOverScreen;
     [SerializeField] AudioManager aManager;
 
     void Awake()
@@ -32,6 +33,10 @@ public class LevelManager : MonoBehaviour
         if (loadingScreen != null)
         {
             loadingScreen.enabled = false;
+        }
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.enabled = false;
         }
         
         aManager = GetComponentInChildren<AudioManager>();
@@ -78,8 +83,24 @@ public class LevelManager : MonoBehaviour
         }
         return new Vector2(0,0);
     }
+
+    void setActivity(bool on)
+    {
+        GameObject[] objects = SceneManager.GetActiveScene().GetRootGameObjects();
+        for(int i = 0;i<objects.Length;i++)
+        {
+            if(objects[i].tag=="MainCamera"){continue;}
+            objects[i].SetActive(on);
+        }
+    }
     IEnumerator screenLoading(int i)
     {
+        if(gameOverScreen!=null&&i==0)
+        {
+            gameOverScreen.enabled = true;
+            setActivity(false);
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
+        }
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = true;
@@ -113,6 +134,7 @@ public class LevelManager : MonoBehaviour
         //Restarting level
         if(i==0)
         {
+            
             int count = Resources.FindObjectsOfTypeAll<Player>().Length;
             if(count>0)
             {
@@ -126,6 +148,10 @@ public class LevelManager : MonoBehaviour
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = false;
+        }
+        if(gameOverScreen!=null)
+        {
+            gameOverScreen.enabled = false;
         }
         aManager.Stop();
         aManager.PlayTrack();
