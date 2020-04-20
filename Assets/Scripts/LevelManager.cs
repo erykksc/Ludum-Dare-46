@@ -59,6 +59,13 @@ public class LevelManager : MonoBehaviour
                 handler.SetHealthBar(player.HP);
             }
         }
+        count = Resources.FindObjectsOfTypeAll<Kid>().Length;
+        if(count>0)
+        {
+            Kid kid = Resources.FindObjectsOfTypeAll<Kid>()[0];
+            kid.transform.position = GetEntrancePos()+new Vector2(0,2);
+            kid.CleanState();
+        }
     }
     Vector2 GetEntrancePos()
     {
@@ -88,7 +95,7 @@ public class LevelManager : MonoBehaviour
         {
             aManager.setSong(0);
         }
-        
+
         int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
         yield return new WaitForSeconds(0.5f);
@@ -121,13 +128,6 @@ public class LevelManager : MonoBehaviour
             {
                 Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
                 player.HP = player.maxHP;
-            }
-            count = Resources.FindObjectsOfTypeAll<Kid>().Length;
-            if(count>0)
-            {
-                Kid kid = Resources.FindObjectsOfTypeAll<Kid>()[0];
-                kid.transform.position = GetEntrancePos()+new Vector2(0,2);
-                kid.CleanState();
             }
             SetPlayerPosition(GetEntrancePos());
         }
