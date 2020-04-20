@@ -46,13 +46,13 @@ public class CameraMovement : MonoBehaviour
             return;
         }
         Vector3 dir = followed.position-transform.position;
-        dir.z = dir.y = 0;
+        dir.z = 0;
         //dir.y = dir.z = 0;
         if(dir.magnitude>size)
         {
             dir = (transform.position)*(1-Time.fixedDeltaTime*tightness) + (followed.position-dir.normalized*size)*Time.fixedDeltaTime*tightness;
             dir.z = transform.position.z;
-            dir.y = transform.position.y;
+            //dir.y = transform.position.y;
             transform.position = dir;
         }
     }
