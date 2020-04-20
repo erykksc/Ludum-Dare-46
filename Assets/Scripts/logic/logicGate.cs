@@ -73,5 +73,6 @@ public class logicGate : MonoBehaviour
     void Start()
     {
         updateState();
+        inputs = new List<logicInput>();
     }
 }
