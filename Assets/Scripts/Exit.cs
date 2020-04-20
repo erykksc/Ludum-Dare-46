@@ -24,6 +24,9 @@ public class Exit : MonoBehaviour
             {
                 lManager = Resources.FindObjectsOfTypeAll<LevelManager>()[0];
             }
+            Player player = collider.gameObject.GetComponent<Player>();
+            if(player==null){return;}
+            if(!player.BabyInHand()){return;}
             Debug.Log("Success");
             if(lManager!=null)
             {

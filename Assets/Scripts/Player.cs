@@ -62,7 +62,7 @@ public class Player : Character
         Gravity = default_gravity;
     }
 
-    private bool BabyInHand()
+    public bool BabyInHand()
     {
         if (baby != null)
         {
