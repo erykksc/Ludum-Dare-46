@@ -23,10 +23,12 @@ public class SimpleEnemy : Damaging
     [SerializeField] private Vector2 Force;
     [SerializeField] private float maxSpeed;
     private Rigidbody2D rigidbody;
+    [SerializeField] private Animator animator;
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -34,23 +36,20 @@ public class SimpleEnemy : Damaging
         if (rigidbody.velocity.magnitude < maxSpeed)
         {
             rigidbody.AddForce(Force);
+            animator.SetFloat("Direction", Force.normalized.x);
         }
     }
 
 
-
+    void OnDrawGizmos()
+    {
+        DrawArrow.ForGizmo(transform.position, Force);
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         // Stop self and reverse direction
         Force.x = -Force.x;
         CheckAndDamage(other.gameObject);
     }
-    void OnDrawGizmos()
-    {
-        DrawArrow.ForGizmo(transform.position, Force);
-    }
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        CheckAndDamage(other.gameObject);
-    }
+
 }

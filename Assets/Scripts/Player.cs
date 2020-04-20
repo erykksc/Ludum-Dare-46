@@ -17,7 +17,7 @@ public class Player : Character
     [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
-    public bool tryingToInteract = false;
+    public bool tryingToInteract = true;
 
 
     [Header("current parameters")]
@@ -37,7 +37,6 @@ public class Player : Character
 
     private float lastPickUpTime;
     private GameObject baby;
-    [SerializeField] private bool canSwitchLevels = true;
 
     void Awake()
     {
@@ -63,7 +62,7 @@ public class Player : Character
         Gravity = default_gravity;
     }
 
-    private bool BabyInHand()
+    public bool BabyInHand()
     {
         if (baby != null)
         {
@@ -134,13 +133,16 @@ public class Player : Character
             rb.AddForce(new Vector2(-Speed, 0));
         }
 
-        animator.SetFloat("horizontal_velocity", rb.velocity.x); 
+        //try to compare velocity with 
+       // try { }
+       // else { }
+        animator.SetFloat("horizontal_velocity", rb.velocity.x);   
 
 
         //Gravity increase
         if (!Grounded)
         {
-            if (Gravity < 6.9f) Gravity = Gravity * 1.05f;
+            if (Gravity < 4.5f) Gravity = Gravity * 1.05f;
         }
 
         rb.AddForce(new Vector2(0, -Gravity));
@@ -152,35 +154,42 @@ public class Player : Character
             if (Time.time - lastPickUpTime > 0.5f)
             {
                 Debug.Log("drop off");
-
-                //baby becomes a seprate object -enable colliders and sprite showing
-                foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
-                {
-                    col.enabled = true;
-                }
-                baby.GetComponent<SpriteRenderer>().enabled = true;
-                animator.SetTrigger("drop_baby");
-                baby.GetComponent<Kid>().dropOff();
-                baby = null;
                 lastPickUpTime = Time.time;
+                StartCoroutine(SlightlyDelayedBabyDrop(0.8f));
+                animator.SetTrigger("drop_baby");
             }
         }
 
-        if(Input.GetKeyDown("i")) tryingToInteract = true;
+        if(Input.GetKeyDown("i") && ! BabyInHand()) tryingToInteract = true;
         if(Input.GetKeyUp("i")) tryingToInteract = false;
         
     }
 
-    void ClearState()
+
+    //baby becomes a seprate object -enable colliders and sprite showing
+    public IEnumerator SlightlyDelayedBabyDrop(float delay)
     {
-        transform.position = new Vector3(0,0,0);
-        canSwitchLevels = false;
+        yield return new WaitForSeconds(delay);
+        foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
+        {
+            col.enabled = true;
+        }
+        baby.GetComponent<SpriteRenderer>().enabled = true;
+        baby.GetComponent<Kid>().dropOff();
+        baby = null;
+        // If baby dropped -> can interact with levers
+        //tryingToInteract = true;
+
+    }
+    public void ClearState()
+    {
         CanDoubleJump = false;
         Grounded = false;
         CanDoubleJump = false;
         rb.velocity = new Vector2(0,0);
     }
 
+    //Enable jumping when player contacts ground
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Level") || collision.gameObject.CompareTag("Enemy"))
@@ -189,36 +198,9 @@ public class Player : Character
             Grounded = true;
             CanDoubleJump = false;
         }
-
-        if(collision.gameObject.CompareTag("Trigger_NEXT"))
-        {
-            if(!BabyInHand())
-            {
-                return;
-            }
-            ClearState();
-            if(lManager==null)
-            {
-                Debug.Log("Manager not found");
-                return;
-            }
-            lManager.SwitchForth();
-        }
-        if(collision.gameObject.CompareTag("Trigger_PREVIOUS"))
-        {
-            if(!BabyInHand())
-            {
-                return;
-            }
-            ClearState();
-            if(lManager==null)
-            {
-                Debug.Log("Manager not found");
-                return;
-            }
-            lManager.SwitchBack();
-        }
     }
+
+    //Pick up baby when colliding and e-press
     private void OnCollisionStay2D(Collision2D collision)
     {
 
@@ -229,6 +211,7 @@ public class Player : Character
             {
                 if (Time.time - lastPickUpTime > 0.5f)
                 {
+                    //tryingToInteract = false;
                     Debug.Log("pick up");
                     animator.SetTrigger("pickup_baby");
                     collision.gameObject.GetComponent<Kid>().pickUp(gameObject);
@@ -246,6 +229,23 @@ public class Player : Character
         }
     }
 
+    //Consider relative velocity if player is on a moving platform
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        try
+        {
+            //if triggering with a moving platform
+            collision.gameObject.GetComponent<Rigidbody2D>();
+            Vector2 relative_velocity = rb.velocity - collision.gameObject.GetComponent<Rigidbody2D>().velocity;
+
+            animator.SetFloat("horizontal_velocity", relative_velocity.x);
+            animator.SetFloat("vertical_velocity", relative_velocity.y);
+
+        }
+        catch { animator.SetFloat("horizontal_velocity", rb.velocity.x); }
+        
+    }
+
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Level") || collision.gameObject.CompareTag("Enemy"))
@@ -253,6 +253,5 @@ public class Player : Character
             Grounded = false;
             CanDoubleJump = true;
         }
-        canSwitchLevels = true;
     }
 }
