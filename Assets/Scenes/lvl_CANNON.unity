@@ -786,7 +786,7 @@ MonoBehaviour:
   maxHP: 0
   HP: 0
   dead: 0
-  damage: 5
+  damage: 1
   knockback_strength: 2
   knockback_direction: {x: 0, y: 0}
 --- !u!19719996 &156482938
