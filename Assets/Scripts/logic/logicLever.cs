@@ -10,6 +10,7 @@ public class logicLever : logicInput
     - rigidbody in player
     - tryingToInteract must be implemented in player
 */
+
     override public void onInteraction(){
         state = !state;
         updateGate();
