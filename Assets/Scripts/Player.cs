@@ -189,6 +189,7 @@ public class Player : Character
         Grounded = false;
         CanDoubleJump = false;
         rb.velocity = new Vector2(0,0);
+        dead = false;
     }
 
     //Enable jumping when player contacts ground

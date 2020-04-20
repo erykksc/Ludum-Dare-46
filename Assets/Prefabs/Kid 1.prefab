@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1302661095170878276}
   - component: {fileID: 1302661095170878279}
   - component: {fileID: 3042045394350888801}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Kid 1
   m_TagString: Kid
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1302661096038342890}
   - component: {fileID: 1302661096038342891}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: isOnGroundChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
