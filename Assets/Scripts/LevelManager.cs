@@ -98,15 +98,15 @@ public class LevelManager : MonoBehaviour
     }
     IEnumerator screenLoading(int i)
     {
-        if(loadingScreen!=null&&i!=0)
-        {
-            loadingScreen.enabled = true;
-        }
         if(gameOverScreen!=null&&i==0)
         {
             gameOverScreen.enabled = true;
             setActivity(false);
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
+        }
+        if(loadingScreen!=null)
+        {
+            loadingScreen.enabled = true;
         }
         if(aManager!=null)
         {
