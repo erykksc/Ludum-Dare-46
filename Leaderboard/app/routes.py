@@ -53,7 +53,6 @@ def addTime():
         time = request.form['time']
         if len(nick) > 64:
             nick = nick[:63]
-        print(nick, level, time)
         if level not in maps:
             maps.append(level)
     except KeyError:
