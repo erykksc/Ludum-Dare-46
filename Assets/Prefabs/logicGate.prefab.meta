@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Prefabs/logicGate.prefab.meta
 guid: 90d94bd2d9654046496a855374217a05
 PrefabImporter:
+=======
+guid: c9befdac74bda2ddc914fe1a9b6a9f64
+folderAsset: yes
+DefaultImporter:
+>>>>>>> master:Assets/Packages.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
