@@ -133,7 +133,10 @@ public class Player : Character
             rb.AddForce(new Vector2(-Speed, 0));
         }
 
-        animator.SetFloat("horizontal_velocity", rb.velocity.x); 
+        //try to compare velocity with 
+       // try { }
+       // else { }
+        animator.SetFloat("horizontal_velocity", rb.velocity.x);   
 
 
         //Gravity increase
@@ -186,6 +189,7 @@ public class Player : Character
         rb.velocity = new Vector2(0,0);
     }
 
+    //Enable jumping when player contacts ground
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Level") || collision.gameObject.CompareTag("Enemy"))
@@ -195,6 +199,8 @@ public class Player : Character
             CanDoubleJump = false;
         }
     }
+
+    //Pick up baby when colliding and e-press
     private void OnCollisionStay2D(Collision2D collision)
     {
 
@@ -221,6 +227,23 @@ public class Player : Character
                 }
             }
         }
+    }
+
+    //Consider relative velocity if player is on a moving platform
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        try
+        {
+            //if triggering with a moving platform
+            collision.gameObject.GetComponent<Rigidbody2D>();
+            Vector2 relative_velocity = rb.velocity - collision.gameObject.GetComponent<Rigidbody2D>().velocity;
+
+            animator.SetFloat("horizontal_velocity", relative_velocity.x);
+            animator.SetFloat("vertical_velocity", relative_velocity.y);
+
+        }
+        catch { animator.SetFloat("horizontal_velocity", rb.velocity.x); }
+        
     }
 
     public void OnTriggerExit2D(Collider2D collision)
