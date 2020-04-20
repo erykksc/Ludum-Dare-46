@@ -34,6 +34,7 @@ public class Player : Character
     //Level Manager
     static bool exists = false;
     private LevelManager lManager;
+    private AudioManager aManager;
 
     private float lastPickUpTime;
     private GameObject baby;
@@ -54,6 +55,7 @@ public class Player : Character
         {
             lManager = Resources.FindObjectsOfTypeAll<LevelManager>()[0];
         }
+        aManager = FindObjectOfType<AudioManager>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
 
@@ -84,6 +86,7 @@ public class Player : Character
         {
             rb.AddForce(new Vector2(0, Jump), ForceMode2D.Impulse);
             CanDoubleJump = true;
+            aManager.PlayOneShot("player_jump");
         }
 
         //When in air and W pressed - double jump
@@ -94,6 +97,7 @@ public class Player : Character
             rb.AddForce(new Vector2(0, DoubleJump), ForceMode2D.Impulse);
             Gravity = default_gravity;
             CanDoubleJump = false;
+            aManager.PlayOneShot("player_jump");
         }
 
         animator.SetFloat("vertical_velocity",rb.velocity.y);
@@ -163,9 +167,13 @@ public class Player : Character
         //drop baby
         if (Input.GetKey("e") && BabyInHand())
         {
-            if (Time.time - lastPickUpTime > 0.5f)
+            if (Time.time - lastPickUpTime > 0.5f && Grounded )
             {
                 DropBaby();
+            }
+            else if (Time.time - lastPickUpTime > 0.5f && !Grounded)
+            {
+                InstantBabyDrop();
             }
         }
 
@@ -178,6 +186,12 @@ public class Player : Character
     public IEnumerator SlightlyDelayedBabyDrop(float delay)
     {
         yield return new WaitForSeconds(delay);
+        InstantBabyDrop();
+        // If baby dropped -> can interact with levers
+        //tryingToInteract = true;
+    }
+    public void InstantBabyDrop()
+    {
         foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
         {
             col.enabled = true;
@@ -185,10 +199,9 @@ public class Player : Character
         baby.GetComponent<SpriteRenderer>().enabled = true;
         baby.GetComponent<Kid>().dropOff();
         baby = null;
-        // If baby dropped -> can interact with levers
-        //tryingToInteract = true;
-
     }
+
+
     public void ClearState()
     {
         CanDoubleJump = false;
@@ -196,6 +209,12 @@ public class Player : Character
         CanDoubleJump = false;
         rb.velocity = new Vector2(0,0);
         dead = false;
+    }
+
+    public override bool dealDamage(int damage)
+    {
+        aManager.PlayOneShot("player_hit");
+        return base.dealDamage(damage);
     }
 
     //Enable jumping when player contacts ground
@@ -209,7 +228,9 @@ public class Player : Character
         }
         if(collision.gameObject.CompareTag("Enemy")&&BabyInHand()&&Time.time - lastPickUpTime > 0.5f)
         {
-            DropBaby();
+            Debug.Log("drop off");
+            lastPickUpTime = Time.time;
+            InstantBabyDrop();
         }
     }
 
