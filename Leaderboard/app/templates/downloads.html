@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>LD46 Leaderboard</title>
+        <title>Play the GameName</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     </head>
@@ -34,24 +34,17 @@
           }
         }
     </script> 
-    <h1>GameName Leaderboard:</h1>
+    <h1>GameName links</h1>
     <div class="listContainer">
-        <a href="Downloads">
-            <div class="downloadButton">
-                <span>Play the game!</span>
-            </div>
+        <a href="/index">
+          <div class="normalButton" style="margin-bottom: 2em;">
+            <span>Go back</span>
+          </div>
         </a>
-        <h2>Map list:</h2>
-        <ul>
-            {% for map in maps %}
-            <li><a href="{{map.url}}">{{map.name}}</a></li>
-            {% endfor %}
-        </ul>
-        <div style="margin-top: 5cm;"></div>
-        <div>
-            <h3>This game in a nutshell:</h3>
-            <img src="{{ url_for('static', filename='mergeMeme.png') }}" alt="Merge error meme">
-        </div>
+        <p>You can download the binaries <a href="https://github.com/Eroar/Ludum-Dare-46/releases">from here.</a></p>
+        <p>You can play this game in your browser <a href="WEBASSEMBLYLINK">here.</a></p>
+        <div style="margin-top: 5em;"></div>
+        <img src="{{ url_for('static', filename='itWorks.jpg') }}" alt="It just works meme">
     </div>
     <div style="margin-top: 10em;"></div>
     <div w3-include-html="{{ url_for('static', filename='footer.html') }}"></div>

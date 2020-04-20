@@ -24,6 +24,10 @@ def index():
     mapsDict = list([{'url': '/board/' + x, 'name': x} for x in maps])
     return render_template('index.html', maps = mapsDict)
 
+@app.route('/Downloads')
+def Downloads():
+    return render_template('downloads.html')
+
 @app.route('/board/<level>')
 def board(level):
     entry = Query()
