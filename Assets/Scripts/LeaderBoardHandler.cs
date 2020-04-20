@@ -27,6 +27,17 @@ public class LeaderBoardHandler : MonoBehaviour
     private System.DateTime stopTime;
     private RestClient client = new RestClient("http://grzegorzkoperwas.site:5000");
 
+
+
+
+    public void Awake()
+    {
+        StartTimer();
+    }
+
+
+
+
     // Starts timer on class load
     public void StartTimer()
     {
