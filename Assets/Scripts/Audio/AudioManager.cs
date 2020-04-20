@@ -22,7 +22,8 @@ public class AudioManager : MonoBehaviour
     //audio file names for soundtrack
     private Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>();
     [SerializeField] private string[] tracks;
-    private AudioSource source;
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource trackSource;
 
     void Start()
     {
@@ -31,14 +32,6 @@ public class AudioManager : MonoBehaviour
         {
             clips.Add(clipName, (AudioClip)Resources.Load(clipName));
         }
-
-        //Tries to find AudioSource
-        source = GetComponent<AudioSource>();
-        if (source is null)
-        {
-            Debug.LogError("AudioSource not added to gameobject: " + gameObject.name);
-        }
-
     }
 
     public AudioClip GetClip(string clipName){
@@ -83,35 +76,36 @@ public class AudioManager : MonoBehaviour
         AudioClip clip = GetClip(clipName);
         if (clip is null)
         {
-            Debug.LogWarningFormat("Clipname {0} not found for source {1}", clipName, source.gameObject.name);
+            Debug.LogWarningFormat("Clipname {0} not found for source {1}", clipName, sfxSource.gameObject.name);
             return;
         }
         else
         {
             Debug.Log("Playing oneshot: " + clip.name);
-            source.PlayOneShot(clip);
+            sfxSource.PlayOneShot(clip);
         }
     }
 
     public void PlayTrack()
     {
         //Plays rondom soundtrack
-        source.clip = GetRandomClip(tracks);
-        if(!(source.clip is null)){
-            source.loop = true;
-            Debug.Log("Clip name: " + source.clip.name);
-            source.Play();
+        trackSource.clip = GetRandomClip(tracks);
+        if(!(trackSource.clip is null)){
+            trackSource.loop = true;
+            Debug.Log("Clip name: " + trackSource.clip.name);
+            trackSource.Play();
         }
     }
 
     public void Stop()
     {
-        source.Stop();
+        trackSource.Stop();
+        sfxSource.Stop();
     }
 
     public void StopTrack()
     {
-        source.loop = false;
-        source.Pause();
+        trackSource.loop = false;
+        trackSource.Stop();
     }
 }

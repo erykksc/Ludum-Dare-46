@@ -204,6 +204,7 @@ public class Player : Character
 
     public override bool dealDamage(int damage)
     {
+        aManager.PlayOneShot("player_hit");
         return base.dealDamage(damage);
     }
 
