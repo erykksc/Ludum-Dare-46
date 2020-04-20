@@ -1158,8 +1158,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 708477549}
-  - component: {fileID: 708477548}
   - component: {fileID: 708477547}
+  - component: {fileID: 708477550}
+  - component: {fileID: 708477548}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -1178,8 +1179,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.479
+  m_PlayOnAwake: 0
+  m_Volume: 0.216
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1272,15 +1273,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 708477546}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc549c763971ac10ea687c5ad8aa0879, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b7f279bee7098e42b15f10d92ce84c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clips:
-  - {fileID: 8300000, guid: 2ae6229db192c979f8f1d06f09fd184e, type: 3}
-  - {fileID: 8300000, guid: e5ea7efcc693990468cef08801825042, type: 3}
-  - {fileID: 8300000, guid: fa9edeb092bc4994f82df06b74d147bc, type: 3}
-  - {fileID: 8300000, guid: e434d79f020784746920c88611f4075f, type: 3}
-  source: {fileID: 0}
+  sounds2load:
+  - ambient_track
+  - another_track
+  - spooky_track
+  - whitenoise
+  - player_hit
+  - player_jump
+  tracks:
+  - ambient_track
+  - another_track
+  - spooky_track
+  sfxSource: {fileID: 708477547}
+  trackSource: {fileID: 708477550}
 --- !u!4 &708477549
 Transform:
   m_ObjectHideFlags: 0
@@ -1295,6 +1303,102 @@ Transform:
   m_Father: {fileID: 1140134003}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &708477550
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708477546}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &757860146
 GameObject:
   m_ObjectHideFlags: 0
