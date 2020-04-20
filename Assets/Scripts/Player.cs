@@ -98,13 +98,16 @@ public class Player : Character
 
         animator.SetFloat("vertical_velocity",rb.velocity.y);
     }
+
     void DropBaby()
     {
         Debug.Log("drop off");
         lastPickUpTime = Time.time;
         StartCoroutine(SlightlyDelayedBabyDrop(0.8f));
         animator.SetTrigger("drop_baby");
+        return;
     }
+
     void FixedUpdate()
     {
 
@@ -173,10 +176,6 @@ public class Player : Character
     public IEnumerator SlightlyDelayedBabyDrop(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if(baby==null)
-        {
-            yield break;
-        }
         foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
         {
             col.enabled = true;
@@ -206,7 +205,7 @@ public class Player : Character
             Grounded = true;
             CanDoubleJump = false;
         }
-        if(collision.gameObject.CompareTag("Enemy")&&BabyInHand())
+        if(collision.gameObject.CompareTag("Enemy")&&BabyInHand()&&Time.time - lastPickUpTime > 0.5f)
         {
             DropBaby();
         }
