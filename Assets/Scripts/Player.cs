@@ -167,9 +167,13 @@ public class Player : Character
         //drop baby
         if (Input.GetKey("e") && BabyInHand())
         {
-            if (Time.time - lastPickUpTime > 0.5f)
+            if (Time.time - lastPickUpTime > 0.5f && Grounded )
             {
                 DropBaby();
+            }
+            else if (Time.time - lastPickUpTime > 0.5f && !Grounded)
+            {
+                InstantBabyDrop();
             }
         }
 
@@ -182,6 +186,12 @@ public class Player : Character
     public IEnumerator SlightlyDelayedBabyDrop(float delay)
     {
         yield return new WaitForSeconds(delay);
+        InstantBabyDrop();
+        // If baby dropped -> can interact with levers
+        //tryingToInteract = true;
+    }
+    public void InstantBabyDrop()
+    {
         foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
         {
             col.enabled = true;
@@ -189,10 +199,9 @@ public class Player : Character
         baby.GetComponent<SpriteRenderer>().enabled = true;
         baby.GetComponent<Kid>().dropOff();
         baby = null;
-        // If baby dropped -> can interact with levers
-        //tryingToInteract = true;
-
     }
+
+
     public void ClearState()
     {
         CanDoubleJump = false;
@@ -219,7 +228,9 @@ public class Player : Character
         }
         if(collision.gameObject.CompareTag("Enemy")&&BabyInHand()&&Time.time - lastPickUpTime > 0.5f)
         {
-            DropBaby();
+            Debug.Log("drop off");
+            lastPickUpTime = Time.time;
+            InstantBabyDrop();
         }
     }
 
