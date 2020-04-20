@@ -188,6 +188,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kid 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1302661095170878279, guid: c71929e554b6e3c4d8ced10d26d1d9c3,
+        type: 3}
+      propertyPath: default_gravity
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302661095170878279, guid: c71929e554b6e3c4d8ced10d26d1d9c3,
+        type: 3}
+      propertyPath: Gravity
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c71929e554b6e3c4d8ced10d26d1d9c3, type: 3}
 --- !u!1 &71851451
