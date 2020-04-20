@@ -22,6 +22,10 @@ public class Character : MonoBehaviour
             {
                 return true;
             }
+            if(tag == "Enemy")
+            {
+                return true;
+            }
             dead = true;
             int count = Resources.FindObjectsOfTypeAll<LevelManager>().Length;
             if(count>0)
