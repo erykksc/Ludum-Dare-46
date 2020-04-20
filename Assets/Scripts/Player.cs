@@ -17,7 +17,7 @@ public class Player : Character
     [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
-    public bool tryingToInteract = true;
+    public bool tryingToInteract = false;
 
 
     [Header("current parameters")]
@@ -97,6 +97,9 @@ public class Player : Character
         }
 
         animator.SetFloat("vertical_velocity",rb.velocity.y);
+
+        if(Input.GetKeyDown("i") && ! BabyInHand()) tryingToInteract = true;
+        if(Input.GetKeyUp("i")) tryingToInteract = false;
     }
 
     void FixedUpdate()
@@ -160,8 +163,7 @@ public class Player : Character
             }
         }
 
-        if(Input.GetKeyDown("i") && ! BabyInHand()) tryingToInteract = true;
-        if(Input.GetKeyUp("i")) tryingToInteract = false;
+       
         
     }
 
