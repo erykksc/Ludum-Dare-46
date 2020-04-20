@@ -3,37 +3,19 @@ from flask import render_template, request
 import datetime
 from tinydb import TinyDB, Query
 
-def GenerateMapList(data):
-    maps = list()
-    for x in data.all():
-        if x['level'] not in maps:
-            maps.append(x['level'])
-    return maps
-
 debug = True
 if debug:
     database = TinyDB('test.json')
 else:
     database = TinyDB('leaderBoard.json')
 
-maps = GenerateMapList(database)
-
 @app.route('/')
 @app.route('/index')
 def index():
-    mapsDict = list([{'url': '/board/' + x, 'name': x} for x in maps])
-    return render_template('index.html', maps = mapsDict)
-
-@app.route('/board/<level>')
-def board(level):
-    entry = Query()
-    entries = database.search(entry.level == level)
-    entries.sort(key = lambda item: datetime.time.fromisoformat(item['time']))
-    return render_template('board.html', players = entries, level = level)
+    return render_template('index.html')
 
 @app.route('/api/postTime', methods=['POST'])
 def addTime():
-    print(request.form)
     try:
         nick = request.form['nick']
         level = str(request.form['level'])
@@ -41,9 +23,6 @@ def addTime():
         time = request.form['time']
         if len(nick) > 64:
             nick = nick[:63]
-        print(nick, level, time)
-        if level not in maps:
-            maps.append(level)
     except KeyError:
         return {'success': False, 'reason': 'NotValidRequest'}
     except ValueError:
