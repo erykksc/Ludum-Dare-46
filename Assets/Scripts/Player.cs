@@ -17,6 +17,9 @@ public class Player : Character
     [SerializeField] private float default_gravity = 0.4f;
     [SerializeField] private float Masa = 0.25f;
 
+    public bool tryingToInteract = false;
+
+
     [Header("current parameters")]
 
     [SerializeField] private float Jump;
@@ -34,9 +37,6 @@ public class Player : Character
 
     private float lastPickUpTime;
     private GameObject baby;
-
-    public bool tryingToInteract = false;
-
 
     void Awake()
     {
@@ -151,17 +151,9 @@ public class Player : Character
             if (Time.time - lastPickUpTime > 0.5f)
             {
                 Debug.Log("drop off");
-
-                //baby becomes a seprate object -enable colliders and sprite showing
-                foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
-                {
-                    col.enabled = true;
-                }
-                baby.GetComponent<SpriteRenderer>().enabled = true;
-                animator.SetTrigger("drop_baby");
-                baby.GetComponent<Kid>().dropOff();
-                baby = null;
                 lastPickUpTime = Time.time;
+                StartCoroutine(SlightlyDelayedBabyDrop(0.8f));
+                animator.SetTrigger("drop_baby");
             }
         }
 
@@ -170,6 +162,22 @@ public class Player : Character
         
     }
 
+
+    //baby becomes a seprate object -enable colliders and sprite showing
+    public IEnumerator SlightlyDelayedBabyDrop(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        foreach (Collider2D col in baby.GetComponentsInChildren<Collider2D>())
+        {
+            col.enabled = true;
+        }
+        baby.GetComponent<SpriteRenderer>().enabled = true;
+        baby.GetComponent<Kid>().dropOff();
+        baby = null;
+
+    }
+
+    void ClearState()
     public void ClearState()
     {
         CanDoubleJump = false;
@@ -180,7 +188,7 @@ public class Player : Character
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Level"))
+        if (collision.gameObject.CompareTag("Level") || collision.gameObject.CompareTag("Enemy"))
         {
             Gravity = default_gravity;
             Grounded = true;
@@ -216,7 +224,7 @@ public class Player : Character
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Level"))
+        if (collision.gameObject.CompareTag("Level") || collision.gameObject.CompareTag("Enemy"))
         {
             Grounded = false;
             CanDoubleJump = true;

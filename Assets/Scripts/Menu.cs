@@ -12,6 +12,7 @@ public class Menu : MonoBehaviour
 
     public void Awake()
     {
+        manager.GetComponentInChildren<UI_Handler>().gameObject.GetComponent<Canvas>().enabled = false;
         credits_text.text =
             "Andrzej Kominek- level design, coding \n" +
             "Eryk Kściuczyk - coding \n" +
@@ -28,7 +29,9 @@ public class Menu : MonoBehaviour
     public void PlayButtonPress()
     {
         // manager.setLevel(1);
+        manager.GetComponentInChildren<UI_Handler>().gameObject.GetComponent<Canvas>().enabled = true;
         SceneManager.LoadScene(1);
+
     }
 
     //Show credits panel on press

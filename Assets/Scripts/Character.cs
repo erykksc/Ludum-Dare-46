@@ -3,24 +3,22 @@
 public class Character : MonoBehaviour
 {
 
-    //Properties
+    [Header("health - Character class property")]
     public int maxHP ;
     public int HP ;
 
-    private Vector3 direction;
 
-
-
-    int getHP(){ return HP; }
+    public int getHP(){ return HP; }
 
 
     // Return true if killed
-    bool damage( int damage ){ 
-        if( (HP - damage ) <= 0 ){
+    public bool dealDamage( int damage ){ 
+        HP -= damage;
+        if(HP <= 0 ){
+            
             Destroy( gameObject, 0.1f );
             return true;
         }
-
         return false;
 
      }

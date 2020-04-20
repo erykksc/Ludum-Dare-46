@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        if(exists)
+        if (exists)
         {
             Debug.Log("Destroying");
             Destroy(gameObject);
@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
         }
         exists = true;
         DontDestroyOnLoad(this);
-        if(loadingScreen!=null)
+        if (loadingScreen != null)
         {
             loadingScreen.enabled = false;
         }
@@ -66,7 +66,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator screenLoadingForth()
     {
-        if(loadingScreen!=null)
+        if (loadingScreen != null)
         {
             loadingScreen.enabled = true;
         }
@@ -79,12 +79,12 @@ public class LevelManager : MonoBehaviour
         while(SceneManager.GetActiveScene().buildIndex!=index)
         {
             if(Time.time-t1>5f)
-            {
                 break;
             }
         }
         Debug.Log("ShouldWork");
         if(loadingScreen!=null)
+            {
         {
             loadingScreen.enabled = false;
         }
@@ -130,9 +130,8 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(coroutine);
 
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+   
 }
+
+
