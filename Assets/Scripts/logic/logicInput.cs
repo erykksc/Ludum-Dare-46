@@ -42,7 +42,19 @@ abstract public class logicInput : MonoBehaviour
     static Player cache_player;
 
 
-
+    private void OnTriggerEnter2D(Collider2D other) {
+        string tag = other.gameObject.tag;
+        if(tag == kidTag){
+            inCollisionKid = true;
+            onKidTouchStart();
+        }
+        if(tag == playerTag){
+            cache_player = other.gameObject.GetComponent<Player>();
+            inCollisionPlayer = true;
+            onPlayerTouchStart();
+            try2Interact();
+        }
+    }
     private void OnTriggerStay2D(Collider2D other) {
         string tag = other.tag;
         if(inCollisionPlayer){
@@ -63,7 +75,6 @@ abstract public class logicInput : MonoBehaviour
             onKidTouchEnd();
         }
     }
-
 
     public bool isCorrect(){
         return state == targetState ? true : false;
@@ -87,20 +98,7 @@ abstract public class logicInput : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        string tag = other.gameObject.tag;
-        if(tag == kidTag){
-            inCollisionKid = true;
-            onKidTouchStart();
-        }
-        if(tag == playerTag){
-            cache_player = other.gameObject.GetComponent<Player>();
-            inCollisionPlayer = true;
-            onPlayerTouchStart();
-            try2Interact();
-        }
-        
-    }
+    
 
     
     public virtual bool isPlayerTryingToInteract(){
