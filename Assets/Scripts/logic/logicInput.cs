@@ -127,7 +127,10 @@ abstract public class logicInput : MonoBehaviour
         logicInput self = gameObject.GetComponent<logicInput>();
         lock (gate.inputs)
         {
+            if(gate.inputs == null)
+                gate.inputs = new List<logicInput>();
             gate.inputs.Add(self);
+            
         }
     }
 
