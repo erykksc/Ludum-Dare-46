@@ -95,10 +95,10 @@ public class LevelManager : MonoBehaviour
     }
     IEnumerator screenLoading(int i)
     {
+        setActivity(false);
         if(gameOverScreen!=null&&i==0)
         {
             gameOverScreen.enabled = true;
-            setActivity(false);
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
         }
         if(loadingScreen!=null)
@@ -155,6 +155,7 @@ public class LevelManager : MonoBehaviour
         }
         aManager.Stop();
         aManager.PlayTrack();
+        setActivity(true);
         yield return null;
     }
 
@@ -162,13 +163,7 @@ public class LevelManager : MonoBehaviour
     {
         if (Input.GetKeyDown("r"))
         {
-            int count = Resources.FindObjectsOfTypeAll<Player>().Length;
-            if(count>0)
-            {
-                Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
-                player.HP = player.maxHP;
-            }
-            SetPlayerPosition(GetEntrancePos());
+            Restart();
         }
     }
 
