@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Image gameOverScreen;
     [SerializeField] AudioManager aManager;
     bool occupied = false;
+    public static  bool reading_input = true;
 
     void Awake()
     {
@@ -165,7 +166,7 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("r"))
+        if (Input.GetKeyDown("r") && reading_input)
         {
             Restart();
         }
