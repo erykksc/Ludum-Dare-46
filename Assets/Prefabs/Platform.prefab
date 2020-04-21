@@ -105,7 +105,7 @@ MonoBehaviour:
   - {x: -3, y: 0}
   PointToGoTo: 0
   tolerance: 0.29
-  drag_factor: 150
+  drag_factor: 25
 --- !u!50 &3627946466525322996
 Rigidbody2D:
   serializedVersion: 4
