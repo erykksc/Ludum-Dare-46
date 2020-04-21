@@ -17,7 +17,10 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     static private bool exists = false;
     [SerializeField] Image loadingScreen;
+    [SerializeField] Image gameOverScreen;
     [SerializeField] AudioManager aManager;
+    bool occupied = false;
+    public static  bool reading_input = true;
 
     void Awake()
     {
@@ -33,15 +36,12 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
-        aManager = GetComponentInChildren<AudioManager>();
-    }
-
-    void PlayTrack()
-    {
-        if(aManager!=null)
+        if (gameOverScreen != null)
         {
-            aManager.Shuffle();
+            gameOverScreen.enabled = false;
         }
+        
+        aManager = GetComponentInChildren<AudioManager>();
     }
 
     void SetPlayerPosition(Vector2 pos)
@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour
         if(count>0)
         {
             Kid kid = Resources.FindObjectsOfTypeAll<Kid>()[0];
-            kid.transform.position = GetEntrancePos()+new Vector2(0,2);
+            kid.transform.position = GetEntrancePos()+new Vector2(1,0);
             kid.CleanState();
         }
     }
@@ -85,16 +85,53 @@ public class LevelManager : MonoBehaviour
         }
         return new Vector2(0,0);
     }
+
+    void setActivity(bool on)
+    {
+        GameObject[] objects = SceneManager.GetActiveScene().GetRootGameObjects();
+        for(int i = 0;i<objects.Length;i++)
+        {
+            if(objects[i].tag=="MainCamera"){continue;}
+            objects[i].SetActive(on);
+        }
+    }
+    void activatePlayer(bool on)
+    {
+        int count = Resources.FindObjectsOfTypeAll<Player>().Length;
+        if(count>0)
+        {
+            Debug.Log("Localized");
+            Resources.FindObjectsOfTypeAll<Player>()[0].gameObject.SetActive(on);
+        }
+        count = Resources.FindObjectsOfTypeAll<Kid>().Length;
+        if(count>0)
+        {
+            Resources.FindObjectsOfTypeAll<Kid>()[0].gameObject.SetActive(on);
+        }
+    }
     IEnumerator screenLoading(int i)
     {
+        //Nothing state changing may come before this
+        if(occupied)
+        {
+            yield break;
+        }
+        occupied = true;
+
+        activatePlayer(false);
+        setActivity(false);
+
+        if(gameOverScreen!=null&&i==0)
+        {
+            gameOverScreen.enabled = true;
+            yield return new WaitUntil(() => Input.GetKey(KeyCode.F));
+            gameOverScreen.enabled = false;
+        }
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = true;
         }
-        if(aManager!=null)
-        {
-            aManager.setSong(0);
-        }
+        aManager.StopTrack();
 
         int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
@@ -123,6 +160,7 @@ public class LevelManager : MonoBehaviour
         //Restarting level
         if(i==0)
         {
+            
             int count = Resources.FindObjectsOfTypeAll<Player>().Length;
             if(count>0)
             {
@@ -137,15 +175,30 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
-        PlayTrack();
+
+        aManager.Stop();
+        aManager.PlayTrack();
+
+        setActivity(true);
+        activatePlayer(true);
+
+        occupied = false;
+
         yield return null;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown("r") && reading_input)
+        {
+            Restart();
+        }
     }
 
     public void SwitchForth()
     {
         IEnumerator coroutine = screenLoading(1);
         StartCoroutine(coroutine);
-
     }
     public void SwitchBack()
     {

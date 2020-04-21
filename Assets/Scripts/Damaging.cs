@@ -22,7 +22,15 @@ public class Damaging : Character
         if (collisionGameObject.tag == "Player" || collisionGameObject.tag == "Kid")
         {
             collisionGameObject.GetComponent<Character>().dealDamage(damage);
-            GameObject.Find("LevelManager").GetComponentInChildren<UI_Handler>().SetHealthBar(collisionGameObject.gameObject.GetComponent<Character>().HP);
+            GameObject lManager = GameObject.Find("LevelManager");
+            if(lManager!=null)
+            {
+                UI_Handler handler = lManager.GetComponentInChildren<UI_Handler>();
+                if(handler!=null)
+                {
+                    handler.SetHealthBar(collisionGameObject.gameObject.GetComponent<Character>().HP);   
+                }
+            }
             Debug.Log("damaging. HP is now: " + collisionGameObject.gameObject.GetComponent<Character>().HP);
             KnockBack(collisionGameObject);
         }

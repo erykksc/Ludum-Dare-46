@@ -30,7 +30,7 @@ public class CameraMovement : MonoBehaviour
 
     [SerializeField] Vector2 spawn_coordinates;
 
-    void Awake()
+    void Start()
     {
         int count = Resources.FindObjectsOfTypeAll<Player>().Length;
         if(count>0)
@@ -43,6 +43,12 @@ public class CameraMovement : MonoBehaviour
     {
         if(followed==null)
         {
+            int count = Resources.FindObjectsOfTypeAll<Player>().Length;
+            if(count>0)
+            {
+                Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
+                followed = player.transform;
+            }
             return;
         }
         Vector3 dir = followed.position-transform.position;

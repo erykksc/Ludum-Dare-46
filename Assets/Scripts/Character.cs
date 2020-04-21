@@ -14,7 +14,7 @@ public class Character : MonoBehaviour
 
 
     // Return true if killed
-    public bool dealDamage( int damage ){ 
+    public virtual bool dealDamage( int damage ){ 
         HP -= damage;
         if(HP <= 0 ){
             

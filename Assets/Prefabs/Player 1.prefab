@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7115171051117972999}
   - component: {fileID: 7115171051117972992}
   - component: {fileID: 7056821796128263409}
+  - component: {fileID: -4657439575376091234}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -71,15 +72,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 5
   HP: 5
+  dead: 0
   rb: {fileID: 0}
   animator: {fileID: 0}
-  SpeedBezPrzedmiotu: 4
-  SpeedZPrzedmiotem: 3
+  SpeedBezPrzedmiotu: 6
+  SpeedZPrzedmiotem: 4.5
   MaxSpeed: 8
-  JumpForce: 4
-  JumpForceWithBaby: 3
-  DoubleJumpForce: 3
-  DoubleJumpForceWithBaby: 2.5
+  JumpForce: 5
+  JumpForceWithBaby: 4.2
+  DoubleJumpForce: 3.5
+  DoubleJumpForceWithBaby: 3
   default_gravity: 1.5
   Masa: 0.25
   tryingToInteract: 0
@@ -127,7 +129,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 6bcd856a903f2684fb01951f1237f1de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -174,6 +176,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.07274747, y: -0.29469872}
   m_Size: {x: 0.7831569, y: 3.3093977}
   m_Direction: 0
+--- !u!114 &-4657439575376091234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276343412679979454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f09c614daace2124bbbf5188389284b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelName: any%
 --- !u!1 &3276343414011534411
 GameObject:
   m_ObjectHideFlags: 0
