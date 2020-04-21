@@ -18,10 +18,11 @@ def timeFromIso(string):
         return datetime.time(h, m, s)
 
 
-debug = True
+debug = False 
 if debug:
     database = TinyDB('test.json')
 else:
+    print('Running in production')
     database = TinyDB('leaderBoard.json')
 
 maps = GenerateMapList(database)
