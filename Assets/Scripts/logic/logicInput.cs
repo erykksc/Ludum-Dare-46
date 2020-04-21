@@ -114,7 +114,7 @@ abstract public class logicInput : MonoBehaviour
         if (gate != null)
             gate.updateState();
     }
-    void Awake()
+    void Start()
     {
         sqrLPDist = leverPlayerDistance * leverPlayerDistance;
         onAwake();
