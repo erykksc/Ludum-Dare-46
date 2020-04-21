@@ -25,6 +25,6 @@ public class jumpboost : Activatable
         gameObject.tag = "Level";
     }
     override public void de_activate(){
-        gameObject.tag = "Null";
+        gameObject.tag = "Untagged";
     }
 }
