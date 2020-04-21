@@ -38,6 +38,7 @@ public class Player : Character
 
     private float lastPickUpTime;
     private GameObject baby;
+    private GameObject lastCollider;
 
     void Awake()
     {
@@ -225,6 +226,7 @@ public class Player : Character
             Gravity = default_gravity;
             Grounded = true;
             CanDoubleJump = false;
+            lastCollider = collision.gameObject;
         }
         if(collision.gameObject.CompareTag("Enemy")&&BabyInHand()&&Time.time - lastPickUpTime > 0.5f)
         {
@@ -284,7 +286,8 @@ public class Player : Character
     {
         if (collision.gameObject.CompareTag("Level") || collision.gameObject.CompareTag("Enemy"))
         {
-            Grounded = false;
+            if(lastCollider == collision.gameObject)
+                Grounded = false;
             CanDoubleJump = true;
         }
     }
