@@ -15,8 +15,9 @@ LeaderBoardHandler:
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Net;
-using RestSharp;
+using System.Text;
 
 public class LeaderBoardHandler : MonoBehaviour
 {
@@ -25,13 +26,22 @@ public class LeaderBoardHandler : MonoBehaviour
     public string LevelName;
     private System.DateTime startTime;
     private System.DateTime stopTime;
-    private RestClient client = new RestClient("http://grzegorzkoperwas.site:5000");
+    [SerializeField]
+    private bool debug_server;
+    private string url;
 
 
 
 
     public void Awake()
     {
+        if (debug_server) {
+            url = "http://localhost:5000";
+            Debug.LogWarning("Running leaderboard in debug mode");
+        }
+        else {
+            url = "http://grzegorzkoperwas.site:5000";
+        }
         StartTimer();
     }
 
@@ -62,29 +72,34 @@ public class LeaderBoardHandler : MonoBehaviour
 
     // Uploads time to server under (username) and returns place in ranking
     public int UploadTime_and_get_place(string username = "testUsername") {
-        var request = new RestRequest("/api/postTime", Method.POST);
-        request.AddParameter("nick", username);
-        request.AddParameter("time", GetFinalTimeISO());
-        request.AddParameter("level", LevelName);
-        try
+        var args = new List<IMultipartFormSection>();
+        args.Add(new MultipartFormDataSection("nick", Encoding.UTF8.GetBytes(username)));
+        args.Add(new MultipartFormDataSection("time", Encoding.UTF8.GetBytes(GetFinalTimeISO())));
+        args.Add(new MultipartFormDataSection("level", Encoding.UTF8.GetBytes(LevelName)));
+        var addres = url + "/api/postTime";
+        Debug.Log("Connecting…");
+        var response = UnityWebRequest.Post(addres, args);
+        response.SendWebRequest();
+        while (!response.isDone)
         {
-            var response = client.Execute<PostResponse>(request);
-            if (response.StatusCode == HttpStatusCode.OK && response.Data.success) {
-               return response.Data.place; 
+            
+        }
+        if (response.isNetworkError || response.isHttpError) {
+            Debug.LogWarning("http or network error");
+            return -1;
+        }
+        else {
+            try
+            {
+                var val = response.downloadHandler.text;
+                return int.Parse(val);
             }
-            else {
+            catch (System.Exception e)
+            {
+                Debug.Log("Failed decoding response");
+                Debug.Log(e);
                 return -1;
             }
         }
-        catch (System.Exception)
-        {
-            throw;
-        }
-    }
-
-    // class for RestRequest returns
-    public class PostResponse {
-        public bool success { get; set; }
-        public int place { get; set; }
     }
 }

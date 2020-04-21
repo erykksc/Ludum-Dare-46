@@ -65,7 +65,7 @@ def addTime():
     is_greater = lambda item: timeFromIso(item) < iso_time
     res = database.count((entry.time.test(is_greater)) & (entry.level == level))
     database.insert({'name': nick, 'time': time, 'level': level})
-    return {'place': res + 1, 'success': True}
+    return str(res + 1)
 
 @app.route('/api/getTimes/<level>')
 @app.route('/api/getTimes/<level>/<name>')
