@@ -616,7 +616,7 @@ PrefabInstance:
     - target: {fileID: 4881919376966169265, guid: 556276d931810464989cf04d7135069c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4881919376966169265, guid: 556276d931810464989cf04d7135069c,
         type: 3}
@@ -831,7 +831,7 @@ PrefabInstance:
     - target: {fileID: 7441549562001112219, guid: 2bf38fff32e87462aba6c1d151139188,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7441549562001112219, guid: 2bf38fff32e87462aba6c1d151139188,
         type: 3}
@@ -900,7 +900,7 @@ PrefabInstance:
     - target: {fileID: 4881919376966169265, guid: 556276d931810464989cf04d7135069c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4881919376966169265, guid: 556276d931810464989cf04d7135069c,
         type: 3}
@@ -969,7 +969,7 @@ PrefabInstance:
     - target: {fileID: 7030686905215308709, guid: bebfb9c72924fddcbbd2df7b9c61aada,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7030686905215308709, guid: bebfb9c72924fddcbbd2df7b9c61aada,
         type: 3}
@@ -1137,7 +1137,7 @@ PrefabInstance:
     - target: {fileID: 4881919376966169265, guid: 556276d931810464989cf04d7135069c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4881919376966169265, guid: 556276d931810464989cf04d7135069c,
         type: 3}
@@ -1294,6 +1294,16 @@ PrefabInstance:
     - target: {fileID: 1496902197020126521, guid: f2416c9ed3d3565a78760e486c7fd219,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1496902197020126522, guid: f2416c9ed3d3565a78760e486c7fd219,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1496902197020126522, guid: f2416c9ed3d3565a78760e486c7fd219,
+        type: 3}
+      propertyPath: m_FlipY
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1496902197020126525, guid: f2416c9ed3d3565a78760e486c7fd219,
@@ -1725,6 +1735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1698396384}
+  gameOverScreen: {fileID: 0}
   aManager: {fileID: 0}
 --- !u!4 &1561931946
 Transform:
