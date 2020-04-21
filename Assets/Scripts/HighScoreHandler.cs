@@ -8,12 +8,16 @@ public class HighScoreHandler : MonoBehaviour
     private LeaderBoardHandler LBH;
     [SerializeField] private Text target;
     [SerializeField] private Text display_place_leaderboard;
+    
+    
 
     public void Start()
     {
       LBH = GameObject.FindGameObjectWithTag("Player").GetComponent<LeaderBoardHandler>();
       LBH.StopTime();
         GameObject.FindGameObjectWithTag("GameController").GetComponentInChildren<Text>().text = LBH.GetCurrentTime();
+
+        LevelManager.reading_input = false;
     }
     public void QuitGame()
     {
