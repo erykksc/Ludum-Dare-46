@@ -100,6 +100,7 @@ public class LevelManager : MonoBehaviour
         {
             gameOverScreen.enabled = true;
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
+            gameOverScreen.enabled = false;
         }
         if(loadingScreen!=null)
         {
@@ -148,10 +149,6 @@ public class LevelManager : MonoBehaviour
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = false;
-        }
-        if(gameOverScreen!=null)
-        {
-            gameOverScreen.enabled = false;
         }
         aManager.Stop();
         aManager.PlayTrack();
