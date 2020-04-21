@@ -96,6 +96,11 @@ public class LevelManager : MonoBehaviour
     }
     IEnumerator screenLoading(int i)
     {
+        if(occupied)
+        {
+            yield break;
+        }
+        occupied = true;
         setActivity(false);
         if(gameOverScreen!=null&&i==0)
         {
@@ -168,31 +173,16 @@ public class LevelManager : MonoBehaviour
 
     public void SwitchForth()
     {
-        if(occupied)
-        {
-            return;
-        }
-        occupied = true;
         IEnumerator coroutine = screenLoading(1);
         StartCoroutine(coroutine);
     }
     public void SwitchBack()
     {
-        if(occupied)
-        {
-            return;
-        }
-        occupied = true;
         IEnumerator coroutine = screenLoading(-1);
         StartCoroutine(coroutine);
     }
     public void Restart()
     {
-        if(occupied)
-        {
-            return;
-        }
-        occupied = true;
         IEnumerator coroutine = screenLoading(0);
         StartCoroutine(coroutine);
     }
