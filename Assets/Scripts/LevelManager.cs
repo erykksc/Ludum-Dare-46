@@ -62,7 +62,7 @@ public class LevelManager : MonoBehaviour
         if(count>0)
         {
             Kid kid = Resources.FindObjectsOfTypeAll<Kid>()[0];
-            kid.transform.position = GetEntrancePos()+new Vector2(0,2);
+            kid.transform.position = GetEntrancePos()+new Vector2(1,0);
             kid.CleanState();
         }
     }
