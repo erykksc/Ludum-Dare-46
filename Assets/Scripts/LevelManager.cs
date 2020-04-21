@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Image loadingScreen;
     [SerializeField] Image gameOverScreen;
     [SerializeField] AudioManager aManager;
+    bool occupied = false;
 
     void Awake()
     {
@@ -99,7 +100,7 @@ public class LevelManager : MonoBehaviour
         if(gameOverScreen!=null&&i==0)
         {
             gameOverScreen.enabled = true;
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
+            yield return new WaitUntil(() => Input.GetKey(KeyCode.F));
             gameOverScreen.enabled = false;
         }
         if(loadingScreen!=null)
@@ -152,7 +153,8 @@ public class LevelManager : MonoBehaviour
         }
         aManager.Stop();
         aManager.PlayTrack();
-        setActivity(true);
+        occupied = false;
+        //setActivity(true);
         yield return null;
     }
 
@@ -166,17 +168,31 @@ public class LevelManager : MonoBehaviour
 
     public void SwitchForth()
     {
+        if(occupied)
+        {
+            return;
+        }
+        occupied = true;
         IEnumerator coroutine = screenLoading(1);
         StartCoroutine(coroutine);
-
     }
     public void SwitchBack()
     {
+        if(occupied)
+        {
+            return;
+        }
+        occupied = true;
         IEnumerator coroutine = screenLoading(-1);
         StartCoroutine(coroutine);
     }
     public void Restart()
     {
+        if(occupied)
+        {
+            return;
+        }
+        occupied = true;
         IEnumerator coroutine = screenLoading(0);
         StartCoroutine(coroutine);
     }
