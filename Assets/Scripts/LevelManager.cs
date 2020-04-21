@@ -95,14 +95,32 @@ public class LevelManager : MonoBehaviour
             objects[i].SetActive(on);
         }
     }
+    void activatePlayer(bool on)
+    {
+        int count = Resources.FindObjectsOfTypeAll<Player>().Length;
+        if(count>0)
+        {
+            Debug.Log("Localized");
+            Resources.FindObjectsOfTypeAll<Player>()[0].gameObject.SetActive(on);
+        }
+        count = Resources.FindObjectsOfTypeAll<Kid>().Length;
+        if(count>0)
+        {
+            Resources.FindObjectsOfTypeAll<Kid>()[0].gameObject.SetActive(on);
+        }
+    }
     IEnumerator screenLoading(int i)
     {
+        //Nothing state changing may come before this
         if(occupied)
         {
             yield break;
         }
         occupied = true;
+
+        activatePlayer(false);
         setActivity(false);
+
         if(gameOverScreen!=null&&i==0)
         {
             gameOverScreen.enabled = true;
@@ -157,10 +175,15 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen.enabled = false;
         }
+
         aManager.Stop();
         aManager.PlayTrack();
+
+        setActivity(true);
+        activatePlayer(true);
+
         occupied = false;
-        //setActivity(true);
+
         yield return null;
     }
 
