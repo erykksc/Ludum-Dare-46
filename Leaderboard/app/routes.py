@@ -10,10 +10,19 @@ def GenerateMapList(data):
             maps.append(x['level'])
     return maps
 
-debug = True
+def timeFromIso(string):
+    try:
+        return datetime.time.fromisoformat(string)
+    except AttributeError:
+        h, m, s = [int(x) for x in str(string).split(':')]
+        return datetime.time(h, m, s)
+
+
+debug = False 
 if debug:
     database = TinyDB('test.json')
 else:
+    print('Running in production')
     database = TinyDB('leaderBoard.json')
 
 maps = GenerateMapList(database)
@@ -24,11 +33,15 @@ def index():
     mapsDict = list([{'url': '/board/' + x, 'name': x} for x in maps])
     return render_template('index.html', maps = mapsDict)
 
+@app.route('/Downloads')
+def Downloads():
+    return render_template('downloads.html')
+
 @app.route('/board/<level>')
 def board(level):
     entry = Query()
     entries = database.search(entry.level == level)
-    entries.sort(key = lambda item: datetime.time.fromisoformat(item['time']))
+    entries.sort(key = lambda item: timeFromIso(item['time']))
     return render_template('board.html', players = entries, level = level)
 
 @app.route('/api/postTime', methods=['POST'])
@@ -37,11 +50,10 @@ def addTime():
     try:
         nick = request.form['nick']
         level = str(request.form['level'])
-        iso_time = datetime.time.fromisoformat(request.form['time'])
+        iso_time = timeFromIso(request.form['time'])
         time = request.form['time']
         if len(nick) > 64:
             nick = nick[:63]
-        print(nick, level, time)
         if level not in maps:
             maps.append(level)
     except KeyError:
@@ -50,10 +62,10 @@ def addTime():
         return {'success': False, 'reason': 'TimeNotISO'}
     # get Place in leaderboard
     entry = Query()
-    is_greater = lambda item: datetime.time.fromisoformat(item) < iso_time
+    is_greater = lambda item: timeFromIso(item) < iso_time
     res = database.count((entry.time.test(is_greater)) & (entry.level == level))
     database.insert({'name': nick, 'time': time, 'level': level})
-    return {'place': res + 1, 'success': True}
+    return str(res + 1)
 
 @app.route('/api/getTimes/<level>')
 @app.route('/api/getTimes/<level>/<name>')
@@ -63,7 +75,7 @@ def getTimes(level, name = None):
         times = database.search(entry.level == level)
     else:
         times = database.search((entry.name == name) & (entry.level == level))
-    times.sort(key = lambda item: datetime.time.fromisoformat(item['time']))
+    times.sort(key = lambda item: timeFromIso(item['time']))
     if times == None:
         return {'success': True, 'times': list()}
     if len(times) == 0:
