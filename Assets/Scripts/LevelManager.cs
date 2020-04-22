@@ -88,25 +88,12 @@ public class LevelManager : MonoBehaviour
 
     void setActivity(bool on)
     {
-        GameObject[] objects = SceneManager.GetActiveScene().GetRootGameObjects();
+        GameObject[] objects = Resources.FindObjectsOfTypeAll<GameObject>();
         for(int i = 0;i<objects.Length;i++)
         {
             if(objects[i].tag=="MainCamera"){continue;}
+            if(objects[i].transform.parent!=null){continue;}
             objects[i].SetActive(on);
-        }
-    }
-    void activatePlayer(bool on)
-    {
-        int count = Resources.FindObjectsOfTypeAll<Player>().Length;
-        if(count>0)
-        {
-            Debug.Log("Localized");
-            Resources.FindObjectsOfTypeAll<Player>()[0].gameObject.SetActive(on);
-        }
-        count = Resources.FindObjectsOfTypeAll<Kid>().Length;
-        if(count>0)
-        {
-            Resources.FindObjectsOfTypeAll<Kid>()[0].gameObject.SetActive(on);
         }
     }
     IEnumerator screenLoading(int i)
@@ -118,20 +105,22 @@ public class LevelManager : MonoBehaviour
         }
         occupied = true;
 
-        activatePlayer(false);
         setActivity(false);
+
+        aManager.StopTrack();
 
         if(gameOverScreen!=null&&i==0)
         {
             gameOverScreen.enabled = true;
             yield return new WaitUntil(() => Input.GetKey(KeyCode.F));
             gameOverScreen.enabled = false;
+            // Insert aManager.Play("failure.vaw") or whatever
         }
+
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = true;
         }
-        aManager.StopTrack();
 
         int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
@@ -148,13 +137,11 @@ public class LevelManager : MonoBehaviour
         //Moving back
         if(i<0)
         {
-            Debug.Log(GetExitPos());
             SetPlayerPosition(GetExitPos());
         }
         //Moving forth
         if(i>0)
         {
-            Debug.Log(GetEntrancePos());
             SetPlayerPosition(GetEntrancePos());
         }
         //Restarting level
@@ -170,7 +157,6 @@ public class LevelManager : MonoBehaviour
             SetPlayerPosition(GetEntrancePos());
         }
 
-
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = false;
@@ -180,8 +166,6 @@ public class LevelManager : MonoBehaviour
         aManager.PlayTrack();
 
         setActivity(true);
-        activatePlayer(true);
-
         occupied = false;
 
         yield return null;
