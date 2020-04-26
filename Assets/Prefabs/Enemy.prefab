@@ -71,7 +71,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 10
   HP: 10
-  damage: 0
+  dead: 0
+  damage: 1
   knockback_strength: 2
   knockback_direction: {x: 0, y: 0}
   Force: {x: 10, y: 0}

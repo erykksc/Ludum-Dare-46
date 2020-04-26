@@ -19,6 +19,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Image loadingScreen;
     [SerializeField] Image gameOverScreen;
     [SerializeField] AudioManager aManager;
+    bool occupied = false;
+    public static  bool reading_input = true;
 
     void Awake()
     {
@@ -61,7 +63,7 @@ public class LevelManager : MonoBehaviour
         if(count>0)
         {
             Kid kid = Resources.FindObjectsOfTypeAll<Kid>()[0];
-            kid.transform.position = GetEntrancePos()+new Vector2(0,2);
+            kid.transform.position = GetEntrancePos()+new Vector2(1,0);
             kid.CleanState();
         }
     }
@@ -86,26 +88,39 @@ public class LevelManager : MonoBehaviour
 
     void setActivity(bool on)
     {
-        GameObject[] objects = SceneManager.GetActiveScene().GetRootGameObjects();
+        GameObject[] objects = Resources.FindObjectsOfTypeAll<GameObject>();
         for(int i = 0;i<objects.Length;i++)
         {
             if(objects[i].tag=="MainCamera"){continue;}
+            if(objects[i].transform.parent!=null){continue;}
             objects[i].SetActive(on);
         }
     }
     IEnumerator screenLoading(int i)
     {
+        //Nothing state changing may come before this
+        if(occupied)
+        {
+            yield break;
+        }
+        occupied = true;
+
+        setActivity(false);
+
+        aManager.StopTrack();
+
         if(gameOverScreen!=null&&i==0)
         {
             gameOverScreen.enabled = true;
-            setActivity(false);
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
+            yield return new WaitUntil(() => Input.GetKey(KeyCode.F));
+            gameOverScreen.enabled = false;
+            // Insert aManager.Play("failure.vaw") or whatever
         }
+
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = true;
         }
-        aManager.StopTrack();
 
         int index = SceneManager.GetActiveScene().buildIndex+i;
         SceneManager.LoadScene(index);
@@ -122,13 +137,11 @@ public class LevelManager : MonoBehaviour
         //Moving back
         if(i<0)
         {
-            Debug.Log(GetExitPos());
             SetPlayerPosition(GetExitPos());
         }
         //Moving forth
         if(i>0)
         {
-            Debug.Log(GetEntrancePos());
             SetPlayerPosition(GetEntrancePos());
         }
         //Restarting level
@@ -144,31 +157,25 @@ public class LevelManager : MonoBehaviour
             SetPlayerPosition(GetEntrancePos());
         }
 
-
         if(loadingScreen!=null)
         {
             loadingScreen.enabled = false;
         }
-        if(gameOverScreen!=null)
-        {
-            gameOverScreen.enabled = false;
-        }
+
         aManager.Stop();
         aManager.PlayTrack();
+
+        setActivity(true);
+        occupied = false;
+
         yield return null;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown("r"))
+        if (Input.GetKeyDown("r") && reading_input)
         {
-            int count = Resources.FindObjectsOfTypeAll<Player>().Length;
-            if(count>0)
-            {
-                Player player = Resources.FindObjectsOfTypeAll<Player>()[0];
-                player.HP = player.maxHP;
-            }
-            SetPlayerPosition(GetEntrancePos());
+            Restart();
         }
     }
 
@@ -176,7 +183,6 @@ public class LevelManager : MonoBehaviour
     {
         IEnumerator coroutine = screenLoading(1);
         StartCoroutine(coroutine);
-
     }
     public void SwitchBack()
     {

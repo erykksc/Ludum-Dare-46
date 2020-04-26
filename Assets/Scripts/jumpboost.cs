@@ -22,9 +22,9 @@ public class jumpboost : Activatable
     }
 
     override public void activate(){
-        selfCollider.enabled = true;
+        gameObject.tag = "Level";
     }
     override public void de_activate(){
-        selfCollider.enabled = false;
+        gameObject.tag = "Untagged";
     }
 }

@@ -3,19 +3,60 @@
     <head>
         <title>LD46 Leaderboard</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     </head>
-    <h1>GameName Leaderboard:</h1>
+    <script>
+        function includeHTML() {
+          var z, i, elmnt, file, xhttp;
+          /* Loop through a collection of all HTML elements: */
+          z = document.getElementsByTagName("*");
+          for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            /*search for elements with a certain atrribute:*/
+            file = elmnt.getAttribute("w3-include-html");
+            if (file) {
+              /* Make an HTTP request using the attribute value as the file name: */
+              xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                  if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                  if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                  /* Remove the attribute, and call this function once more: */
+                  elmnt.removeAttribute("w3-include-html");
+                  includeHTML();
+                }
+              }
+              xhttp.open("GET", file, true);
+              xhttp.send();
+              /* Exit the function: */
+              return;
+            }
+          }
+        }
+    </script> 
     <div class="listContainer">
+        <h1><em>Baby: Don't Hurt Me</em> Leaderboard:</h1>
+        <a href="Downloads">
+            <div class="downloadButton">
+                <span>Play the game!</span>
+            </div>
+        </a>
         <h2>Map list:</h2>
         <ul>
             {% for map in maps %}
             <li><a href="{{map.url}}">{{map.name}}</a></li>
             {% endfor %}
+            <li>Per map support is coming soon!</li>
         </ul>
+        <div style="margin-top: 5cm;"></div>
+        <div>
+            <h3>This game in a nutshell:</h3>
+            <img src="{{ url_for('static', filename='mergeMeme.png') }}" alt="Merge error meme">
+        </div>
     </div>
-    <footer>
-        <hr>
-        <p>Source code available on <a href="https://github.com/Eroar/Ludum-Dare-46">Github.</a><br>
-        LudumDare link <a href="xd.com">TODO.</a></p>
-    </footer>
+    <div style="margin-top: 10em;"></div>
+    <div w3-include-html="{{ url_for('static', filename='footer.html') }}"></div>
+    <script>
+        includeHTML();
+    </script>
 </html>
