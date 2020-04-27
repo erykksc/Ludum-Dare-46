@@ -24,5 +24,4 @@ Made in Unity, just import the whole repository as project.
 - [Michał Danikiewicz](https://github.com/FireCatVII)
 ## Music:
 - [Marcin Grabysz](https://www.youtube.com/channel/UCoT1DzJyzZkYYT2DvV5KQKA)
-- [TODO](todo)
 
