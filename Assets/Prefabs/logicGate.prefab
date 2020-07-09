@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActivated: 0
-  ControlSth: 0
+  ControlSth: 1
   target: {fileID: 0}
-  inputs: []
+  inputs:
+  - {fileID: 0}
+
